@@ -1,0 +1,116 @@
+/* ==========================================================================
+   TEAJOY STORE - DESIGN SYSTEM VARIABLES & TOKENS
+   ========================================================================== */
+
+:root {
+  /* Brand Colors - Warm Milk Tea & Cream Palette */
+  --primary: #9C6644;            /* Warm Caramel Brown */
+  --primary-hover: #7F5539;
+  --primary-light: #DDB892;
+  --primary-bg: #F8EDEB;
+  --primary-glow: rgba(156, 102, 68, 0.25);
+
+  --secondary: #588157;          /* Matcha Green Accent */
+  --secondary-hover: #3A5A40;
+  --secondary-light: #A3B18A;
+  --secondary-bg: #EAF4EC;
+
+  --accent-taro: #7D6B90;         /* Taro Milk Tea */
+  --accent-peach: #F4A261;        /* Peach / Cream */
+  --accent-coral: #E76F51;        /* Berry / Strawberry */
+  --accent-gold: #E9C46A;         /* Gold Pearl */
+
+  /* Neutral Colors */
+  --bg-main: #FCF9F6;            /* Soft Cream White */
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAF7F2;
+  --bg-subtle: #F3ECE2;
+
+  --text-main: #2B2118;          /* Deep Roast Coffee */
+  --text-muted: #73675C;
+  --text-subtle: #9E9184;
+  --text-inverse: #FFFFFF;
+
+  --border-color: #E8DECE;
+  --border-focus: #9C6644;
+  --border-subtle: #F0E8DC;
+
+  /* Status Colors */
+  --status-pending: #E09F3E;
+  --status-pending-bg: #FFF8EB;
+  --status-confirmed: #3A86FF;
+  --status-confirmed-bg: #EEF4FF;
+  --status-preparing: #8338EC;
+  --status-preparing-bg: #F5EEFD;
+  --status-shipping: #FB5607;
+  --status-shipping-bg: #FFF2EB;
+  --status-completed: #2A9D8F;
+  --status-completed-bg: #E8F7F5;
+  --status-cancelled: #E63946;
+  --status-cancelled-bg: #FDE8E9;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Elevations & Shadows */
+  --shadow-sm: 0 2px 6px rgba(43, 33, 24, 0.04), 0 1px 2px rgba(43, 33, 24, 0.06);
+  --shadow-md: 0 6px 16px rgba(43, 33, 24, 0.08), 0 2px 4px rgba(43, 33, 24, 0.04);
+  --shadow-lg: 0 16px 32px rgba(43, 33, 24, 0.12), 0 4px 8px rgba(43, 33, 24, 0.06);
+  --shadow-xl: 0 24px 48px -12px rgba(43, 33, 24, 0.18);
+  --shadow-glow: 0 0 20px rgba(156, 102, 68, 0.25);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: blur(14px);
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout Spacing */
+  --header-height: 76px;
+  --admin-sidebar-width: 260px;
+  --admin-sidebar-collapsed: 72px;
+  --container-max-width: 1240px;
+}
+
+/* Dark Mode Tokens */
+[data-theme="dark"] {
+  --bg-main: #14110F;
+  --bg-surface: #1E1A17;
+  --bg-card: #25201C;
+  --bg-card-hover: #2D2722;
+  --bg-subtle: #2F2823;
+
+  --text-main: #F5EFEB;
+  --text-muted: #B8ADA5;
+  --text-subtle: #877B73;
+
+  --border-color: #38302A;
+  --border-subtle: #2B241E;
+
+  --primary: #B08968;
+  --primary-hover: #DDB892;
+  --primary-bg: #2B2018;
+  --primary-glow: rgba(176, 137, 104, 0.35);
+
+  --glass-bg: rgba(30, 26, 23, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+}

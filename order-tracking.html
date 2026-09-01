@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra Cứu Tiến Độ Đơn Hàng - TeaJoy Store</title>
+  <meta name="description" content="Theo dõi thời gian thực quy trình pha chế và giao hàng ly trà sữa của bạn.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🧋</div>
+        <span>Tea</span>Joy
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="menu.html" class="nav-link">Thực Đơn</a>
+        <a href="order-tracking.html" class="nav-link active">Tra Cứu Đơn</a>
+        <a href="profile.html" class="nav-link">Thành Viên</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          🛒
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </a>
+        <a href="profile.html" class="action-btn" title="Tài khoản cá nhân">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-block: 2.5rem 4rem; max-width: 860px;">
+    <!-- Page Header -->
+    <div class="text-center" style="margin-bottom: 2.5rem;">
+      <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Theo Dõi <span class="text-primary">Đơn Hàng</span></h1>
+      <p class="text-muted">Nhập mã đơn hàng (VD: <b>TS-8942</b>) hoặc số điện thoại để kiểm tra tiến trình giao trà sữa</p>
+
+      <!-- Search Bar -->
+      <div style="display: flex; gap: 0.75rem; max-width: 500px; margin: 1.5rem auto 0;">
+        <div class="input-with-icon" style="flex: 1;">
+          <span class="input-icon">🔍</span>
+          <input type="text" id="tracking-search-input" class="form-control" placeholder="Nhập mã đơn hoặc SĐT..." style="text-transform: uppercase;">
+        </div>
+        <button class="btn btn-primary" onclick="OrderTracking.search()">Tra Cứu ➔</button>
+      </div>
+    </div>
+
+    <!-- Tracking Result Box -->
+    <div id="tracking-result-box">
+      <!-- Injected by tracking.js -->
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeaJoy Store. All rights reserved.</div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="index.html" class="text-muted">Trang chủ</a>
+          <a href="menu.html" class="text-muted">Thực đơn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db/mock-data.js"></script>
+  <script src="js/db/storage.js"></script>
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/modal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/tracking.js"></script>
+</body>
+</html>

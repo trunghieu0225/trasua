@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo & Thống Kê Doanh Thu - TeaJoy Admin</title>
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <div class="logo-icon">🧋</div>
+        <div>
+          <h4 style="font-size: 1.15rem; margin: 0; line-height: 1;">TeaJoy <span class="text-primary">POS</span></h4>
+          <span class="text-xs text-muted">Admin Portal</span>
+        </div>
+      </div>
+
+      <nav class="admin-sidebar-nav">
+        <a href="index.html" class="sidebar-nav-item">
+          <span class="nav-icon">📊</span>
+          <span>Tổng Quan (Dashboard)</span>
+        </a>
+        <a href="orders.html" class="sidebar-nav-item">
+          <span class="nav-icon">📦</span>
+          <span>Quản Lý Đơn Hàng</span>
+        </a>
+        <a href="products.html" class="sidebar-nav-item">
+          <span class="nav-icon">🧋</span>
+          <span>Sản Phẩm & Topping</span>
+        </a>
+        <a href="customers.html" class="sidebar-nav-item">
+          <span class="nav-icon">👥</span>
+          <span>Khách Hàng & Điểm</span>
+        </a>
+        <a href="staff.html" class="sidebar-nav-item">
+          <span class="nav-icon">💼</span>
+          <span>Nhân Viên & Quyền</span>
+        </a>
+        <a href="suppliers.html" class="sidebar-nav-item">
+          <span class="nav-icon">🚚</span>
+          <span>Nhà Cung Cấp / Kho</span>
+        </a>
+        <a href="marketing.html" class="sidebar-nav-item">
+          <span class="nav-icon">🎟️</span>
+          <span>Khuyến Mãi & Banner</span>
+        </a>
+        <a href="reports.html" class="sidebar-nav-item active">
+          <span class="nav-icon">📈</span>
+          <span>Báo Cáo Doanh Thu</span>
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="../index.html" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">🛍️ Xem Cửa Hàng</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <h3 style="font-size: 1.25rem; margin: 0;">Báo Cáo & Thống Kê Kinh Doanh</h3>
+          <span class="text-xs text-muted">Phân tích hiệu suất bán hàng, sản phẩm sinh lời và phương thức thanh toán</span>
+        </div>
+        <button class="btn btn-secondary" onclick="exportReportCSV()">📥 Xuất Báo Cáo (CSV/Excel)</button>
+      </header>
+
+      <div class="admin-content">
+        <!-- Summary Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h6>Tổng Doanh Thu</h6>
+              <div class="kpi-value" id="rep-total-revenue">323.000 ₫</div>
+              <div class="text-xs text-muted">Đã trừ chiết khấu voucher</div>
+            </div>
+            <div class="kpi-icon-wrap kpi-primary">💵</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h6>Giá Trị TB Đơn (AOV)</h6>
+              <div class="kpi-value" id="rep-aov">107.666 ₫</div>
+              <div class="kpi-growth up">▲ Tốt hơn chỉ tiêu 15%</div>
+            </div>
+            <div class="kpi-icon-wrap kpi-info">🎯</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h6>Đơn Hoàn Thành</h6>
+              <div class="kpi-value" id="rep-completed-orders">100%</div>
+              <div class="kpi-growth up">● 0 đơn hủy</div>
+            </div>
+            <div class="kpi-icon-wrap kpi-success">✅</div>
+          </div>
+        </div>
+
+        <!-- Top Selling Drinks Table -->
+        <div class="data-table-container" style="margin-top: 2rem;">
+          <div class="table-toolbar">
+            <h4 style="margin: 0;">🏆 Top 5 Sản Phẩm Bán Chạy Nhất</h4>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Xếp Hạng</th>
+                  <th>Tên Sản Phẩm</th>
+                  <th>Danh Mục</th>
+                  <th>Giá Bán</th>
+                  <th>Số Lượng Bán</th>
+                  <th>Ước Tính Doanh Thu</th>
+                </tr>
+              </thead>
+              <tbody id="admin-top-selling-tbody">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/db/mock-data.js"></script>
+  <script src="../js/db/storage.js"></script>
+  <script src="../js/utils/formatters.js"></script>
+  <script src="../js/utils/toast.js"></script>
+  <script src="../js/utils/modal.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <script>
+    function initReportsPage() {
+      const orders = DB.getOrders();
+      const revenue = orders.filter(o => o.orderStatus !== "cancelled").reduce((s, o) => s + o.totalAmount, 0);
+      const completed = orders.filter(o => o.orderStatus === "completed").length;
+      const aov = orders.length ? Math.round(revenue / orders.length) : 0;
+
+      document.getElementById("rep-total-revenue").textContent = Formatters.currency(revenue);
+      document.getElementById("rep-aov").textContent = Formatters.currency(aov);
+      document.getElementById("rep-completed-orders").textContent = `${orders.length ? Math.round((completed / orders.length) * 100) : 100}%`;
+
+      // Render Top Products
+      const products = DB.getProducts().sort((a, b) => b.sold - a.sold).slice(0, 5);
+      const tbody = document.getElementById("admin-top-selling-tbody");
+      if (tbody) {
+        tbody.innerHTML = products.map((p, idx) => `
+          <tr>
+            <td><b class="badge ${idx === 0 ? 'badge-warning' : 'badge-secondary'}">#${idx + 1}</b></td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="${p.image}" alt="${p.name}" style="width: 38px; height: 38px; border-radius: var(--radius-sm); object-fit: cover;">
+                <span class="font-bold">${p.name}</span>
+              </div>
+            </td>
+            <td><span class="badge badge-secondary">${p.category}</span></td>
+            <td>${Formatters.currency(p.price)}</td>
+            <td><b>${p.sold}</b> ly</td>
+            <td class="font-bold text-primary">${Formatters.currency(p.price * p.sold)}</td>
+          </tr>
+        `).join("");
+      }
+    }
+
+    function exportReportCSV() {
+      const orders = DB.getOrders();
+      let csv = "Mã Đơn,Khách Hàng,Số Điện Thoại,Tổng Tiền,Hình Thức TT,Trạng Thái,Thời Gian\n";
+      orders.forEach(o => {
+        csv += `"${o.id}","${o.customerName}","${o.customerPhone}",${o.totalAmount},"${o.paymentMethod}","${o.orderStatus}","${o.createdAt}"\n`;
+      });
+
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Bao_Cao_TeaJoy_${new Date().toISOString().split("T")[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      Toast.success("Đã xuất file báo cáo CSV thành công!");
+    }
+
+    document.addEventListener("DOMContentLoaded", initReportsPage);
+  </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán Đơn Hàng - TeaJoy Store</title>
+  <meta name="description" content="Thanh toán đơn hàng trà sữa an toàn và nhanh chóng với VietQR, MoMo hoặc Tiền mặt khi nhận hàng.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/client.css">
+
+  <style>
+    .payment-method-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background-color: var(--bg-surface);
+    }
+    .payment-method-card:hover {
+      border-color: var(--primary-light);
+      background-color: var(--primary-bg);
+    }
+    .payment-method-card.active {
+      border-color: var(--primary);
+      background-color: var(--primary-bg);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .payment-method-card input[type="radio"] {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🧋</div>
+        <span>Tea</span>Joy
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="menu.html" class="nav-link">Thực Đơn</a>
+        <a href="order-tracking.html" class="nav-link">Tra Cứu Đơn</a>
+        <a href="profile.html" class="nav-link">Thành Viên</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          🛒
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </a>
+        <a href="profile.html" class="action-btn" title="Tài khoản cá nhân">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-block: 2.5rem 4rem;">
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Thanh Toán <span class="text-primary">Đơn Hàng</span></h1>
+      <p class="text-muted">Nhập thông tin nhận hàng và chọn phương thức thanh toán thuận tiện nhất</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1.4fr 1fr; gap: 2.5rem; align-items: flex-start;">
+      <!-- Left: Delivery info & Payment options -->
+      <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+        
+        <!-- 1. Delivery info -->
+        <div class="card" style="padding: 1.75rem;">
+          <h4 style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📍</span> 1. Thông Tin Nhận Hàng
+          </h4>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="form-group">
+              <label class="form-label">Họ và tên người nhận *</label>
+              <input type="text" id="checkout-name" class="form-control" placeholder="Ví dụ: Lê Hoàng Phúc" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Số điện thoại *</label>
+              <input type="tel" id="checkout-phone" class="form-control" placeholder="Ví dụ: 0987654321" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Địa chỉ giao hàng chi tiết *</label>
+            <input type="text" id="checkout-address" class="form-control" placeholder="Số nhà, tên đường, phường, quận/huyện..." required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Ghi chú cho shipper / pha chế</label>
+            <textarea id="checkout-note" class="form-textarea" rows="2" placeholder="Ví dụ: Giao lên lầu 3 bấm chuông, cho thêm ống hút to..."></textarea>
+          </div>
+        </div>
+
+        <!-- 2. Payment Method Selector -->
+        <div class="card" style="padding: 1.75rem;">
+          <h4 style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>💳</span> 2. Phương Thức Thanh Toán
+          </h4>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <!-- VietQR -->
+            <label class="payment-method-card active" data-method="vietqr">
+              <input type="radio" name="payment_method" value="vietqr" checked>
+              <div style="font-size: 1.5rem;">📲</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 0.95rem;">Chuyển khoản VietQR Tự Động (Khuyên dùng)</div>
+                <div class="text-xs text-muted">Quét mã QR bằng mọi app ngân hàng, tự động xác nhận đơn</div>
+              </div>
+              <span class="badge badge-success">Nhanh 24/7</span>
+            </label>
+
+            <!-- MoMo -->
+            <label class="payment-method-card" data-method="momo">
+              <input type="radio" name="payment_method" value="momo">
+              <div style="font-size: 1.5rem;">👛</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 0.95rem;">Ví Điện Tử MoMo</div>
+                <div class="text-xs text-muted">Thanh toán qua ví MoMo một chạm</div>
+              </div>
+            </label>
+
+            <!-- COD -->
+            <label class="payment-method-card" data-method="cod">
+              <input type="radio" name="payment_method" value="cod">
+              <div style="font-size: 1.5rem;">💵</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 0.95rem;">Thanh Toán Tiền Mặt Khi Nhận Hàng (COD)</div>
+                <div class="text-xs text-muted">Trả tiền cho shipper khi nhận được trà sữa</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Live VietQR Box -->
+          <div id="vietqr-presentation" class="vietqr-box animate-fade">
+            <h5 style="margin-bottom: 0.25rem;">Quét Mã QR Để Thanh Toán Nhanh</h5>
+            <p class="text-xs text-muted">Mở App Ngân hàng bất kỳ (Vietcombank, MB, Techcombank, TPBank...) quét mã bên dưới</p>
+            
+            <img id="vietqr-img" class="qr-code-img" src="" alt="Mã VietQR Thanh Toán">
+            
+            <div style="font-size: 0.9rem; font-weight: 700; margin-top: 0.5rem;">
+              Số tiền: <span id="vietqr-amount" style="color: var(--primary); font-size: 1.2rem;">0 ₫</span>
+            </div>
+            <div class="text-xs text-muted" style="margin-top: 4px;">
+              Chủ TK: <b>TEAJOY STORE VIETNAM</b> | STK: <b>0901234567</b> (MB Bank)
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Order items review & confirm button -->
+      <div class="card" style="padding: 1.75rem; position: sticky; top: 96px;">
+        <h4 style="margin-bottom: 1.25rem;">Đơn Hàng Của Bạn</h4>
+
+        <!-- Items list -->
+        <div id="checkout-items-list" style="display: flex; flex-direction: column; gap: 0.85rem; max-height: 260px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 4px;">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Voucher input -->
+        <div style="margin-bottom: 1.25rem;">
+          <label class="form-label text-xs">Mã Giảm Giá</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="voucher-input" class="form-control form-control-sm" placeholder="Nhập mã voucher" style="text-transform: uppercase;">
+            <button class="btn btn-secondary btn-sm" onclick="Checkout.applyVoucherCode()">Áp Dụng</button>
+          </div>
+        </div>
+
+        <!-- Totals -->
+        <div style="display: flex; flex-direction: column; gap: 0.65rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem; margin-bottom: 1.5rem;">
+          <div class="flex justify-between text-sm">
+            <span class="text-muted">Tổng tiền món:</span>
+            <span id="checkout-subtotal" class="font-bold">0 ₫</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-muted">Phí giao hàng:</span>
+            <span id="checkout-shipping">15.000 ₫</span>
+          </div>
+          <div class="flex justify-between text-sm text-secondary">
+            <span>Giảm giá:</span>
+            <span id="checkout-discount" class="font-bold">0 ₫</span>
+          </div>
+          <div class="flex justify-between font-bold" style="font-size: 1.3rem; color: var(--primary); border-top: 1.5px dashed var(--border-color); padding-top: 0.85rem; margin-top: 0.35rem;">
+            <span>Tổng thanh toán:</span>
+            <span id="checkout-final-total" style="font-family: var(--font-heading);">0 ₫</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" style="width: 100%;" onclick="Checkout.submitOrder()">
+          Xác Nhận Đặt Hàng 🛒
+        </button>
+
+        <p class="text-xs text-muted text-center" style="margin-top: 0.75rem;">
+          Bằng việc bấm Đặt Hàng, bạn đồng ý với các Điều khoản mua sắm của TeaJoy.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeaJoy Store. All rights reserved.</div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="index.html" class="text-muted">Trang chủ</a>
+          <a href="order-tracking.html" class="text-muted">Tra cứu đơn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db/mock-data.js"></script>
+  <script src="js/db/storage.js"></script>
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/modal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

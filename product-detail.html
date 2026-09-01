@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sản Phẩm & Tùy Biến - TeaJoy Store</title>
+  <meta name="description" content="Tùy biến ly trà sữa với mức đường, lượng đá và đa dạng topping độc quyền tại TeaJoy Store.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🧋</div>
+        <span>Tea</span>Joy
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="menu.html" class="nav-link active">Thực Đơn</a>
+        <a href="order-tracking.html" class="nav-link">Tra Cứu Đơn</a>
+        <a href="profile.html" class="nav-link">Thành Viên</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="menu.html" class="action-btn" title="Tìm món">🔍</a>
+        <button class="action-btn" onclick="Cart.openDrawer()" title="Xem giỏ hàng">
+          🛒
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </button>
+        <a href="profile.html" class="action-btn" title="Tài khoản cá nhân">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-block: 2.5rem 4rem;">
+    <!-- Breadcrumb -->
+    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+      <a href="index.html">Trang chủ</a> / <a href="menu.html">Thực đơn</a> / <span id="detail-breadcrumb-name" class="text-primary font-bold">Trà Sữa Trân Châu Hoàng Kim</span>
+    </div>
+
+    <!-- Product Customizer Hero Section -->
+    <div class="cup-builder-container" style="margin-bottom: 3.5rem;">
+      <!-- Visual Cup Live Graphic -->
+      <div class="cup-visual-wrapper">
+        <div class="tea-straw"></div>
+        <div class="tea-cup">
+          <div class="cheese-foam-layer" id="detail-visual-cheese"></div>
+          <div class="tea-ice-layer" id="detail-visual-ice">
+            <div class="ice-cube"></div>
+            <div class="ice-cube"></div>
+            <div class="ice-cube"></div>
+          </div>
+          <div class="tea-liquid" id="detail-visual-liquid">
+            <div class="tea-toppings-layer" id="detail-visual-toppings"></div>
+          </div>
+        </div>
+        <div style="margin-top: 1.25rem; text-align: center;">
+          <div id="detail-total-unit-price" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">35.000 ₫</div>
+          <div class="text-xs text-muted">Giá đã gồm Size & Topping chọn thêm</div>
+        </div>
+      </div>
+
+      <!-- Controls Form -->
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <span class="badge badge-warning" id="detail-product-tag">🔥 Bán chạy nhất</span>
+          <h1 id="detail-product-title" style="font-size: 2rem; margin-top: 0.35rem; margin-bottom: 0.5rem;">Trà Sữa Trân Châu Hoàng Kim</h1>
+          <p id="detail-product-desc" class="text-muted" style="line-height: 1.6;">
+            Vị trà đen đậm đà quyện cùng sữa tươi béo ngậy và trân châu hoàng kim nấu đường nâu thơm phức dẻo bùi.
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem;">
+            <div style="color: #F4A261; font-weight: 700; font-size: 0.95rem;">⭐ 4.9 (1.420 đánh giá)</div>
+            <div class="text-xs text-muted">| 100% Nguyên liệu organic</div>
+          </div>
+        </div>
+
+        <!-- Size -->
+        <div>
+          <label class="form-label">1. Kích thước (Size cốc)</label>
+          <div style="display: flex; gap: 0.5rem;" id="detail-sizes-group">
+            <button class="btn btn-outline cust-size-btn active" data-size="M" onclick="selectDetailSize('M')">Size M (500ml)</button>
+            <button class="btn btn-outline cust-size-btn" data-size="L" onclick="selectDetailSize('L')">Size L (+6.000 ₫)</button>
+            <button class="btn btn-outline cust-size-btn" data-size="XL" onclick="selectDetailSize('XL')">Size XL (+12.000 ₫)</button>
+          </div>
+        </div>
+
+        <!-- Sugar -->
+        <div>
+          <label class="form-label">2. Độ ngọt (Lượng đường)</label>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;" id="detail-sugar-group">
+            <button class="btn btn-sm btn-outline cust-sugar-btn" data-sugar="0%" onclick="selectDetailSugar('0%')">0% Không đường</button>
+            <button class="btn btn-sm btn-outline cust-sugar-btn" data-sugar="30%" onclick="selectDetailSugar('30%')">30% Ít ngọt</button>
+            <button class="btn btn-sm btn-outline cust-sugar-btn" data-sugar="50%" onclick="selectDetailSugar('50%')">50% Vừa</button>
+            <button class="btn btn-sm btn-outline cust-sugar-btn" data-sugar="70%" onclick="selectDetailSugar('70%')">70%</button>
+            <button class="btn btn-sm btn-outline cust-sugar-btn active" data-sugar="100%" onclick="selectDetailSugar('100%')">100% Chuẩn vị</button>
+          </div>
+        </div>
+
+        <!-- Ice -->
+        <div>
+          <label class="form-label">3. Lượng đá</label>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;" id="detail-ice-group">
+            <button class="btn btn-sm btn-outline cust-ice-btn" data-ice="0%" onclick="selectDetailIce('0%')">Không đá</button>
+            <button class="btn btn-sm btn-outline cust-ice-btn" data-ice="30%" onclick="selectDetailIce('30%')">30% Ít đá</button>
+            <button class="btn btn-sm btn-outline cust-ice-btn" data-ice="50%" onclick="selectDetailIce('50%')">50% Vừa</button>
+            <button class="btn btn-sm btn-outline cust-ice-btn active" data-ice="100%" onclick="selectDetailIce('100%')">100% Đá riêng</button>
+          </div>
+        </div>
+
+        <!-- Toppings -->
+        <div>
+          <label class="form-label">4. Thêm Topping Yêu Thích</label>
+          <div id="detail-toppings-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; max-height: 180px; overflow-y: auto;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Action bar -->
+        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span class="font-bold text-sm">Số lượng:</span>
+            <div class="qty-counter">
+              <button class="qty-btn" onclick="updateDetailQty(-1)">-</button>
+              <input type="text" id="detail-qty-input" class="qty-input" value="1" readonly>
+              <button class="qty-btn" onclick="updateDetailQty(1)">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg" onclick="addCurrentDetailToCart()">
+            Thêm Vào Giỏ Hàng 🛒
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related Drinks Section -->
+    <div style="margin-top: 4rem;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Thức Uống Cùng Danh Mục</h3>
+      <div class="grid grid-cols-4 gap-6" id="detail-related-grid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeaJoy Store. All rights reserved.</div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="index.html" class="text-muted">Trang chủ</a>
+          <a href="menu.html" class="text-muted">Thực đơn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db/mock-data.js"></script>
+  <script src="js/db/storage.js"></script>
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/modal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/client.js"></script>
+
+  <script>
+    let currentProd = null;
+    let detailConfig = {
+      size: "M",
+      sugar: "100%",
+      ice: "100%",
+      toppings: [],
+      qty: 1
+    };
+
+    function initDetailPage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodId = urlParams.get("id") || "TS-01";
+      currentProd = DB.getProductById(prodId) || DB.getProducts()[0];
+
+      // Breadcrumb & Info
+      document.getElementById("detail-breadcrumb-name").textContent = currentProd.name;
+      document.getElementById("detail-product-title").textContent = currentProd.name;
+      document.getElementById("detail-product-desc").textContent = currentProd.description;
+
+      // Render Toppings
+      const toppings = DB.getToppings();
+      const topGrid = document.getElementById("detail-toppings-grid");
+      if (topGrid) {
+        topGrid.innerHTML = toppings.map(t => `
+          <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.85rem; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--bg-surface);">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <input type="checkbox" value="${t.name}" data-price="${t.price}" onchange="toggleDetailTopping('${t.name}', this.checked)">
+              <span class="text-sm font-semibold">${t.name}</span>
+            </div>
+            <span class="text-xs text-primary font-bold">+${Formatters.currency(t.price)}</span>
+          </label>
+        `).join("");
+      }
+
+      // Render Related Drinks
+      const related = DB.getProducts().filter(p => p.id !== currentProd.id).slice(0, 4);
+      const relatedGrid = document.getElementById("detail-related-grid");
+      if (relatedGrid) {
+        relatedGrid.innerHTML = related.map(p => ClientApp.renderProductCard(p)).join("");
+      }
+
+      updateDetailPriceAndVisual();
+    }
+
+    function selectDetailSize(size) {
+      detailConfig.size = size;
+      document.querySelectorAll("#detail-sizes-group .cust-size-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-size") === size);
+      });
+      updateDetailPriceAndVisual();
+    }
+
+    function selectDetailSugar(sugar) {
+      detailConfig.sugar = sugar;
+      document.querySelectorAll("#detail-sugar-group .cust-sugar-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-sugar") === sugar);
+      });
+    }
+
+    function selectDetailIce(ice) {
+      detailConfig.ice = ice;
+      document.querySelectorAll("#detail-ice-group .cust-ice-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-ice") === ice);
+      });
+      updateDetailPriceAndVisual();
+    }
+
+    function toggleDetailTopping(topName, checked) {
+      if (checked) {
+        if (!detailConfig.toppings.includes(topName)) detailConfig.toppings.push(topName);
+      } else {
+        detailConfig.toppings = detailConfig.toppings.filter(t => t !== topName);
+      }
+      updateDetailPriceAndVisual();
+    }
+
+    function updateDetailQty(delta) {
+      let q = detailConfig.qty + delta;
+      if (q < 1) q = 1;
+      detailConfig.qty = q;
+      document.getElementById("detail-qty-input").value = q;
+      updateDetailPriceAndVisual();
+    }
+
+    function updateDetailPriceAndVisual() {
+      if (!currentProd) return;
+      let base = currentProd.price;
+      if (detailConfig.size === "L") base += 6000;
+      if (detailConfig.size === "XL") base += 12000;
+
+      const toppings = DB.getToppings();
+      detailConfig.toppings.forEach(tName => {
+        const found = toppings.find(t => t.name === tName);
+        if (found) base += found.price;
+      });
+
+      const total = base * detailConfig.qty;
+      document.getElementById("detail-total-unit-price").textContent = Formatters.currency(total);
+
+      // Visual liquid color
+      const liquid = document.getElementById("detail-visual-liquid");
+      if (liquid) {
+        if (currentProd.category === "tra-trai-cay") {
+          liquid.style.background = "linear-gradient(180deg, #F4A261 0%, #E76F51 100%)";
+        } else if (currentProd.id.includes("TS-03")) {
+          liquid.style.background = "linear-gradient(180deg, #74C69D 0%, #40916C 100%)";
+        } else {
+          liquid.style.background = "linear-gradient(180deg, #D4A373 0%, #B08968 100%)";
+        }
+      }
+
+      // Visual toppings
+      const topLayer = document.getElementById("detail-visual-toppings");
+      if (topLayer) {
+        topLayer.innerHTML = "";
+        detailConfig.toppings.forEach(topName => {
+          if (topName.includes("Trân Châu")) {
+            for (let i = 0; i < 6; i++) {
+              const dot = document.createElement("div");
+              dot.className = "pearl-dot";
+              topLayer.appendChild(dot);
+            }
+          } else {
+            const cube = document.createElement("div");
+            cube.className = "pudding-cube";
+            topLayer.appendChild(cube);
+          }
+        });
+      }
+    }
+
+    function addCurrentDetailToCart() {
+      if (!currentProd) return;
+      let unitPrice = currentProd.price;
+      if (detailConfig.size === "L") unitPrice += 6000;
+      if (detailConfig.size === "XL") unitPrice += 12000;
+
+      const toppings = DB.getToppings();
+      detailConfig.toppings.forEach(tName => {
+        const found = toppings.find(t => t.name === tName);
+        if (found) unitPrice += found.price;
+      });
+
+      Cart.addItem({
+        productId: currentProd.id,
+        name: currentProd.name,
+        image: currentProd.image,
+        size: detailConfig.size,
+        sugar: detailConfig.sugar,
+        ice: detailConfig.ice,
+        toppings: [...detailConfig.toppings],
+        quantity: detailConfig.qty,
+        unitPrice
+      });
+
+      Cart.openDrawer();
+    }
+
+    document.addEventListener("DOMContentLoaded", initDetailPage);
+  </script>
+</body>
+</html>

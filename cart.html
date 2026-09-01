@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng - TeaJoy Store</title>
+  <meta name="description" content="Xem lại các món trà sữa đã chọn, điều chỉnh topping và áp dụng voucher giảm giá hấp dẫn.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🧋</div>
+        <span>Tea</span>Joy
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="menu.html" class="nav-link">Thực Đơn</a>
+        <a href="order-tracking.html" class="nav-link">Tra Cứu Đơn</a>
+        <a href="profile.html" class="nav-link">Thành Viên</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="menu.html" class="action-btn" title="Tìm món">🔍</a>
+        <a href="cart.html" class="action-btn" title="Giỏ hàng" style="background-color: var(--primary-bg); color: var(--primary);">
+          🛒
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </a>
+        <a href="profile.html" class="action-btn" title="Tài khoản cá nhân">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-block: 2.5rem 4rem;">
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Giỏ Hàng <span class="text-primary">Của Bạn</span></h1>
+    <p class="text-muted" style="margin-bottom: 2rem;">Kiểm tra danh sách món, độ ngọt, lượng đá và topping trước khi thanh toán</p>
+
+    <div id="cart-content-wrapper" class="grid" style="grid-template-columns: 1.6fr 1fr; gap: 2rem; align-items: flex-start;">
+      <!-- Cart items table / cards -->
+      <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+          <h4 style="margin: 0;">Món đã chọn (<span id="cart-total-items-count">0</span>)</h4>
+          <button class="btn btn-ghost btn-sm text-muted" onclick="Cart.clearCart(); renderFullCartPage();">Xóa tất cả 🗑️</button>
+        </div>
+
+        <div id="cart-items-container" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div class="card" style="padding: 1.75rem; position: sticky; top: 96px;">
+        <h4 style="margin-bottom: 1.25rem;">Tóm Tắt Đơn Hàng</h4>
+
+        <!-- Voucher input -->
+        <div style="margin-bottom: 1.5rem;">
+          <label class="form-label text-xs">Mã Giảm Giá / Khuyến Mãi</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="cart-voucher-input" class="form-control" placeholder="Nhập mã (VD: BANMOI10)" style="text-transform: uppercase;">
+            <button class="btn btn-secondary btn-sm" onclick="applyCartVoucher()">Áp Dụng</button>
+          </div>
+          <div id="applied-voucher-info" class="text-xs text-secondary" style="margin-top: 0.35rem; font-weight: 600; display: none;"></div>
+        </div>
+
+        <!-- Price breakdown -->
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem; margin-bottom: 1.5rem;">
+          <div class="flex justify-between text-sm">
+            <span class="text-muted">Tổng tiền món:</span>
+            <span id="cart-subtotal" class="font-bold">0 ₫</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-muted">Phí giao hàng:</span>
+            <span id="cart-shipping">15.000 ₫</span>
+          </div>
+          <div class="flex justify-between text-sm text-secondary" id="cart-discount-row" style="display: none;">
+            <span>Giảm giá voucher:</span>
+            <span id="cart-discount" class="font-bold">-0 ₫</span>
+          </div>
+          <div class="flex justify-between font-bold" style="font-size: 1.25rem; color: var(--primary); border-top: 1.5px dashed var(--border-color); padding-top: 0.85rem; margin-top: 0.25rem;">
+            <span>Tổng thanh toán:</span>
+            <span id="cart-final-total" style="font-family: var(--font-heading);">0 ₫</span>
+          </div>
+        </div>
+
+        <a href="checkout.html" class="btn btn-primary btn-lg" style="width: 100%; text-align: center;">Tiến Hành Đặt Hàng ➔</a>
+        <a href="menu.html" class="btn btn-ghost btn-sm text-center" style="width: 100%; margin-top: 0.5rem;">+ Chọn Thêm Món Khác</a>
+      </div>
+    </div>
+
+    <!-- Empty cart layout -->
+    <div id="cart-empty-view" class="card text-center" style="display: none; padding: 4rem 1.5rem;">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🧋</div>
+      <h3 style="margin-bottom: 0.5rem;">Giỏ hàng của bạn đang trống</h3>
+      <p class="text-muted" style="margin-bottom: 2rem;">Hãy chọn những ly trà sữa thơm ngon và thêm vào giỏ nhé!</p>
+      <a href="menu.html" class="btn btn-primary btn-lg">Khám Phá Menu Ngay ➔</a>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeaJoy Store. All rights reserved.</div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="index.html" class="text-muted">Trang chủ</a>
+          <a href="menu.html" class="text-muted">Thực đơn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db/mock-data.js"></script>
+  <script src="js/db/storage.js"></script>
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/modal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/client.js"></script>
+
+  <script>
+    let appliedVoucher = null;
+
+    function renderFullCartPage() {
+      const cart = Cart.getCart();
+      const count = Cart.getItemCount();
+      const subtotal = Cart.getItemsTotal();
+
+      const wrapper = document.getElementById("cart-content-wrapper");
+      const emptyView = document.getElementById("cart-empty-view");
+      const countEl = document.getElementById("cart-total-items-count");
+      const container = document.getElementById("cart-items-container");
+
+      if (countEl) countEl.textContent = count;
+
+      if (cart.length === 0) {
+        if (wrapper) wrapper.style.display = "none";
+        if (emptyView) emptyView.style.display = "block";
+        return;
+      }
+
+      if (wrapper) wrapper.style.display = "grid";
+      if (emptyView) emptyView.style.display = "none";
+
+      if (container) {
+        container.innerHTML = cart.map(item => `
+          <div style="display: flex; gap: 1.25rem; align-items: center; padding-bottom: 1.25rem; border-bottom: 1px dashed var(--border-subtle);">
+            <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; border-radius: var(--radius-md); object-fit: cover;">
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h4 style="font-size: 1.05rem; margin-bottom: 2px;">${item.name}</h4>
+                <button onclick="Cart.removeItem('${item.itemKey}'); renderFullCartPage();" class="btn btn-ghost btn-sm" style="color: var(--status-cancelled); font-size: 0.8rem;">Xóa</button>
+              </div>
+              <div class="text-xs text-muted" style="margin-bottom: 4px;">
+                Size: <b>${item.size}</b> | Đường: <b>${item.sugar}</b> | Đá: <b>${item.ice}</b>
+              </div>
+              ${item.toppings.length ? `<div class="text-xs text-primary" style="margin-bottom: 6px;">Topping: ${item.toppings.join(", ")}</div>` : ''}
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                <span style="font-size: 1.05rem; font-weight: 800; color: var(--primary);">${Formatters.currency(item.unitPrice)}</span>
+                <div class="qty-counter">
+                  <button class="qty-btn" onclick="Cart.updateQuantity('${item.itemKey}', -1); renderFullCartPage();">-</button>
+                  <input type="text" class="qty-input" value="${item.quantity}" readonly>
+                  <button class="qty-btn" onclick="Cart.updateQuantity('${item.itemKey}', 1); renderFullCartPage();">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      updateCartPagePrices();
+    }
+
+    function updateCartPagePrices() {
+      const itemsTotal = Cart.getItemsTotal();
+      let discount = 0;
+
+      if (appliedVoucher) {
+        if (appliedVoucher.discountPercent) {
+          discount = (itemsTotal * appliedVoucher.discountPercent) / 100;
+          if (appliedVoucher.maxDiscount && discount > appliedVoucher.maxDiscount) {
+            discount = appliedVoucher.maxDiscount;
+          }
+        } else if (appliedVoucher.discountAmount) {
+          discount = appliedVoucher.discountAmount;
+        }
+      }
+
+      const shipping = itemsTotal >= 200000 ? 0 : 15000;
+      const finalTotal = Math.max(0, itemsTotal + shipping - discount);
+
+      document.getElementById("cart-subtotal").textContent = Formatters.currency(itemsTotal);
+      document.getElementById("cart-shipping").textContent = shipping === 0 ? "Miễn phí" : Formatters.currency(shipping);
+
+      const discountRow = document.getElementById("cart-discount-row");
+      const discountEl = document.getElementById("cart-discount");
+      if (discount > 0) {
+        discountRow.style.display = "flex";
+        discountEl.textContent = `-${Formatters.currency(discount)}`;
+      } else {
+        discountRow.style.display = "none";
+      }
+
+      document.getElementById("cart-final-total").textContent = Formatters.currency(finalTotal);
+    }
+
+    function applyCartVoucher() {
+      const input = document.getElementById("cart-voucher-input");
+      const code = input.value.trim().toUpperCase();
+      if (!code) {
+        Toast.warning("Vui lòng nhập mã giảm giá!");
+        return;
+      }
+
+      const vouchers = DB.getVouchers();
+      const found = vouchers.find(v => v.code === code);
+      if (!found) {
+        Toast.error("Mã không hợp lệ hoặc đã hết hạn!");
+        return;
+      }
+
+      appliedVoucher = found;
+      const infoEl = document.getElementById("applied-voucher-info");
+      infoEl.style.display = "block";
+      infoEl.textContent = `✓ Đã áp dụng: ${found.desc}`;
+      Toast.success(`Áp dụng mã ${found.code} thành công!`);
+      updateCartPagePrices();
+    }
+
+    document.addEventListener("DOMContentLoaded", renderFullCartPage);
+  </script>
+</body>
+</html>

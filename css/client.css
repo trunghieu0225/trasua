@@ -1,0 +1,475 @@
+/* ==========================================================================
+   TEAJOY STORE - CLIENT PAGES SPECIFIC STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Hero Banner Section
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  padding: 4rem 0 5rem;
+  overflow: hidden;
+  background: radial-gradient(circle at 80% 20%, rgba(244, 162, 97, 0.18) 0%, rgba(252, 249, 246, 0) 60%),
+              radial-gradient(circle at 10% 80%, rgba(156, 102, 68, 0.12) 0%, rgba(252, 249, 246, 0) 50%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background-color: var(--primary-bg);
+  border: 1px solid var(--primary-light);
+  border-radius: var(--radius-full);
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  color: var(--text-main);
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-peach) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-card-main {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(16px);
+  text-align: center;
+}
+
+.hero-card-main img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+.floating-pill {
+  position: absolute;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  animation: float 4s ease-in-out infinite;
+}
+
+.floating-pill.pill-1 {
+  top: 10%;
+  left: -8%;
+  animation-delay: 0s;
+}
+
+.floating-pill.pill-2 {
+  bottom: 15%;
+  right: -5%;
+  animation-delay: 1.8s;
+}
+
+/* --------------------------------------------------------------------------
+   2. Category Chips Bar
+   -------------------------------------------------------------------------- */
+.category-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-block: 0.5rem;
+  scrollbar-width: none;
+}
+.category-filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.cat-chip:hover {
+  border-color: var(--primary-light);
+  color: var(--primary);
+  background-color: var(--primary-bg);
+}
+
+.cat-chip.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* --------------------------------------------------------------------------
+   3. Visual Milk Tea Builder (Interactive Cup)
+   -------------------------------------------------------------------------- */
+.cup-builder-container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.cup-visual-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-main) 100%);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1rem;
+}
+
+.tea-cup {
+  position: relative;
+  width: 150px;
+  height: 230px;
+  border: 4px solid #4A3E3D;
+  border-top: none;
+  border-radius: 0 0 35px 35px;
+  background: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.06);
+}
+
+.tea-straw {
+  position: absolute;
+  top: -40px;
+  left: 55%;
+  width: 14px;
+  height: 180px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #E76F51,
+    #E76F51 10px,
+    #FFFFFF 10px,
+    #FFFFFF 20px
+  );
+  border-radius: 6px;
+  transform: rotate(12deg);
+  z-index: 5;
+}
+
+.tea-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: linear-gradient(180deg, #D4A373 0%, #B08968 100%);
+  transition: all 0.4s ease;
+  border-radius: 0 0 30px 30px;
+}
+
+.tea-ice-layer {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+
+.ice-cube {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  transform: rotate(15deg);
+}
+
+.tea-toppings-layer {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  min-height: 45px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 4;
+}
+
+.pearl-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #3A2E2B, #110B0A);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  animation: bouncePearl 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pudding-cube {
+  width: 22px;
+  height: 18px;
+  background: #FEE440;
+  border-radius: 4px;
+  border: 1px solid #E9C46A;
+}
+
+.cheese-foam-layer {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  right: 0;
+  height: 35px;
+  background: linear-gradient(180deg, #FFFDF0 0%, rgba(255, 253, 240, 0.8) 100%);
+  border-bottom: 2px dashed #E8DECE;
+  z-index: 3;
+  display: none;
+}
+
+@keyframes bouncePearl {
+  0% { transform: translateY(-40px) scale(0.6); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Lucky Spin Wheel Minigame
+   -------------------------------------------------------------------------- */
+.lucky-spin-section {
+  background: linear-gradient(135deg, #FFF6EE 0%, #F4ECE1 100%);
+  border: 2px dashed var(--primary-light);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2rem;
+  margin-block: 3.5rem;
+}
+
+.spin-wheel-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.spin-wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px var(--primary), 0 10px 30px rgba(0,0,0,0.15);
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+.spin-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 32px solid var(--accent-coral);
+  z-index: 10;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+}
+
+.spin-btn-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--text-main);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 11;
+  border: 4px solid #fff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Order Tracking Timeline
+   -------------------------------------------------------------------------- */
+.tracking-timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 2.5rem 0 3.5rem;
+}
+
+.tracking-timeline::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 5%;
+  right: 5%;
+  height: 4px;
+  background-color: var(--border-color);
+  z-index: 1;
+}
+
+.tracking-progress-bar {
+  position: absolute;
+  top: 24px;
+  left: 5%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  z-index: 2;
+  transition: width 0.6s ease;
+}
+
+.timeline-step {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 120px;
+  text-align: center;
+}
+
+.step-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--bg-surface);
+  border: 3px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-subtle);
+  transition: all var(--transition-normal);
+}
+
+.timeline-step.completed .step-icon-wrap {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.timeline-step.active .step-icon-wrap {
+  background-color: var(--bg-surface);
+  border-color: var(--primary);
+  color: var(--primary);
+  animation: pulseGlow 2s infinite;
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.step-time {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   6. Dynamic VietQR Box
+   -------------------------------------------------------------------------- */
+.vietqr-box {
+  background-color: var(--bg-surface);
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  margin-block: 1rem;
+}
+
+.qr-code-img {
+  width: 220px;
+  height: 220px;
+  margin: 0.75rem auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: #fff;
+  padding: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-desc {
+    margin-inline: auto;
+  }
+  .hero-cta {
+    justify-content: center;
+  }
+  .cup-builder-container {
+    grid-template-columns: 1fr;
+  }
+}

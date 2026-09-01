@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeaJoy Store - Trà Sữa Đậm Vị & Thơm Ngon Chuẩn Vị</title>
+  <meta name="description" content="Thưởng thức trà sữa trân châu hoàng kim, trà trái cây tươi mát và cà phê kem béo tuyệt hảo tại TeaJoy Store. Giao nhanh 30 phút!">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <div class="logo-icon">🧋</div>
+        <span>Tea</span>Joy
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Trang Chủ</a>
+        <a href="menu.html" class="nav-link">Thực Đơn</a>
+        <a href="order-tracking.html" class="nav-link">Tra Cứu Đơn</a>
+        <a href="profile.html" class="nav-link">Thành Viên</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="menu.html" class="action-btn" title="Tìm kiếm món">🔍</a>
+        <button class="action-btn" onclick="Cart.openDrawer()" title="Xem giỏ hàng">
+          🛒
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </button>
+        <a href="profile.html" class="action-btn" title="Tài khoản cá nhân">👤</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content animate-fade">
+          <div class="hero-badge">
+            <span>✨</span> Hương vị đậm đà nguyên bản từ lá trà tươi
+          </div>
+          <h1 class="hero-title">
+            Thưởng thức ly <span class="highlight">Trà Sữa</span><br>Trọn vẹn cảm xúc
+          </h1>
+          <p class="hero-desc">
+            TeaJoy mang đến trải nghiệm trà sữa cao cấp với 100% lá trà hữu cơ tuyển chọn, trân châu hoàng kim dẻo quánh nấu tươi mỗi ngày và lớp kem cheese béo mặn gây nghiện.
+          </p>
+          <div class="hero-cta">
+            <a href="menu.html" class="btn btn-primary btn-lg">Đặt Món Ngay ➔</a>
+            <a href="#bestsellers" class="btn btn-outline btn-lg">Xem Bán Chạy 🔥</a>
+          </div>
+          
+          <div style="display: flex; gap: 2rem; margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">30+</div>
+              <div class="text-xs text-muted">Vị Trà Đặc Sắc</div>
+            </div>
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">20.000+</div>
+              <div class="text-xs text-muted">Khách Hàng Hài Lòng</div>
+            </div>
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">4.9 ⭐</div>
+              <div class="text-xs text-muted">Đánh Giá Xuất Sắc</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card-main animate-float">
+            <img src="https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80" alt="Trà Sữa Trân Châu Hoàng Kim">
+            <div style="margin-top: 1rem;">
+              <h4 style="font-size: 1.15rem; margin-bottom: 2px;">Trà Sữa Oolong Nướng</h4>
+              <p class="text-xs text-muted">Kem Cheese Mặn New Zealand</p>
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--primary); margin-top: 0.35rem;">45.000 ₫</div>
+            </div>
+          </div>
+
+          <div class="floating-pill pill-1">
+            <span>🧋</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Trân Châu</div>
+              <div>Hoàng Kim Nấu Mật</div>
+            </div>
+          </div>
+
+          <div class="floating-pill pill-2">
+            <span>⚡</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Giao Hỏa Tốc</div>
+              <div>Dưới 30 Phút</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Category Chips Section -->
+    <section class="container" style="margin-block: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-size: 1.5rem;">Danh Mục Yêu Thích</h2>
+          <p class="text-sm text-muted">Khám phá các dòng thức uống giải nhiệt đỉnh cao</p>
+        </div>
+        <a href="menu.html" class="btn btn-ghost btn-sm text-primary font-bold">Xem tất cả ➔</a>
+      </div>
+
+      <div class="category-filter-bar" id="homepage-category-bar">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- 3. Bestsellers Grid -->
+    <section class="container" id="bestsellers" style="margin-block: 3.5rem;">
+      <div class="text-center" style="margin-bottom: 2.5rem;">
+        <span class="badge badge-warning" style="margin-bottom: 0.5rem;">TOP THỊNH HÀNH</span>
+        <h2>Món Bán Chạy Nhất Tuần</h2>
+        <p class="text-muted" style="max-width: 500px; margin-inline: auto;">Những ly trà sữa được giới trẻ săn đón nhất tại TeaJoy Store</p>
+      </div>
+
+      <div class="grid grid-cols-4 gap-6" id="homepage-bestsellers-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- 4. Interactive Lucky Spin Minigame -->
+    <section class="container">
+      <div class="lucky-spin-section text-center">
+        <span class="badge badge-primary" style="margin-bottom: 0.5rem;">MINI GAME MỖI NGÀY</span>
+        <h2 style="margin-bottom: 0.5rem;">Vòng Quay May Mắn - Rinh Voucher Xịn</h2>
+        <p class="text-muted" style="max-width: 550px; margin-inline: auto; margin-bottom: 2rem;">
+          Quay ngay để có cơ hội nhận voucher giảm tới 20.000đ, miễn phí vận chuyển hoặc Free topping cho đơn hàng tiếp theo!
+        </p>
+
+        <div class="spin-wheel-container">
+          <div class="spin-pointer"></div>
+          <canvas id="lucky-wheel-canvas" class="spin-wheel-canvas" width="320" height="320"></canvas>
+          <button class="spin-btn-center" onclick="spinWheel()">QUAY</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Features / Why Choose Us -->
+    <section class="container" style="margin-block: 4rem;">
+      <div class="grid grid-cols-3 gap-6">
+        <div class="card text-center" style="padding: 2rem 1.5rem;">
+          <div style="font-size: 2.75rem; margin-bottom: 1rem;">🍃</div>
+          <h4 style="margin-bottom: 0.5rem;">Trà Sạch Nguyên Bản</h4>
+          <p class="text-sm text-muted">Lá trà hữu cơ Bảo Lộc, Lâm Đồng được ủ tươi mỗi 4 tiếng để giữ trọn hậu vị thơm ngọt tự nhiên.</p>
+        </div>
+        <div class="card text-center" style="padding: 2rem 1.5rem;">
+          <div style="font-size: 2.75rem; margin-bottom: 1rem;">🥛</div>
+          <h4 style="margin-bottom: 0.5rem;">Sữa Tươi Thanh Trùng</h4>
+          <p class="text-sm text-muted">Tuyệt đối không dùng bột béo công nghiệp, 100% sữa tươi DalatMilk béo thanh thơm nhẹ.</p>
+        </div>
+        <div class="card text-center" style="padding: 2rem 1.5rem;">
+          <div style="font-size: 2.75rem; margin-bottom: 1rem;">🚀</div>
+          <h4 style="margin-bottom: 0.5rem;">Giao Hàng Siêu Tốc</h4>
+          <p class="text-sm text-muted">Đóng gói giữ nhiệt cao cấp, đá riêng biệt đảm bảo ly trà sữa tới tay bạn luôn trọn vị mát lạnh.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="site-logo" style="margin-bottom: 1rem;">
+            <div class="logo-icon">🧋</div>
+            <span>Tea</span>Joy
+          </a>
+          <p class="text-sm text-muted" style="line-height: 1.7; margin-bottom: 1.25rem;">
+            Hệ thống trà sữa và thức uống hiện đại hàng đầu. Đem lại niềm vui và hương vị tươi mới cho mỗi ngày tràn đầy năng lượng.
+          </p>
+          <div style="display: flex; gap: 0.75rem;">
+            <span style="font-size: 1.3rem; cursor: pointer;">📘</span>
+            <span style="font-size: 1.3rem; cursor: pointer;">📸</span>
+            <span style="font-size: 1.3rem; cursor: pointer;">🎵</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Thực Đơn</h4>
+          <div class="footer-links">
+            <a href="menu.html?cat=tra-sua">Trà Sữa Đặc Biệt</a>
+            <a href="menu.html?cat=tra-trai-cay">Trà Trái Cây Tươi</a>
+            <a href="menu.html?cat=da-xay">Đá Xay Macchiato</a>
+            <a href="menu.html?cat=ca-phe">Cà Phê Muối Kem Béo</a>
+            <a href="menu.html?cat=combo">Combo Tiết Kiệm</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Khách Hàng</h4>
+          <div class="footer-links">
+            <a href="order-tracking.html">Tra Cứu Đơn Hàng</a>
+            <a href="profile.html">Chính Sách Tích Điểm</a>
+            <a href="profile.html">Voucher & Khuyến Mãi</a>
+            <a href="auth.html">Đăng Ký Thành Viên</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Liên Hệ Cửa Hàng</h4>
+          <p class="text-sm text-muted" style="margin-bottom: 0.5rem;">📍 123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM</p>
+          <p class="text-sm text-muted" style="margin-bottom: 0.5rem;">📞 Hotline: 1900 8888 (8:00 - 22:30)</p>
+          <p class="text-sm text-muted">✉️ Email: lienhe@teajoy.vn</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 TeaJoy Store. All rights reserved. Thiết kế chuẩn HTML5/CSS3/JavaScript.</div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="#" class="text-muted">Điều khoản</a>
+          <a href="#" class="text-muted">Bảo mật</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db/mock-data.js"></script>
+  <script src="js/db/storage.js"></script>
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/modal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/client.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Render Category Bar
+      const catBar = document.getElementById("homepage-category-bar");
+      const cats = DB.getCategories();
+      if (catBar) {
+        catBar.innerHTML = cats.map(c => `
+          <a href="menu.html?cat=${c.id}" class="cat-chip">
+            <span>${c.icon}</span>
+            <span>${c.name}</span>
+          </a>
+        `).join("");
+      }
+
+      // 2. Render Bestsellers
+      const grid = document.getElementById("homepage-bestsellers-grid");
+      const products = DB.getProducts().filter(p => p.isBestseller).slice(0, 4);
+      if (grid) {
+        grid.innerHTML = products.map(p => ClientApp.renderProductCard(p)).join("");
+      }
+    });
+  </script>
+</body>
+</html>
