@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản Lý Nhân Viên & Phân Quyền - TeaJoy Admin</title>
 
+  <!-- Google Fonts for Vietnamese Support -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/base.css">
@@ -78,9 +83,31 @@
       </header>
 
       <div class="admin-content">
+        <!-- Staff Session & Logout Banner -->
+        <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #FFF0F2 0%, #FFFFFF 100%); border: 1.5px solid var(--border-color); padding: 1.25rem 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">🧋</div>
+              <div>
+                <h4 style="margin: 0; font-size: 1.1rem;" id="staff-banner-name">Tài Khoản Nhân Viên Pha Chế</h4>
+                <p class="text-xs text-muted" style="margin: 0;" id="staff-banner-role">Đang đăng nhập hệ thống quản lý & pha chế cửa hàng</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <span class="text-xs text-muted font-bold">Chuyển vai trò thử nghiệm:</span>
+              <button class="btn btn-outline btn-sm" onclick="Auth.switchRole('admin')" title="Đăng nhập Admin Quản Lý">👑 Admin</button>
+              <button class="btn btn-outline btn-sm" onclick="Auth.switchRole('staff')" title="Đăng nhập Nhân Viên Thu Ngân/Pha Chế">🧋 Pha Chế / Thu Ngân</button>
+              <button class="btn btn-primary btn-sm" onclick="Auth.logout()" style="background: var(--primary); color: white;" title="Đăng xuất khỏi hệ thống">
+                🚪 Đăng Xuất Ngay
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="data-table-container">
           <div class="table-toolbar">
-            <h4 style="margin: 0;">Danh Sách Tài Khoản Nhân Viên</h4>
+            <h4 style="margin: 0;">Danh Sách Tài Khoản Nhân Viên & Pha Chế</h4>
           </div>
 
           <div class="table-responsive">
@@ -117,16 +144,16 @@
         <div class="modal-body">
           <div class="form-group">
             <label class="form-label text-xs">Họ và Tên *</label>
-            <input type="text" id="staff-name" class="form-control" required placeholder="Ví dụ: Nguyễn Văn A">
+            <input type="text" id="staff-name" class="form-control" required placeholder="Ví dụ: Lê Văn Pha Chế">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="form-group">
               <label class="form-label text-xs">Tên Đăng Nhập *</label>
-              <input type="text" id="staff-username" class="form-control" required placeholder="thungan1">
+              <input type="text" id="staff-username" class="form-control" required placeholder="phache1">
             </div>
             <div class="form-group">
               <label class="form-label text-xs">Mật Khẩu *</label>
-              <input type="password" id="staff-password" class="form-control" required value="123">
+              <input type="password" id="staff-password" class="form-control" required value="123456">
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -137,8 +164,8 @@
             <div class="form-group">
               <label class="form-label text-xs">Vai Trò Phân Quyền *</label>
               <select id="staff-role" class="form-select">
-                <option value="staff">Nhân Viên Thu Ngân / Bán Hàng</option>
-                <option value="admin">Quản Lý Chi Nhánh (Admin)</option>
+                <option value="staff">🧋 Nhân Viên Pha Chế / Thu Ngân</option>
+                <option value="admin">👑 Quản Lý Chi Nhánh (Admin)</option>
               </select>
             </div>
           </div>
@@ -162,7 +189,21 @@
   <script>
     const StaffMgmt = {
       init() {
+        this.updateUserBanner();
         this.renderTable();
+      },
+
+      updateUserBanner() {
+        const u = Auth.getCurrentUser();
+        const bName = document.getElementById("staff-banner-name");
+        const bRole = document.getElementById("staff-banner-role");
+        if (bName && u) {
+          bName.textContent = `Tài Khoản: ${u.fullName} (${u.username})`;
+        }
+        if (bRole && u) {
+          const roleTitle = u.role === "admin" ? "Quản Lý Cửa Hàng (Admin)" : (u.username === "phache" ? "Nhân Viên Pha Chế Đồ Uống" : "Nhân Viên Thu Ngân & Bán Hàng");
+          bRole.textContent = `Chức danh: ${roleTitle} • Bạn có thể đăng xuất bất kỳ lúc nào bằng nút bên phải.`;
+        }
       },
 
       renderTable() {
@@ -170,14 +211,19 @@
         if (!tbody) return;
 
         const staff = DB.getUsers().filter(u => u.role === "admin" || u.role === "staff");
-        tbody.innerHTML = staff.map(s => `
+        tbody.innerHTML = staff.map(s => {
+          let roleBadge = '💼 Thu Ngân';
+          if (s.role === 'admin') roleBadge = '👑 Quản Lý';
+          else if (s.username === 'phache' || s.fullName.toLowerCase().includes('pha chế')) roleBadge = '🧋 Pha Chế';
+
+          return `
           <tr>
             <td class="font-bold text-primary">${s.id}</td>
             <td class="font-bold">${s.fullName}</td>
             <td><code>${s.username}</code></td>
             <td>
               <span class="badge ${s.role === 'admin' ? 'badge-primary' : 'badge-info'}">
-                ${s.role === 'admin' ? '👑 Quản Lý' : '💼 Nhân Viên Thu Ngân'}
+                ${roleBadge}
               </span>
             </td>
             <td>${s.phone || 'Chưa có'}</td>
@@ -194,7 +240,8 @@
               </div>
             </td>
           </tr>
-        `).join("");
+        `;
+        }).join("");
       },
 
       openAddModal() {

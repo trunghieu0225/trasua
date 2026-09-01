@@ -5,4 +5,6 @@ node_modules/
 .vscode/
 .idea/
 *.docx
+~$*
+~$*.docx
 HUONG_DAN_CHAY_WEB_VA_QUAN_LY.docx

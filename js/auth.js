@@ -363,12 +363,58 @@ const Auth = {
         `;
       }
     });
+  // Dynamically update admin topbar and sidebar with staff/admin profile & Logout button
+  updateAdminAuthUI() {
+    const isInsideAdmin = window.location.pathname.includes("/admin/");
+    if (!isInsideAdmin) return;
+
+    const user = this.getCurrentUser();
+    const topbar = document.querySelector(".admin-topbar");
+
+    if (topbar) {
+      let userArea = topbar.querySelector(".admin-topbar-user");
+      if (!userArea) {
+        userArea = document.createElement("div");
+        userArea.className = "admin-topbar-user";
+        userArea.style.cssText = "display: flex; align-items: center; gap: 0.75rem; margin-left: auto;";
+        topbar.appendChild(userArea);
+      }
+
+      const roleDisplay = user ? (user.role === "admin" ? "QUẢN LÝ" : (user.username === "phache" ? "PHA CHẾ" : "THU NGÂN")) : "NHÂN VIÊN";
+      const nameDisplay = user ? user.fullName : "Chưa đăng nhập";
+
+      userArea.innerHTML = `
+        <div style="text-align: right; line-height: 1.2;">
+          <div class="font-bold text-sm" style="color: var(--text-main);">${nameDisplay}</div>
+          <span class="badge ${user?.role === 'admin' ? 'badge-primary' : 'badge-info'}" style="font-size: 0.7rem; padding: 2px 6px;">${roleDisplay}</span>
+        </div>
+        <button class="btn btn-sm" style="background: #FFF0F2; color: var(--primary); border: 1px solid var(--border-color); font-weight: 600; display: flex; align-items: center; gap: 0.35rem;" onclick="Auth.logout()" title="Đăng xuất khỏi tài khoản nhân viên">
+          <span>🚪</span> Đăng Xuất
+        </button>
+      `;
+    }
+
+    // Ensure sidebar footer has logout button
+    const sidebarFooter = document.querySelector(".admin-sidebar-footer");
+    if (sidebarFooter && !sidebarFooter.querySelector(".admin-logout-btn")) {
+      sidebarFooter.style.display = "flex";
+      sidebarFooter.style.flexDirection = "column";
+      sidebarFooter.style.gap = "0.5rem";
+
+      const logoutBtn = document.createElement("button");
+      logoutBtn.className = "btn btn-sm admin-logout-btn";
+      logoutBtn.style.cssText = "width: 100%; background: #FFF0F2; color: var(--primary); border: 1px solid var(--border-color); font-weight: 600; text-align: center;";
+      logoutBtn.innerHTML = "🚪 Đăng Xuất Tài Khoản";
+      logoutBtn.onclick = () => Auth.logout();
+      sidebarFooter.appendChild(logoutBtn);
+    }
   }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   Auth.initAuthModal();
   Auth.updateHeaderAuthUI();
+  Auth.updateAdminAuthUI();
 });
 
 window.Auth = Auth;

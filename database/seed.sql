@@ -5,11 +5,11 @@
 
 USE `teajoy_store`;
 
--- 1. SEED TAI_KHOAN (Mật khẩu mặc định: '123' / '123456' băm Bcrypt)
+-- 1. SEED TAI_KHOAN (Mật khẩu mặc định demo: '1', '123', hoặc '123456')
 INSERT INTO `TAI_KHOAN` (`id`, `ten_dang_nhap`, `mat_khau_hash`, `email`, `so_dien_thoai`, `vai_tro`, `trang_thai`) VALUES
-(1, 'admin', '1', 'admin@dodo.vn', '0901234567', 'admin', 'hoat_dong'),
-(2, 'thungan', '1', 'thungan@dodo.vn', '0912345678', 'nhan_vien', 'hoat_dong'),
-(3, 'phache', '1', 'phache@dodo.vn', '0933445566', 'nhan_vien', 'hoat_dong');
+(1, 'admin', '123456', 'admin@dodo.vn', '0901234567', 'admin', 'hoat_dong'),
+(2, 'thungan', '123456', 'thungan@dodo.vn', '0912345678', 'nhan_vien', 'hoat_dong'),
+(3, 'phache', '123456', 'phache@dodo.vn', '0933445566', 'nhan_vien', 'hoat_dong');
 
 -- 2. SEED NHAN_VIEN
 INSERT INTO `NHAN_VIEN` (`id`, `tai_khoan_id`, `ma_nhan_vien`, `ho_ten`, `chuc_vu`, `cccd`, `ngay_sinh`, `gioi_tinh`, `luong_co_ban`, `ngay_vao_lam`, `trang_thai_lam_viec`) VALUES
