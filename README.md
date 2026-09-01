@@ -37,14 +37,6 @@
 ```text
 trasua/
 ├── admin/                     # Trung Tâm Quản Trị & POS
-│   ├── index.html             # Dashboard Báo cáo KPI & Biểu đồ
-│   ├── orders.html            # Xử lý đơn hàng & In hóa đơn 80mm
-│   ├── products.html          # Quản lý Sản phẩm & Topping
-│   ├── customers.html         # Quản lý Khách hàng & Điểm
-│   ├── staff.html             # Quản lý Nhân viên, Pha chế & Quyền
-│   ├── suppliers.html         # Quản lý Nhà cung cấp & Kho
-│   ├── reports.html           # Thống kê & Xuất báo cáo CSV
-│   └── marketing.html         # Quản lý Voucher & Banner
 ├── css/                       # Hệ thống CSS (variables, base, components, client, admin)
 ├── js/                        # Mã nguồn JavaScript (auth, cart, checkout, client, tracking, admin/)
 ├── database/                  # CSDL MySQL 8.0 duy nhất (teajoy.sql)
