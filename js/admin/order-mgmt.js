@@ -5,11 +5,11 @@
 const OrderMgmt = {
   currentStatus: "all",
 
-  init() {
-    // Check if ID param in URL
+  async init() {
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("id");
 
+    await this.syncOrdersFromAPI();
     this.renderOrdersTable();
     this.updateStatusCounts();
     this.initSearch();
@@ -21,10 +21,26 @@ const OrderMgmt = {
     }
   },
 
-  refresh() {
+  async syncOrdersFromAPI() {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1000);
+      const res = await fetch("http://localhost:5000/api/orders", { signal: controller.signal });
+      clearTimeout(timeoutId);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.orders)) {
+        data.orders.forEach(o => DB.saveOrder(o));
+      }
+    } catch (err) {
+      // Offline fallback
+    }
+  },
+
+  async refresh() {
+    await this.syncOrdersFromAPI();
     this.renderOrdersTable();
     this.updateStatusCounts();
-    Toast.info("Đã làm mới danh sách đơn hàng.");
+    Toast.info("Đã làm mới danh sách đơn hàng từ CSDL.");
   },
 
   filterStatus(status) {
@@ -48,6 +64,11 @@ const OrderMgmt = {
     if (countAll) countAll.textContent = orders.length;
     if (countPending) countPending.textContent = orders.filter(o => o.orderStatus === "pending").length;
     if (countConfirmed) countConfirmed.textContent = orders.filter(o => o.orderStatus === "confirmed").length;
+    if (countPreparing) countPreparing.textContent = orders.filter(o => o.orderStatus === "preparing").length;
+    if (countShipping) countShipping.textContent = orders.filter(o => o.orderStatus === "shipping").length;
+    if (countCompleted) countCompleted.textContent = orders.filter(o => o.orderStatus === "completed").length;
+    if (countCancelled) countCancelled.textContent = orders.filter(o => o.orderStatus === "cancelled").length;
+  },
     if (countPreparing) countPreparing.textContent = orders.filter(o => o.orderStatus === "preparing").length;
     if (countShipping) countShipping.textContent = orders.filter(o => o.orderStatus === "shipping").length;
     if (countCompleted) countCompleted.textContent = orders.filter(o => o.orderStatus === "completed").length;
@@ -189,8 +210,17 @@ const OrderMgmt = {
     Modal.open("order-detail-modal");
   },
 
-  updateStatus(orderId, newStatus) {
+  async updateStatus(orderId, newStatus) {
     DB.updateOrderStatus(orderId, newStatus);
+    try {
+      await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+    } catch (err) {
+      // Offline mode fallback
+    }
     Toast.success(`Đã cập nhật đơn #${orderId} sang: <b>${newStatus.toUpperCase()}</b>`);
     this.renderOrdersTable();
     this.updateStatusCounts();
@@ -207,7 +237,7 @@ const OrderMgmt = {
 
     receiptEl.innerHTML = `
       <div class="receipt-header">
-        <div class="receipt-title">TEAJOY STORE</div>
+        <div class="receipt-title">TRÀ SỮA ĐÔ ĐÔ</div>
         <div>123 Nguyễn Huệ, Quận 1, TP.HCM</div>
         <div>Hotline: 1900 8888</div>
         <div style="margin-top: 6px; font-weight: bold;">HÓA ĐƠN THANH TOÁN</div>

@@ -5,10 +5,29 @@
 const ProductMgmt = {
   currentTab: "products",
 
-  init() {
+  async init() {
+    await this.syncFromAPI();
     this.renderProductsTable();
     this.renderToppingsTable();
     this.initFilters();
+  },
+
+  async syncFromAPI() {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1000);
+      const resP = await fetch("http://localhost:5000/api/products", { signal: controller.signal });
+      const dataP = await resP.json();
+      if (dataP.success && Array.isArray(dataP.products)) {
+        dataP.products.forEach(p => DB.saveProduct(p));
+      }
+      const resT = await fetch("http://localhost:5000/api/toppings", { signal: controller.signal });
+      clearTimeout(timeoutId);
+      const dataT = await resT.json();
+      if (dataT.success && Array.isArray(dataT.toppings)) {
+        dataT.toppings.forEach(t => DB.saveTopping(t));
+      }
+    } catch (err) {}
   },
 
   switchTab(tab) {

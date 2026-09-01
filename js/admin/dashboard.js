@@ -3,12 +3,26 @@
    ========================================================================== */
 
 const AdminDashboard = {
-  init() {
+  async init() {
     this.checkAuth();
+    await this.syncFromAPI();
     this.renderKPIs();
     this.initCharts();
     this.renderRecentOrders();
     this.updateCurrentDate();
+  },
+
+  async syncFromAPI() {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1000);
+      const res = await fetch("http://localhost:5000/api/orders", { signal: controller.signal });
+      clearTimeout(timeoutId);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.orders)) {
+        data.orders.forEach(o => DB.saveOrder(o));
+      }
+    } catch (err) {}
   },
 
   checkAuth() {
