@@ -276,16 +276,7 @@ const Auth = {
               <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">Tạo Tài Khoản Khách Hàng</button>
             </form>
 
-            <!-- Quick Demo Accounts -->
-            <div style="margin-top: 1.5rem; border-top: 1px dashed var(--border-color); padding-top: 1rem;">
-              <div class="text-xs text-muted text-center" style="margin-bottom: 0.6rem; font-weight: 700;">⚡ ĐĂNG NHẬP NHANH TÀI KHOẢN NỘI BỘ (1-CLICK)</div>
-              <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('admin', '123')">👑 Quản Lý Admin (Demo: admin / 123)</button>
-                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('nhanvien', '123')">💼 Thu Ngân Staff (Demo: nhanvien / 123)</button>
-                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('phache', '123')">🧋 Pha Chế Staff (Demo: phache / 123)</button>
-              </div>
-              <p class="text-xs text-muted text-center" style="margin-top: 0.6rem;">💡 Khách mua hàng chưa có tài khoản? Bấm tab <b>"Đăng Ký Khách Hàng"</b> để tạo tài khoản mới.</p>
-            </div>
+            </form>
 
           </div>
         </div>
@@ -318,46 +309,12 @@ const Auth = {
         `;
       }
     });
-  },
-
-  // Inject Floating Quick Role Switcher widget
-  renderRoleSwitcher() {
-    if (document.getElementById("quick-role-switcher")) return;
-
-    const currentUser = this.getCurrentUser();
-    const currentRole = currentUser ? currentUser.role : "Khách";
-    const currentName = currentUser ? currentUser.fullName : "Chưa đăng nhập";
-
-    const isInsideAdmin = window.location.pathname.includes("/admin/");
-    const pathToHome = isInsideAdmin ? "../index.html" : "index.html";
-    const pathToAdmin = isInsideAdmin ? "index.html" : "admin/index.html";
-
-    const widget = document.createElement("div");
-    widget.id = "quick-role-switcher";
-    widget.className = "role-switcher-widget";
-    widget.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 0.4rem;">
-        <span style="font-size: 1.1rem;">⚡</span>
-        <span class="role-tag">${currentRole.toUpperCase()}: ${currentName.split(" ").slice(-1)[0]}</span>
-      </div>
-      <div style="display: flex; gap: 0.25rem;">
-        ${currentUser ? `
-          <button class="btn btn-sm btn-danger" onclick="Auth.logout()" title="Đăng xuất">Đăng xuất</button>
-        ` : `
-          <button class="btn btn-sm btn-primary" onclick="Auth.openAuthModal('login')" title="Mở Pop-up Đăng Nhập">🔑 Đăng Nhập</button>
-        `}
-        ${!isInsideAdmin ? `<a href="${pathToAdmin}" class="btn btn-sm btn-secondary" title="Vào trang Quản trị">⚙️ Admin</a>` : `<a href="${pathToHome}" class="btn btn-sm btn-outline" title="Về trang Bán hàng">🛍️ Shop</a>`}
-      </div>
-    `;
-
-    document.body.appendChild(widget);
   }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   Auth.initAuthModal();
   Auth.updateHeaderAuthUI();
-  Auth.renderRoleSwitcher();
 });
 
 window.Auth = Auth;

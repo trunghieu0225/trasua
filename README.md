@@ -111,11 +111,9 @@ Dự án được xây dựng chuẩn Web tiêu chuẩn, **không cần cài đ�
    - Mở tệp `index.html` bằng trình duyệt web bất kỳ (Chrome, Edge, Firefox, Safari...).
    - Hoặc sử dụng extension **Live Server** trong VS Code / Antigravity IDE.
 
-2. **Chuyển đổi nhanh vai trò (Demo Switcher)**:
-   - Ở góc dưới màn hình luôn có thanh công cụ **⚡ Nhanh Role Switcher**. Bạn có thể 1-click chuyển qua lại giữa các vai trò:
-     - `Khách Hàng` (Customer)
-     - `Nhân Viên` (Staff)
-     - `Admin` (Quản Lý)
+2. **Đăng nhập & Trải nghiệm**:
+   - Khách mua hàng bấm nút **`🔑 Đăng Nhập`** trên Header để Đăng Nhập hoặc Đăng Ký tài khoản mới.
+   - Nhân viên / Quản lý nhập tài khoản nội bộ trên Pop-up Đăng Nhập để vào Bảng điều khiển Quản trị.
 
 ---
 
