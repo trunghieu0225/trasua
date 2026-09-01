@@ -14,10 +14,29 @@ const OrderTracking = {
       if (searchInput) searchInput.value = orderId;
       this.lookupOrder(orderId);
     } else {
-      // Auto load the latest order if exists
-      const orders = DB.getOrders();
-      if (orders.length > 0) {
-        this.renderOrderDetails(orders[0]);
+      // If user is logged in, try loading their latest order
+      const user = typeof Auth !== "undefined" ? Auth.getCurrentUser() : null;
+      if (user && (user.phone || user.fullName)) {
+        const userOrders = DB.getOrders().filter(o => 
+          (user.phone && o.customerPhone === user.phone) || 
+          (user.fullName && o.customerName === user.fullName)
+        );
+        if (userOrders.length > 0) {
+          this.renderOrderDetails(userOrders[0]);
+          return;
+        }
+      }
+
+      // If no user orders found or guest, show search prompt
+      const resultEl = document.getElementById("tracking-result-box");
+      if (resultEl) {
+        resultEl.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1rem;">
+            <div style="font-size: 3rem; margin-bottom: 0.75rem;">📦</div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Tra Cứu Đơn Hàng Của Bạn</h4>
+            <p class="text-sm text-muted">Vui lòng nhập Mã đơn hàng (ví dụ: TS-8942) hoặc Số điện thoại vào ô tìm kiếm trên để theo dõi tiến độ giao hàng.</p>
+          </div>
+        `;
       }
     }
   },

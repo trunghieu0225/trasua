@@ -165,21 +165,32 @@
       document.getElementById("prof-phone").value = user.phone || "";
       document.getElementById("prof-address").value = user.address || "";
 
-      // Render Orders
-      const orders = DB.getOrders();
+      // Render Orders (Filtered for current logged-in user)
+      const allOrders = DB.getOrders();
+      const userOrders = allOrders.filter(o => 
+        (user.phone && o.customerPhone === user.phone) || 
+        (user.fullName && o.customerName === user.fullName)
+      );
+
       const orderListEl = document.getElementById("profile-orders-list");
       if (orderListEl) {
-        if (orders.length === 0) {
-          orderListEl.innerHTML = `<p class="text-sm text-muted">Bạn chưa có đơn hàng nào.</p>`;
+        if (userOrders.length === 0) {
+          orderListEl.innerHTML = `
+            <div style="text-align: center; padding: 2.5rem 1rem;">
+              <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛍️</div>
+              <p class="text-sm text-muted" style="margin-bottom: 1rem;">Bạn chưa tạo đơn hàng nào trên hệ thống.</p>
+              <a href="menu.html" class="btn btn-primary btn-sm">Khám phá thực đơn & Đặt món ngay ➔</a>
+            </div>
+          `;
         } else {
-          orderListEl.innerHTML = orders.map(o => `
+          orderListEl.innerHTML = userOrders.map(o => `
             <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; background-color: var(--bg-card-hover);">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                 <span class="font-bold text-sm" style="color: var(--primary);">#${o.id}</span>
                 ${Formatters.orderStatusBadge(o.orderStatus)}
               </div>
               <div class="text-xs text-muted" style="margin-bottom: 0.5rem;">
-                ${Formatters.dateTime(o.createdAt)} • ${o.items.length} món
+                ${Formatters.dateTime(o.createdAt)} • ${o.items ? o.items.length : 0} món
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="font-bold" style="color: var(--primary);">${Formatters.currency(o.totalAmount)}</span>
