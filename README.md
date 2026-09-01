@@ -10,11 +10,6 @@
 - **💳 Thanh Toán VietQR Tự Động**: Tạo mã QR chuyển khoản chuẩn ngân hàng (VietQR / NAPAS 247).
 - **🚚 Tra Cứu Tiến Độ Đơn Hàng**: Theo dõi trạng thái pha chế và giao hàng thời gian thực.
 - **🎁 Vòng Quay May Mắn & Tích Điểm**: Minigame tặng voucher thưởng 1 lần/ngày.
-- **⚙️ Quản Lý Cửa Hàng & Pha Chế**:
-  - Giao diện quản lý đơn hàng & danh sách nhân viên.
-  - Phân quyền nút **`🛍️ Xem Cửa Hàng`** chỉ hiển thị cho tài khoản **Quản Lý (Admin)** (tài khoản Pha Chế / Thu Ngân không thấy nút này).
-  - Tự động hiển thị nút **`⚙️ Trang Quản Lý`** trên Header Cửa hàng giúp Quản lý quay lại trang quản lý 1-Click.
-
 ---
 
 ## 🛠️ CÔNG NGHỆ
@@ -48,7 +43,7 @@ trasua/
 ## ⚡ KHỞI CHẠY NHANH
 
 1. Mở file `index.html` bằng trình duyệt web bất kỳ.
-2. Nạp CSDL MySQL (Tùy chọn): Import duy nhất file `database/teajoy.sql` vào MySQL 8.0.
+2. CSDL MySQL (Tùy chọn): Import duy nhất file `database/teajoy.sql` vào MySQL 8.0.
 3. Tài khoản demo:
    - **👑 Quản Lý**: `admin` / `123456`
    - **🧋 Pha Chế**: `phache` / `123456`
