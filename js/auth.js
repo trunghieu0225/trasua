@@ -345,11 +345,15 @@ const Auth = {
         const isInsideAdmin = window.location.pathname.includes("/admin/");
         const targetPage = isInsideAdmin ? "../profile.html" : "profile.html";
         btn.innerHTML = `
-          <a href="${targetPage}" class="btn btn-sm btn-outline" style="display: flex; align-items: center; gap: 0.35rem;">
-            <span>👤</span>
-            <span class="font-bold">${user.fullName.split(" ").slice(-1)[0]}</span>
-          </a>
-          <button class="btn btn-sm btn-ghost text-muted" onclick="Auth.logout()" title="Đăng xuất">🚪</button>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <a href="${targetPage}" class="btn btn-sm btn-outline" style="display: flex; align-items: center; gap: 0.35rem;" title="Xem trang cá nhân">
+              <span>👤</span>
+              <span class="font-bold">${user.fullName.split(" ").slice(-1)[0]}</span>
+            </a>
+            <button class="btn btn-sm btn-outline" style="border-color: var(--primary); color: var(--primary);" onclick="Auth.logout()" title="Đăng xuất khỏi tài khoản">
+              <span>🚪</span> Đăng Xuất
+            </button>
+          </div>
         `;
       } else {
         btn.innerHTML = `

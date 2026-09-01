@@ -54,10 +54,10 @@ app.use('/api/orders', orderRoutes);
 
 // Start Server
 app.listen(PORT, async () => {
-  console.log(`\n==================================================`);
-  console.log(`🧋 TEAJOY STORE BACKEND API SERVER IS RUNNING`);
-  console.log(`🚀 API Base URL: http://localhost:${PORT}/api`);
-  console.log(`==================================================\n`);
+  console.log(`==================================================`);
+  console.log(`  TRÀ SỮA ĐÔ ĐÔ - BACKEND API SERVER (PORT ${PORT})`);
+  console.log(`  URL: http://localhost:${PORT}/api`);
+  console.log(`==================================================`);
   
   await testConnection();
 });

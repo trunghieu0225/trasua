@@ -1,13 +1,14 @@
 @echo off
-title TeaJoy Backend API Server
-color 0A
+title Tra Sua DO DO - Backend API Server
+color 0F
+cls
 echo ==================================================
-echo   HE THONG TEAJOY STORE - BACKEND API SERVER
+echo   TRA SUA DO DO - BACKEND API SERVER
 echo ==================================================
 echo.
-echo [1/2] Dang giai phong cong 5000 neu bi chiem...
+echo [1/2] Dang kiem tra va giai phong cong 5000...
 for /f "tokens=5" %%a in ('netstat -aon ^| findstr :5000') do taskkill /f /pid %%a >nul 2>&1
-echo [2/2] Dang khoi chay Server Backend va ket noi MySQL...
+echo [2/2] Dang khoi chay Server Backend...
 echo.
 cd /d "%~dp0server"
 node index.js

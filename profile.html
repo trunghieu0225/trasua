@@ -123,7 +123,10 @@
               <label class="form-label text-xs">Địa chỉ giao hàng mặc định</label>
               <input type="text" id="prof-address" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary btn-sm">Lưu Thay Đổi</button>
+            <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+              <button type="submit" class="btn btn-primary btn-sm">💾 Lưu Thay Đổi</button>
+              <button type="button" class="btn btn-danger btn-sm" onclick="Auth.logout()">🚪 Đăng Xuất Tài Khoản</button>
+            </div>
           </form>
         </div>
       </div>
