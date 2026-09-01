@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Quản Lý - Trà Sữa ĐÔ ĐÔ</title>
+
+  <!-- Google Fonts for Vietnamese Support -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <style>
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 260px; background: var(--bg-surface); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem 1rem; }
+    .admin-main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main); }
+    .admin-topbar { height: 70px; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding-inline: 1.5rem; }
+    .admin-content { padding: 1.75rem; flex: 1; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 600; text-decoration: none; margin-bottom: 0.25rem; transition: var(--transition-fast); }
+    .nav-item:hover, .nav-item.active { background: var(--primary-bg); color: var(--primary); }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.75rem; }
+    .kpi-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; padding-inline: 0.5rem;">
+          <div style="font-size: 1.75rem;">🧋</div>
+          <div>
+            <h4 style="margin: 0; font-size: 1.1rem;">ĐÔ ĐÔ <span class="text-primary">POS</span></h4>
+            <span class="text-xs text-muted">Quản Lý & Pha Chế</span>
+          </div>
+        </div>
+
+        <nav>
+          <a href="index.html" class="nav-item active">📊 Tổng Quan Bán Hàng</a>
+          <a href="staff.html" class="nav-item">💼 Quản Lý Nhân Viên & Quyền</a>
+        </nav>
+      </div>
+
+      <!-- Sidebar Footer (Rendered by JS based on user role) -->
+      <div id="sidebar-footer-action" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- Injected by JS -->
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <h3 style="margin: 0; font-size: 1.2rem;">Trung Tâm Bán Hàng & Pha Chế</h3>
+          <span class="text-xs text-muted" id="current-date-text">Cửa hàng Trà Sữa ĐÔ ĐÔ</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;" id="topbar-user-section">
+          <!-- Injected by JS -->
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- Staff Banner -->
+        <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #FFF0F2 0%, #FFFFFF 100%); border: 1.5px solid var(--border-color); padding: 1.25rem 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; font-weight: bold;">🧋</div>
+              <div>
+                <h4 style="margin: 0; font-size: 1.1rem;" id="dashboard-user-name">Đang tải tài khoản...</h4>
+                <p class="text-xs text-muted" style="margin: 0;" id="dashboard-user-role">Hệ thống xử lý đơn hàng & pha chế</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div id="view-store-topbar-btn"></div>
+              <button class="btn btn-primary btn-sm" onclick="Auth.logout()">🚪 Đăng Xuất</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div>
+              <span class="text-xs text-muted">Doanh Thu Hôm Nay</span>
+              <h3 style="margin-top: 0.25rem; color: var(--primary);" id="kpi-revenue">0 ₫</h3>
+            </div>
+            <div style="font-size: 2rem;">💰</div>
+          </div>
+          <div class="kpi-card">
+            <div>
+              <span class="text-xs text-muted">Tổng Số Đơn Hàng</span>
+              <h3 style="margin-top: 0.25rem;" id="kpi-orders">0</h3>
+            </div>
+            <div style="font-size: 2rem;">📦</div>
+          </div>
+          <div class="kpi-card">
+            <div>
+              <span class="text-xs text-muted">Món Trong Thực Đơn</span>
+              <h3 style="margin-top: 0.25rem;" id="kpi-products">10 món</h3>
+            </div>
+            <div style="font-size: 2rem;">🧋</div>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="margin: 0;">Danh Sách Đơn Hàng Cần Pha Chế / Xử Lý</h4>
+            <span class="badge badge-primary text-xs">Cập nhật realtime</span>
+          </div>
+
+          <table class="data-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="text-align: left; border-bottom: 2px solid var(--border-color);">
+                <th style="padding: 0.75rem;">Mã Đơn</th>
+                <th style="padding: 0.75rem;">Khách Hàng</th>
+                <th style="padding: 0.75rem;">Số Món</th>
+                <th style="padding: 0.75rem;">Tổng Tiền</th>
+                <th style="padding: 0.75rem;">Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody id="dashboard-orders-tbody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/db/mock-data.js"></script>
+  <script src="../js/db/storage.js"></script>
+  <script src="../js/utils/formatters.js"></script>
+  <script src="../js/utils/toast.js"></script>
+  <script src="../js/utils/modal.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = Auth.getCurrentUser();
+      const isManager = user && user.role === "admin";
+
+      // 1. Update Date
+      const dateEl = document.getElementById("current-date-text");
+      if (dateEl) {
+        const now = new Date();
+        dateEl.textContent = `Hôm nay: ${now.toLocaleDateString("vi-VN", { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' })}`;
+      }
+
+      // 2. Update Banner Info
+      const nameEl = document.getElementById("dashboard-user-name");
+      const roleEl = document.getElementById("dashboard-user-role");
+      if (nameEl && user) nameEl.textContent = `Tài khoản: ${user.fullName} (${user.username})`;
+      if (roleEl && user) {
+        const title = isManager ? "Quản Lý Cửa Hàng (Admin)" : (user.username === "phache" ? "Nhân Viên Pha Chế Đồ Uống" : "Nhân Viên Thu Ngân");
+        roleEl.textContent = `Chức danh: ${title}`;
+      }
+
+      // 3. Render Role-Based View Store Buttons (ONLY visible for Manager / Admin)
+      const sidebarFooter = document.getElementById("sidebar-footer-action");
+      const topbarViewStoreBtn = document.getElementById("view-store-topbar-btn");
+
+      if (isManager) {
+        if (sidebarFooter) {
+          sidebarFooter.innerHTML = `
+            <a href="../index.html" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">🛍️ Xem Cửa Hàng</a>
+            <button class="btn btn-sm" style="width: 100%; background: #FFF0F2; color: var(--primary); font-weight: 600;" onclick="Auth.logout()">🚪 Đăng Xuất</button>
+          `;
+        }
+        if (topbarViewStoreBtn) {
+          topbarViewStoreBtn.innerHTML = `<a href="../index.html" class="btn btn-outline btn-sm">🛍️ Xem Cửa Hàng</a>`;
+        }
+      } else {
+        // Staff / Barista -> HIDE "Xem Cửa Hàng" completely!
+        if (sidebarFooter) {
+          sidebarFooter.innerHTML = `
+            <button class="btn btn-sm" style="width: 100%; background: #FFF0F2; color: var(--primary); font-weight: 600;" onclick="Auth.logout()">🚪 Đăng Xuất</button>
+          `;
+        }
+        if (topbarViewStoreBtn) {
+          topbarViewStoreBtn.innerHTML = "";
+        }
+      }
+
+      // 4. Render KPIs & Orders Table
+      const orders = DB.getOrders();
+      const revenue = orders.filter(o => o.orderStatus !== "cancelled").reduce((s, o) => s + o.totalAmount, 0);
+
+      document.getElementById("kpi-revenue").textContent = Formatters.currency(revenue);
+      document.getElementById("kpi-orders").textContent = orders.length;
+
+      const tbody = document.getElementById("dashboard-orders-tbody");
+      if (tbody) {
+        if (orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted" style="padding: 1.5rem;">Chưa có đơn hàng nào.</td></tr>`;
+        } else {
+          tbody.innerHTML = orders.slice(0, 6).map(o => `
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 0.75rem;" class="font-bold text-primary">#${o.id}</td>
+              <td style="padding: 0.75rem;">${o.customerName} (${o.customerPhone})</td>
+              <td style="padding: 0.75rem;">${o.items ? o.items.length : 1} món</td>
+              <td style="padding: 0.75rem;" class="font-bold">${Formatters.currency(o.totalAmount)}</td>
+              <td style="padding: 0.75rem;">${Formatters.orderStatusBadge(o.orderStatus)}</td>
+            </tr>
+          `).join("");
+        }
+      }
+    });
+  </script>
+</body>
+</html>

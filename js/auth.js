@@ -296,8 +296,27 @@ const Auth = {
     const userBtns = document.querySelectorAll(".header-user-action");
     userBtns.forEach(btn => {
       if (user) {
+        const isAdmin = user.role === "admin";
+        const isStaff = user.role === "staff";
+
+        let adminBtnHtml = "";
+        if (isAdmin) {
+          adminBtnHtml = `
+            <a href="admin/index.html" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 0.35rem;" title="Quay lại trang quản lý">
+              <span>⚙️</span> Trang Quản Lý
+            </a>
+          `;
+        } else if (isStaff) {
+          adminBtnHtml = `
+            <a href="admin/staff.html" class="btn btn-sm btn-primary" style="display: flex; align-items: center; gap: 0.35rem;" title="Vào trang pha chế">
+              <span>🧋</span> Trang Pha Chế
+            </a>
+          `;
+        }
+
         btn.innerHTML = `
           <div style="display: flex; align-items: center; gap: 0.5rem;">
+            ${adminBtnHtml}
             <a href="profile.html" class="btn btn-sm btn-outline" style="display: flex; align-items: center; gap: 0.35rem;" title="Xem trang cá nhân">
               <span>👤</span>
               <span class="font-bold">${user.fullName.split(" ").slice(-1)[0]}</span>

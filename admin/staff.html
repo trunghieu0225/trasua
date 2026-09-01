@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Nhân Viên & Pha Chế - Trà Sữa ĐÔ ĐÔ</title>
+
+  <!-- Google Fonts for Vietnamese Support -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <style>
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 260px; background: var(--bg-surface); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem 1rem; }
+    .admin-main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main); }
+    .admin-topbar { height: 70px; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding-inline: 1.5rem; }
+    .admin-content { padding: 1.75rem; flex: 1; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 600; text-decoration: none; margin-bottom: 0.25rem; transition: var(--transition-fast); }
+    .nav-item:hover, .nav-item.active { background: var(--primary-bg); color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; padding-inline: 0.5rem;">
+          <div style="font-size: 1.75rem;">🧋</div>
+          <div>
+            <h4 style="margin: 0; font-size: 1.1rem;">ĐÔ ĐÔ <span class="text-primary">POS</span></h4>
+            <span class="text-xs text-muted">Quản Lý & Pha Chế</span>
+          </div>
+        </div>
+
+        <nav>
+          <a href="index.html" class="nav-item">📊 Tổng Quan Bán Hàng</a>
+          <a href="staff.html" class="nav-item active">💼 Quản Lý Nhân Viên & Quyền</a>
+        </nav>
+      </div>
+
+      <!-- Sidebar Footer (Rendered by JS based on user role) -->
+      <div id="sidebar-footer-action" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- Injected by JS -->
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <h3 style="margin: 0; font-size: 1.2rem;">Quản Lý Đội Ngũ Nhân Viên & Pha Chế</h3>
+          <span class="text-xs text-muted">Cấp quyền thu ngân, pha chế và quản lý cửa hàng</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="btn btn-primary btn-sm" onclick="StaffMgmt.openAddModal()">+ Thêm Nhân Viên</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- Staff Banner -->
+        <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #FFF0F2 0%, #FFFFFF 100%); border: 1.5px solid var(--border-color); padding: 1.25rem 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; font-weight: bold;">🧋</div>
+              <div>
+                <h4 style="margin: 0; font-size: 1.1rem;" id="staff-banner-name">Đang tải thông tin...</h4>
+                <p class="text-xs text-muted" style="margin: 0;" id="staff-banner-role">Giao diện quản lý & pha chế</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <div id="view-store-staff-btn"></div>
+              <button class="btn btn-primary btn-sm" onclick="Auth.logout()">🚪 Đăng Xuất Ngay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Staff List Table -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="margin: 0;">Danh Sách Tài Khoản Nhân Viên & Pha Chế</h4>
+          </div>
+
+          <table class="data-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="text-align: left; border-bottom: 2px solid var(--border-color);">
+                <th style="padding: 0.75rem;">Mã NV</th>
+                <th style="padding: 0.75rem;">Họ và Tên</th>
+                <th style="padding: 0.75rem;">Tên Đăng Nhập</th>
+                <th style="padding: 0.75rem;">Vai Trò Phân Quyền</th>
+                <th style="padding: 0.75rem;">Số Điện Thoại</th>
+                <th style="padding: 0.75rem;">Trạng Thái</th>
+                <th style="padding: 0.75rem;">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="admin-staff-tbody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Staff Modal -->
+  <div id="staff-modal" class="modal-backdrop">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Thêm Nhân Viên Mới</h4>
+        <button class="modal-close" data-close-modal="staff-modal">✕</button>
+      </div>
+      <form onsubmit="StaffMgmt.saveStaffSubmit(event)">
+        <div class="modal-body" style="padding: 1.25rem;">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label text-xs">Họ và Tên *</label>
+            <input type="text" id="staff-name" class="form-control" required placeholder="Ví dụ: Lê Văn Pha Chế">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label text-xs">Tên Đăng Nhập *</label>
+              <input type="text" id="staff-username" class="form-control" required placeholder="phache1">
+            </div>
+            <div class="form-group">
+              <label class="form-label text-xs">Mật Khẩu *</label>
+              <input type="password" id="staff-password" class="form-control" required value="123456">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label text-xs">Số Điện Thoại *</label>
+              <input type="tel" id="staff-phone" class="form-control" required placeholder="0901234567">
+            </div>
+            <div class="form-group">
+              <label class="form-label text-xs">Vai Trò Phân Quyền *</label>
+              <select id="staff-role" class="form-select">
+                <option value="staff">🧋 Nhân Viên Pha Chế / Thu Ngân</option>
+                <option value="admin">👑 Quản Lý Chi Nhánh (Admin)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="padding: 1rem; border-top: 1px solid var(--border-color); text-align: right;">
+          <button type="button" class="btn btn-outline btn-sm" data-close-modal="staff-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary btn-sm">Lưu Nhân Viên</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/db/mock-data.js"></script>
+  <script src="../js/db/storage.js"></script>
+  <script src="../js/utils/formatters.js"></script>
+  <script src="../js/utils/toast.js"></script>
+  <script src="../js/utils/modal.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <script>
+    const StaffMgmt = {
+      init() {
+        this.updateRoleBasedUI();
+        this.renderTable();
+      },
+
+      updateRoleBasedUI() {
+        const user = Auth.getCurrentUser();
+        const isManager = user && user.role === "admin";
+
+        const bName = document.getElementById("staff-banner-name");
+        const bRole = document.getElementById("staff-banner-role");
+
+        if (bName && user) bName.textContent = `Tài Khoản: ${user.fullName} (${user.username})`;
+        if (bRole && user) {
+          const roleTitle = isManager ? "Quản Lý Cửa Hàng (Admin)" : (user.username === "phache" ? "Nhân Viên Pha Chế Đồ Uống" : "Nhân Viên Thu Ngân");
+          bRole.textContent = `Chức danh: ${roleTitle} • Bạn có thể đăng xuất bằng nút Đăng Xuất.`;
+        }
+
+        // Render "Xem Cửa Hàng" ONLY if user is Manager (Admin)
+        const sidebarFooter = document.getElementById("sidebar-footer-action");
+        const topViewBtn = document.getElementById("view-store-staff-btn");
+
+        if (isManager) {
+          if (sidebarFooter) {
+            sidebarFooter.innerHTML = `
+              <a href="../index.html" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">🛍️ Xem Cửa Hàng</a>
+              <button class="btn btn-sm" style="width: 100%; background: #FFF0F2; color: var(--primary); font-weight: 600;" onclick="Auth.logout()">🚪 Đăng Xuất</button>
+            `;
+          }
+          if (topViewBtn) {
+            topViewBtn.innerHTML = `<a href="../index.html" class="btn btn-outline btn-sm">🛍️ Xem Cửa Hàng</a>`;
+          }
+        } else {
+          // Staff / Barista -> HIDE "Xem Cửa Hàng"
+          if (sidebarFooter) {
+            sidebarFooter.innerHTML = `
+              <button class="btn btn-sm" style="width: 100%; background: #FFF0F2; color: var(--primary); font-weight: 600;" onclick="Auth.logout()">🚪 Đăng Xuất</button>
+            `;
+          }
+          if (topViewBtn) {
+            topViewBtn.innerHTML = "";
+          }
+        }
+      },
+
+      renderTable() {
+        const tbody = document.getElementById("admin-staff-tbody");
+        if (!tbody) return;
+
+        const staff = DB.getUsers().filter(u => u.role === "admin" || u.role === "staff");
+        tbody.innerHTML = staff.map(s => {
+          let roleBadge = '💼 Thu Ngân';
+          if (s.role === 'admin') roleBadge = '👑 Quản Lý';
+          else if (s.username === 'phache' || s.fullName.toLowerCase().includes('pha chế')) roleBadge = '🧋 Pha Chế';
+
+          return `
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 0.75rem;" class="font-bold text-primary">${s.id}</td>
+              <td style="padding: 0.75rem;" class="font-bold">${s.fullName}</td>
+              <td style="padding: 0.75rem;"><code>${s.username}</code></td>
+              <td style="padding: 0.75rem;">
+                <span class="badge ${s.role === 'admin' ? 'badge-primary' : 'badge-info'}">
+                  ${roleBadge}
+                </span>
+              </td>
+              <td style="padding: 0.75rem;">${s.phone || 'Chưa có'}</td>
+              <td style="padding: 0.75rem;">
+                <span class="badge ${s.status === 'locked' ? 'badge-danger' : 'badge-success'}">
+                  ${s.status === 'locked' ? 'Tạm Khóa' : 'Đang Làm Việc'}
+                </span>
+              </td>
+              <td style="padding: 0.75rem;">
+                <button class="btn btn-outline btn-sm" onclick="StaffMgmt.toggleStaff('${s.id}')">
+                  ${s.status === 'locked' ? 'Mở Khóa' : 'Khóa'}
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      },
+
+      openAddModal() {
+        document.getElementById("staff-name").value = "";
+        document.getElementById("staff-username").value = "";
+        document.getElementById("staff-phone").value = "";
+        Modal.open("staff-modal");
+      },
+
+      saveStaffSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById("staff-name").value;
+        const u = document.getElementById("staff-username").value;
+        const p = document.getElementById("staff-password").value;
+        const phone = document.getElementById("staff-phone").value;
+        const role = document.getElementById("staff-role").value;
+
+        const newStaff = {
+          id: `STF-${Date.now().toString().slice(-4)}`,
+          fullName: name,
+          username: u,
+          password: p,
+          phone,
+          role,
+          status: "active",
+          createdAt: new Date().toISOString().split("T")[0]
+        };
+
+        DB.saveUser(newStaff);
+        Toast.success(`Đã thêm nhân viên: <b>${name}</b>`);
+        Modal.close("staff-modal");
+        this.renderTable();
+      },
+
+      toggleStaff(id) {
+        const users = DB.getUsers();
+        const s = users.find(u => u.id === id);
+        if (s) {
+          s.status = s.status === 'locked' ? 'active' : 'locked';
+          DB.set(STORAGE_KEYS.USERS, users);
+          Toast.success("Cập nhật trạng thái nhân viên thành công!");
+          this.renderTable();
+        }
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => StaffMgmt.init());
+  </script>
+</body>
+</html>
