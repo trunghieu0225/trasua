@@ -22,7 +22,7 @@ async function testConnection() {
     return true;
   } catch (error) {
     console.warn('⚠️ Could not connect to local MySQL Server:', error.message);
-    console.warn('💡 Tip: Make sure MySQL is running on port 3306 and teajoy_store database is created using database/schema.sql.');
+    console.warn('💡 Tip: Make sure MySQL is running on port 3306 and teajoy_store database is created using database/teajoy.sql.');
     return false;
   }
 }
