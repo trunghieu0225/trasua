@@ -68,16 +68,23 @@ const Auth = {
 
   async registerAsync(userData) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1200);
       const response = await fetch(`${this.API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
+        body: JSON.stringify(userData),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       const data = await response.json();
       if (data.success && data.user) {
         DB.saveUser(data.user);
         DB.setCurrentUser(data.user);
         return { success: true, user: data.user, message: data.message };
+      } else if (data.message && data.message.includes("Access denied")) {
+        console.warn("MySQL Access Denied on Server, registering locally in LocalStorage...");
+        return this.register(userData);
       } else {
         return { success: false, message: data.message || "Đăng ký không thành công!" };
       }
