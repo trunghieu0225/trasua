@@ -53,7 +53,7 @@ INSERT INTO `VOUCHERS` (`id`, `ma_voucher`, `loai_giam`, `gia_tri_giam`, `giam_t
 
 -- 7. SEED DON_HANG
 INSERT INTO `DON_HANG` (`id`, `ma_don_hang`, `khach_hang_id`, `ten_nguoi_nhan`, `sdt_nguoi_nhan`, `dia_chi_giao_hang`, `ghi_chu`, `voucher_id`, `tong_tien_mon`, `phi_van_chuyen`, `so_tien_giam_gia`, `tong_thanh_toan`, `trang_thai_don_hang`, `ngay_dat`) VALUES
-(1, 'TS-8942', 1, 'Lê Hoàng Phúc', '0987654321', '123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM', 'Giao trước 12h trưa', 1, 160000.00, 15000.00, 16000.00, 159000.00, 'preparing', '2026-09-01 10:15:30'),
+(1, 'TS-8942', NULL, 'Lê Hoàng Phúc', '0987654321', '123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM', 'Giao trước 12h trưa', 1, 160000.00, 15000.00, 16000.00, 159000.00, 'preparing', '2026-09-01 10:15:30'),
 (2, 'TS-8941', NULL, 'Nguyễn Thị Mai', '0933112233', '45 Lê Duẩn, Quận 1, TP.HCM', 'Cho thêm ống hút lớn', NULL, 53000.00, 15000.00, 0.00, 68000.00, 'shipping', '2026-09-01 09:40:12');
 
 -- 8. SEED CHI_TIET_DON_HANG
@@ -71,7 +71,5 @@ INSERT INTO `THANH_TOAN` (`id`, `don_hang_id`, `phuong_thuc`, `ma_giao_dich_cong
 INSERT INTO `BAI_VIET` (`id`, `tac_gia_id`, `tieu_de`, `slug`, `loai_bai_viet`, `anh_dai_dien`, `tom_tat`, `noi_dung`, `trang_thai`) VALUES
 (1, 1, 'Bí Quyết Chọn Lá Trà Ô Long Chuẩn Vị Tại Bảo Lộc', 'bi-quyet-chon-la-tra-o-long', 'tin_tuc', 'https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=1200&q=80', 'Khám phá quy trình thu hái búp trà 1 tôm 2 lá...', '<p>Chi tiết bài viết giới thiệu về nguồn gốc lá trà tự nhiên...</p>', 'xuat_ban');
 
--- 11. SEED REVIEWS
-INSERT INTO `REVIEWS` (`id`, `khach_hang_id`, `san_pham_id`, `don_hang_id`, `so_sao`, `noi_dung`, `trang_thai_hien_thi`) VALUES
-(1, 1, 1, 1, 5, 'Trà sữa rất thơm, trân châu hoàng kim dẻo quánh nhai cực đã! Giao nhanh dưới 20p.', TRUE),
-(2, 1, 2, NULL, 5, 'Kem cheese mặn béo ngậy đúng gu mình, 10/10 sẽ ủng hộ tiếp!', TRUE);
+-- 11. SEED REVIEWS (Ban đầu rỗng - Khách hàng sẽ đánh giá sau khi mua hàng)
+-- (Không chèn dữ liệu đánh giá mẫu để tránh lỗi khóa ngoại)
