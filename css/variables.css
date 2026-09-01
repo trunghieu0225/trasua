@@ -3,38 +3,38 @@
    ========================================================================== */
 
 :root {
-  /* Brand Colors - Warm Milk Tea & Cream Palette */
-  --primary: #9C6644;            /* Warm Caramel Brown */
-  --primary-hover: #7F5539;
-  --primary-light: #DDB892;
-  --primary-bg: #F8EDEB;
-  --primary-glow: rgba(156, 102, 68, 0.25);
+  /* Brand Colors - Bold Crimson Red Palette (ĐÔ ĐÔ Brand Theme) */
+  --primary: #E60023;            /* Premium Crimson Red */
+  --primary-hover: #C4001D;
+  --primary-light: #FF4D6D;
+  --primary-bg: #FFF0F2;
+  --primary-glow: rgba(230, 0, 35, 0.22);
 
-  --secondary: #588157;          /* Matcha Green Accent */
-  --secondary-hover: #3A5A40;
-  --secondary-light: #A3B18A;
-  --secondary-bg: #EAF4EC;
+  --secondary: #2D6A4F;          /* Emerald Tea Accent */
+  --secondary-hover: #1B4332;
+  --secondary-light: #52B788;
+  --secondary-bg: #E8F5E9;
 
   --accent-taro: #7D6B90;         /* Taro Milk Tea */
-  --accent-peach: #F4A261;        /* Peach / Cream */
-  --accent-coral: #E76F51;        /* Berry / Strawberry */
-  --accent-gold: #E9C46A;         /* Gold Pearl */
+  --accent-peach: #FF6B6B;        /* Strawberry / Peach */
+  --accent-coral: #E60023;        /* Berry Red */
+  --accent-gold: #FFB703;         /* Gold Pearl */
 
   /* Neutral Colors */
-  --bg-main: #FCF9F6;            /* Soft Cream White */
+  --bg-main: #FFFDFD;            /* Clean Milk White */
   --bg-surface: #FFFFFF;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #FAF7F2;
-  --bg-subtle: #F3ECE2;
+  --bg-card-hover: #FFF8F9;
+  --bg-subtle: #FFF0F2;
 
-  --text-main: #2B2118;          /* Deep Roast Coffee */
-  --text-muted: #73675C;
-  --text-subtle: #9E9184;
+  --text-main: #1D1919;          /* Deep Dark Roast */
+  --text-muted: #6B5E5E;
+  --text-subtle: #998C8C;
   --text-inverse: #FFFFFF;
 
-  --border-color: #E8DECE;
-  --border-focus: #9C6644;
-  --border-subtle: #F0E8DC;
+  --border-color: #F7D6DB;
+  --border-focus: #E60023;
+  --border-subtle: #FCE8EC;
 
   /* Status Colors */
   --status-pending: #E09F3E;

@@ -140,7 +140,7 @@ const Checkout = {
     if (qrAmount) qrAmount.textContent = Formatters.currency(total);
     if (qrImg) {
       // Official VietQR QuickLink format (MBBank 0901234567 - TeaJoy Store)
-      qrImg.src = `https://img.vietqr.io/image/mbbank-0901234567-compact2.png?amount=${total}&addInfo=TEAJOY%20THANHTOAN&accountName=TEAJOY%20STORE`;
+      qrImg.src = `https://img.vietqr.io/image/mbbank-0901234567-compact2.png?amount=${total}&addInfo=DODO%20THANHTOAN&accountName=TRA%20SUA%20DO%20DO`;
     }
   },
 

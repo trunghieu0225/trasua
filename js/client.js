@@ -25,6 +25,9 @@ const ClientApp = {
         ${product.isBestseller ? `<span class="badge badge-warning badge-tag">🔥 Hot</span>` : (product.isNew ? `<span class="badge badge-secondary badge-tag">✨ Mới</span>` : "")}
         <div class="card-img-wrap" onclick="ClientApp.openCustomizer('${product.id}')" style="cursor: pointer;">
           <img src="${product.image}" alt="${product.name}" loading="lazy">
+          <div class="quick-view-overlay" style="position: absolute; inset: 0; background: rgba(230,0,35,0.25); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+            <span class="btn btn-primary btn-sm" style="box-shadow: 0 4px 12px rgba(0,0,0,0.3);">👁️ Xem & Tùy Chỉnh</span>
+          </div>
         </div>
         <div class="card-body">
           <span class="card-category">${product.category}</span>
@@ -33,14 +36,16 @@ const ClientApp = {
             <span>⭐ ${product.rating}</span>
             <span style="color: var(--text-subtle);">(${product.sold} đã bán)</span>
           </div>
-          <div class="card-footer">
+          <div class="card-footer" style="gap: 0.5rem; flex-wrap: wrap;">
             <div class="price-wrap">
               <span class="current-price">${Formatters.currency(product.price)}</span>
-              ${product.oldPrice ? `<span class="oldPrice">${Formatters.currency(product.oldPrice)}</span>` : ""}
+              ${product.oldPrice ? `<span class="oldPrice" style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-subtle);">${Formatters.currency(product.oldPrice)}</span>` : ""}
             </div>
-            <button class="btn-add-cart" onclick="ClientApp.openCustomizer('${product.id}')" title="Tùy chỉnh & Thêm vào giỏ">
-              <span style="font-size: 1.2rem; font-weight: bold;">+</span>
-            </button>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn btn-primary btn-sm" onclick="ClientApp.openCustomizer('${product.id}')" title="Chọn Size & Topping">
+                🛒 Chọn Món
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
-# 🧋 TEAJOY STORE - WEB BÁN HÀNG & QUẢN LÝ CHUỖI TRÀ SỮA HIỆN ĐẠI
+# 🧋 TRÀ SỮA ĐÔ ĐÔ - WEB BÁN HÀNG & QUẢN LÝ CHUỖI TRÀ SỮA HIỆN ĐẠI
 
-![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-red.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat&logo=mysql&logoColor=white)
 ![VietQR](https://img.shields.io/badge/Payment-VietQR%20NAPAS247-0052CC.svg)
 
-> **TeaJoy Store** là hệ thống ứng dụng web bán hàng trực tuyến và trang quản trị POS đa năng dành cho chuỗi cửa hàng trà sữa & thức uống giải nhiệt. Ứng dụng được thiết kế theo phong cách hiện đại (Glassmorphism, mượt mà trên mọi thiết bị), hỗ trợ tùy biến ly trà sữa realtime, tích hợp thanh toán VietQR tự động và quản lý đơn hàng chuyên nghiệp.
+> **Trà Sữa ĐÔ ĐÔ** là hệ thống ứng dụng web bán hàng trực tuyến và trang quản trị POS đa năng dành cho chuỗi cửa hàng trà sữa thương hiệu **ĐÔ ĐÔ**. Ứng dụng được thiết kế theo phong cách hiện đại với tông màu **Đỏ Thương Hiệu ĐÔ ĐÔ (Crimson Red)**, hỗ trợ tùy biến ly trà sữa realtime, tích hợp thanh toán VietQR tự động và quản lý đơn hàng chuyên nghiệp.
 
 ---
 
