@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TEAJOY STORE - AUTHENTICATION & GLOBAL POPUP MODAL
+   TEAJOY STORE - AUTHENTICATION & ROLE-BASED NAVIGATION
    ========================================================================== */
 
 const Auth = {
@@ -58,7 +58,12 @@ const Auth = {
 
   logout() {
     DB.setCurrentUser(null);
-    window.location.reload();
+    const isInsideAdmin = window.location.pathname.includes("/admin/");
+    if (isInsideAdmin) {
+      window.location.href = "../index.html";
+    } else {
+      window.location.reload();
+    }
   },
 
   async registerAsync(userData) {
@@ -123,7 +128,19 @@ const Auth = {
       DB.setCurrentUser(targetUser);
       Toast.success(`Đã đăng nhập vai trò: <b>${targetUser.fullName}</b> (${targetUser.role.toUpperCase()})`);
       setTimeout(() => {
-        window.location.reload();
+        if (role === "admin" || role === "staff") {
+          if (!window.location.pathname.includes("/admin/")) {
+            window.location.href = "admin/index.html";
+          } else {
+            window.location.reload();
+          }
+        } else {
+          if (window.location.pathname.includes("/admin/")) {
+            window.location.href = "../index.html";
+          } else {
+            window.location.reload();
+          }
+        }
       }, 500);
     }
   },
@@ -181,7 +198,21 @@ const Auth = {
       Toast.success(`Chào mừng <b>${res.user.fullName}</b>!`);
       this.updateHeaderAuthUI();
       setTimeout(() => {
-        window.location.reload();
+        if (res.user.role === "admin" || res.user.role === "staff") {
+          const isInsideAdmin = window.location.pathname.includes("/admin/");
+          if (!isInsideAdmin) {
+            window.location.href = "admin/index.html";
+          } else {
+            window.location.reload();
+          }
+        } else {
+          const isInsideAdmin = window.location.pathname.includes("/admin/");
+          if (isInsideAdmin) {
+            window.location.href = "../index.html";
+          } else {
+            window.location.reload();
+          }
+        }
       }, 500);
     } else {
       Toast.error(res.message);
@@ -219,7 +250,19 @@ const Auth = {
       Toast.success(`Đã đăng nhập vai trò: <b>${res.user.fullName}</b> (${res.user.role.toUpperCase()})`);
       this.updateHeaderAuthUI();
       setTimeout(() => {
-        window.location.reload();
+        if (res.user.role === "admin" || res.user.role === "staff") {
+          if (!window.location.pathname.includes("/admin/")) {
+            window.location.href = "admin/index.html";
+          } else {
+            window.location.reload();
+          }
+        } else {
+          if (window.location.pathname.includes("/admin/")) {
+            window.location.href = "../index.html";
+          } else {
+            window.location.reload();
+          }
+        }
       }, 500);
     }
   },
@@ -334,12 +377,68 @@ const Auth = {
         `;
       }
     });
+  },
+
+  // Dynamically update admin topbar and sidebar with role permissions
+  updateAdminAuthUI() {
+    const isInsideAdmin = window.location.pathname.includes("/admin/");
+    if (!isInsideAdmin) return;
+
+    const user = this.getCurrentUser();
+    const isManager = user && user.role === "admin";
+    const nameDisplay = user ? user.fullName : "Nguyễn Văn Quản Lý";
+    const roleDisplay = user ? (isManager ? "QUẢN LÝ" : (user.username === "phache" ? "PHA CHẾ" : "THU NGÂN")) : "QUẢN LÝ";
+
+    // 1. Update Topbar
+    const adminNameEl = document.getElementById("admin-user-name");
+    const adminRoleEl = document.getElementById("admin-user-role");
+    if (adminNameEl) adminNameEl.textContent = nameDisplay;
+    if (adminRoleEl) adminRoleEl.textContent = roleDisplay;
+
+    const topbar = document.querySelector(".admin-topbar");
+    if (topbar && !topbar.querySelector(".admin-topbar-actions")) {
+      const actionsDiv = document.createElement("div");
+      actionsDiv.className = "admin-topbar-actions";
+      actionsDiv.style.cssText = "display: flex; align-items: center; gap: 0.75rem; margin-left: auto;";
+
+      let viewStoreBtn = "";
+      if (isManager) {
+        viewStoreBtn = `<a href="../index.html" class="btn btn-sm btn-outline" style="display: flex; align-items: center; gap: 0.35rem;"><span>🛍️</span> Xem Cửa Hàng</a>`;
+      }
+
+      actionsDiv.innerHTML = `
+        ${viewStoreBtn}
+        <button class="btn btn-sm" style="background: #FFF0F2; color: var(--primary); border: 1px solid var(--border-color); font-weight: 600; display: flex; align-items: center; gap: 0.35rem;" onclick="Auth.logout()" title="Đăng xuất khỏi tài khoản">
+          <span>🚪</span> Đăng Xuất
+        </button>
+      `;
+      topbar.appendChild(actionsDiv);
+    }
+
+    // 2. Update Sidebar Footer
+    const sidebarFooter = document.querySelector(".admin-sidebar-footer");
+    if (sidebarFooter) {
+      sidebarFooter.style.display = "flex";
+      sidebarFooter.style.flexDirection = "column";
+      sidebarFooter.style.gap = "0.5rem";
+
+      let viewStoreLink = "";
+      if (isManager) {
+        viewStoreLink = `<a href="../index.html" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">🛍️ Xem Cửa Hàng</a>`;
+      }
+
+      sidebarFooter.innerHTML = `
+        ${viewStoreLink}
+        <button class="btn btn-sm admin-logout-btn" style="width: 100%; background: #FFF0F2; color: var(--primary); border: 1px solid var(--border-color); font-weight: 600; text-align: center;" onclick="Auth.logout()">🚪 Đăng Xuất Tài Khoản</button>
+      `;
+    }
   }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   Auth.initAuthModal();
   Auth.updateHeaderAuthUI();
+  Auth.updateAdminAuthUI();
 });
 
 window.Auth = Auth;
