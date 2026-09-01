@@ -17,7 +17,6 @@
 - **Thanh Toán VietQR**: Tạo mã QR chuyển khoản ngân hàng tự động (VietQR / NAPAS 247).
 - **Tra Cứu Đơn Hàng**: Theo dõi tiến độ pha chế và giao hàng thời gian thực.
 - **Vòng Quay May Mắn & Tích Điểm**: Minigame quay voucher và nâng hạng thành viên.
-- **Nút "⚙️ Trang Quản Lý" Trên Header**: Hiển thị nút **`⚙️ Trang Quản Lý`** trên Header Cửa hàng giúp Quản Lý quay lại trang quản lý 1-Click.
 
 ### ⚙️ 2. Trung Tâm Quản Lý & Pha Chế (Admin POS Portal)
 - **📊 Dashboard Báo Cáo**: Thống kê KPI doanh thu, số đơn, khách mới & biểu đồ Chart.js.
@@ -50,13 +49,6 @@ trasua/
 ├── js/                        # Mã nguồn JavaScript (auth, cart, checkout, client, tracking, admin/)
 ├── database/                  # CSDL MySQL 8.0 duy nhất (teajoy.sql)
 ├── index.html                 # Trang chủ Cửa hàng
-├── menu.html                  # Trang Thực đơn & Lọc món
-├── product-detail.html        # Trang Tùy biến ly trà sữa
-├── cart.html                  # Trang Giỏ hàng
-├── checkout.html              # Trang Thanh toán VietQR
-├── order-tracking.html        # Trang Tra cứu đơn hàng
-├── auth.html                  # Trang Đăng nhập / Đăng ký
-├── profile.html               # Trang Cá nhân & Tích điểm
 └── README.md                  # Tài liệu hướng dẫn
 ```
 
