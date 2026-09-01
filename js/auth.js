@@ -179,13 +179,13 @@ const Auth = {
   },
 
   // Submit Login from Popup
-  async handlePopupLogin(e) {
+  handlePopupLogin(e) {
     e.preventDefault();
     const u = document.getElementById("pop-login-username")?.value.trim();
     const p = document.getElementById("pop-login-password")?.value;
     if (!u || !p) return;
 
-    const res = await this.loginAsync(u, p);
+    const res = this.login(u, p);
     if (res.success) {
       Modal.close("global-auth-modal");
       Toast.success(`Chào mừng <b>${res.user.fullName}</b>!`);
@@ -213,14 +213,14 @@ const Auth = {
   },
 
   // Submit Register from Popup (Customers)
-  async handlePopupRegister(e) {
+  handlePopupRegister(e) {
     e.preventDefault();
     const u = document.getElementById("pop-reg-username")?.value.trim();
     const f = document.getElementById("pop-reg-fullname")?.value.trim();
     const phone = document.getElementById("pop-reg-phone")?.value.trim();
     const p = document.getElementById("pop-reg-password")?.value;
 
-    const res = await this.registerAsync({ username: u, fullName: f, phone, password: p });
+    const res = this.register({ username: u, fullName: f, phone, password: p });
     if (res.success) {
       Modal.close("global-auth-modal");
       Toast.success(res.message || "Đăng ký tài khoản Khách Hàng thành công! Tặng bạn 50 điểm thưởng 🎁");
