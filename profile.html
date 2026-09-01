@@ -55,7 +55,7 @@
           🛒
           <span class="cart-count-badge" style="display: none;">0</span>
         </a>
-        <button class="btn btn-outline btn-sm" onclick="Auth.logout()">Đăng Xuất</button>
+        <div class="header-user-action"></div>
       </div>
     </div>
   </header>
@@ -149,7 +149,12 @@
 
   <script>
     function initProfilePage() {
-      const user = Auth.getCurrentUser() || DB.getUsers()[2]; // Default demo customer
+      const user = Auth.getCurrentUser();
+      if (!user) {
+        Toast.warning("Vui lòng đăng nhập để xem thông tin thành viên!");
+        setTimeout(() => Auth.openAuthModal("login"), 400);
+        return;
+      }
 
       document.getElementById("user-display-name").textContent = user.fullName || "Khách Hàng";
       document.getElementById("user-phone-display").textContent = user.phone || "Chưa cập nhật SĐT";

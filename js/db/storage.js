@@ -50,9 +50,9 @@ const DB = {
     if (!localStorage.getItem(STORAGE_KEYS.CART)) {
       this.set(STORAGE_KEYS.CART, []);
     }
-    if (!localStorage.getItem(STORAGE_KEYS.CURRENT_USER)) {
-      // Default to guest or customer
-      this.set(STORAGE_KEYS.CURRENT_USER, INITIAL_USERS[2]);
+    if (localStorage.getItem(STORAGE_KEYS.CURRENT_USER) === null) {
+      // Default to guest (not logged in)
+      this.set(STORAGE_KEYS.CURRENT_USER, null);
     }
   },
 
