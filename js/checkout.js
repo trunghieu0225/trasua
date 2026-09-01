@@ -198,6 +198,25 @@ const Checkout = {
       createdAt: new Date().toISOString().replace("T", " ").substring(0, 19)
     };
 
+    // Try posting to Backend API Server (MySQL Database)
+    try {
+      fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: name,
+          phone,
+          address,
+          notes: note,
+          items: cart,
+          paymentMethod: this.paymentMethod,
+          voucherCode: this.appliedVoucher ? this.appliedVoucher.code : "",
+          discountAmount: discount,
+          shippingFee: ship
+        })
+      }).catch(err => console.log("Backend offline, order saved in LocalStorage"));
+    } catch (e) {}
+
     DB.saveOrder(newOrder);
 
     // Give loyalty points if customer

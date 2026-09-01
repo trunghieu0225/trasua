@@ -21,6 +21,28 @@ const Auth = {
     return user && (user.role === "admin" || user.role === "staff");
   },
 
+  API_BASE: "http://localhost:5000/api",
+
+  async loginAsync(username, password) {
+    try {
+      const response = await fetch(`${this.API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await response.json();
+      if (data.success && data.user) {
+        DB.setCurrentUser(data.user);
+        return { success: true, user: data.user, message: data.message };
+      } else {
+        return { success: false, message: data.message || "Tên đăng nhập hoặc mật khẩu không chính xác!" };
+      }
+    } catch (err) {
+      // Fallback to local DB if Backend Server is offline
+      return this.login(username, password);
+    }
+  },
+
   login(username, password) {
     const users = DB.getUsers();
     const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
@@ -41,6 +63,27 @@ const Auth = {
       window.location.href = "../index.html";
     } else {
       window.location.reload();
+    }
+  },
+
+  async registerAsync(userData) {
+    try {
+      const response = await fetch(`${this.API_BASE}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+      });
+      const data = await response.json();
+      if (data.success && data.user) {
+        DB.saveUser(data.user);
+        DB.setCurrentUser(data.user);
+        return { success: true, user: data.user, message: data.message };
+      } else {
+        return { success: false, message: data.message || "Đăng ký không thành công!" };
+      }
+    } catch (err) {
+      // Fallback to local DB if Backend Server is offline
+      return this.register(userData);
     }
   },
 
@@ -136,13 +179,13 @@ const Auth = {
   },
 
   // Submit Login from Popup
-  handlePopupLogin(e) {
+  async handlePopupLogin(e) {
     e.preventDefault();
     const u = document.getElementById("pop-login-username")?.value.trim();
     const p = document.getElementById("pop-login-password")?.value;
     if (!u || !p) return;
 
-    const res = this.login(u, p);
+    const res = await this.loginAsync(u, p);
     if (res.success) {
       Modal.close("global-auth-modal");
       Toast.success(`Chào mừng <b>${res.user.fullName}</b>!`);
@@ -170,17 +213,17 @@ const Auth = {
   },
 
   // Submit Register from Popup (Customers)
-  handlePopupRegister(e) {
+  async handlePopupRegister(e) {
     e.preventDefault();
     const u = document.getElementById("pop-reg-username")?.value.trim();
     const f = document.getElementById("pop-reg-fullname")?.value.trim();
     const phone = document.getElementById("pop-reg-phone")?.value.trim();
     const p = document.getElementById("pop-reg-password")?.value;
 
-    const res = this.register({ username: u, fullName: f, phone, password: p });
+    const res = await this.registerAsync({ username: u, fullName: f, phone, password: p });
     if (res.success) {
       Modal.close("global-auth-modal");
-      Toast.success("Đăng ký tài khoản Khách Hàng thành công! Tặng bạn 50 điểm thưởng 🎁");
+      Toast.success(res.message || "Đăng ký tài khoản Khách Hàng thành công! Tặng bạn 50 điểm thưởng 🎁");
       this.updateHeaderAuthUI();
       setTimeout(() => window.location.reload(), 600);
     } else {
