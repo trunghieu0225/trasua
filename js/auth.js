@@ -278,12 +278,13 @@ const Auth = {
 
             <!-- Quick Demo Accounts -->
             <div style="margin-top: 1.5rem; border-top: 1px dashed var(--border-color); padding-top: 1rem;">
-              <div class="text-xs text-muted text-center" style="margin-bottom: 0.6rem; font-weight: 700;">⚡ ĐĂNG NHẬP NHANH DEMO (1-CLICK)</div>
+              <div class="text-xs text-muted text-center" style="margin-bottom: 0.6rem; font-weight: 700;">⚡ ĐĂNG NHẬP NHANH TÀI KHOẢN NỘI BỘ (1-CLICK)</div>
               <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('khachhang', '123')">🛍️ Khách Hàng (Demo: khachhang / 123)</button>
-                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('nhanvien', '123')">💼 Thu Ngân Staff (Demo: nhanvien / 123)</button>
                 <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('admin', '123')">👑 Quản Lý Admin (Demo: admin / 123)</button>
+                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('nhanvien', '123')">💼 Thu Ngân Staff (Demo: nhanvien / 123)</button>
+                <button class="btn btn-outline btn-sm" onclick="Auth.quickLoginDemo('phache', '123')">🧋 Pha Chế Staff (Demo: phache / 123)</button>
               </div>
+              <p class="text-xs text-muted text-center" style="margin-top: 0.6rem;">💡 Khách mua hàng chưa có tài khoản? Bấm tab <b>"Đăng Ký Khách Hàng"</b> để tạo tài khoản mới.</p>
             </div>
 
           </div>

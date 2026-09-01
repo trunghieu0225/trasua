@@ -212,17 +212,14 @@ const INITIAL_USERS = [
   },
   {
     id: "USR-003",
-    username: "khachhang",
+    username: "phache",
     password: "123",
-    fullName: "Lê Hoàng Phúc",
-    role: "customer",
-    email: "phucle@gmail.com",
-    phone: "0987654321",
-    points: 320,
-    tier: "VIP Vàng",
-    address: "123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM",
+    fullName: "Lê Văn Pha Chế",
+    role: "staff",
+    email: "phache@teajoy.vn",
+    phone: "0933445566",
     status: "active",
-    createdAt: "2026-03-10"
+    createdAt: "2026-03-01"
   }
 ];
 

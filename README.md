@@ -119,13 +119,15 @@ Dự án được xây dựng chuẩn Web tiêu chuẩn, **không cần cài đ�
 
 ---
 
-## 🔑 TÀI KHOẢN MẶC ĐỊNH DEMO
+## 🔑 TÀI KHOẢN MẶC ĐỊNH DEMO NỘI BỘ
 
 | Vai Trò | Tên Đăng Nhập | Mật Khẩu | Quyền Hạn |
 |---------|---------------|----------|-----------|
 | **Quản Lý (Admin)** | `admin` | `123` | Phụ trách toàn bộ hệ thống & cài đặt |
-| **Nhân Viên (Staff)** | `nhanvien` | `123` | Xử lý đơn hàng, in hóa đơn & quản lý món |
-| **Khách Hàng (Customer)** | `khachhang` | `123` | Đặt món, xem ví voucher & tích điểm VIP |
+| **Thu Ngân (Staff)** | `nhanvien` | `123` | Xử lý đơn hàng, in hóa đơn & bán hàng |
+| **Pha Chế (Staff)** | `phache` | `123` | Nhận đơn pha chế & chuẩn bị đồ uống |
+
+*Lưu ý: Dữ liệu tài khoản khách hàng được giữ sạch hoàn toàn. Khách hàng mua sắm bấm Đăng Ký trên Pop-up để tạo tài khoản mới.*
 
 ---
 

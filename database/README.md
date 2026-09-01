@@ -6,8 +6,8 @@ Tài liệu này hướng dẫn cách khởi tạo database MySQL 8.0 cho 11 th�
 
 ## 1. Cấu Trúc File Cơ Sở Dữ Liệu
 
-- [schema.sql](file:///d:/Study/Vibe%20code/Trasua/database/schema.sql): Script DDL tạo Database `teajoy_store` và 11 bảng quan hệ chuẩn hóa 3NF, hỗ trợ UTF8MB4 (tiếng Việt có dấu, icon emoji), khóa chính, khóa ngoại (`FOREIGN KEY`) và các chỉ mục đánh số (`INDEXES`) tối ưu tốc độ tìm kiếm.
-- [seed.sql](file:///d:/Study/Vibe%20code/Trasua/database/seed.sql): Script nạp dữ liệu mẫu ban đầu (tài khoản demo, nhân viên, sản phẩm trà sữa, nhà cung cấp, đơn hàng, hóa đơn thanh toán, voucher, bài viết và đánh giá).
+- [schema.sql](schema.sql): Script DDL tạo Database `teajoy_store` và các bảng quan hệ chuẩn hóa 3NF, hỗ trợ UTF8MB4 (tiếng Việt có dấu, icon emoji), khóa chính, khóa ngoại (`FOREIGN KEY`) và các chỉ mục đánh số (`INDEXES`) tối ưu tốc độ tìm kiếm.
+- [seed.sql](seed.sql): Script nạp dữ liệu mẫu ban đầu (tài khoản quản lý & nhân viên, sản phẩm trà sữa, nhà cung cấp, đơn hàng, hóa đơn thanh toán, voucher, bài viết và đánh giá).
 
 ---
 
@@ -15,11 +15,11 @@ Tài liệu này hướng dẫn cách khởi tạo database MySQL 8.0 cho 11 th�
 
 ### Cách 1: Sử dụng MySQL Command Line (Terminal / CMD)
 ```bash
-# Đăng nhập vào MySQL và thực thi schema
-mysql -u root -p < "d:\Study\Vibe code\Trasua\database\schema.sql"
+# Đăng nhập vào MySQL và thực thi schema DDL
+mysql -u root -p teajoy_store < database/schema.sql
 
 # Nạp dữ liệu mẫu seed data
-mysql -u root -p < "d:\Study\Vibe code\Trasua\database\seed.sql"
+mysql -u root -p teajoy_store < database/seed.sql
 ```
 
 ### Cách 2: Sử dụng DBeaver / MySQL Workbench / Navicat / phpMyAdmin
@@ -86,10 +86,12 @@ teajoy-backend/
 
 ---
 
-## 4. Tài Khoản Demo Mặc Định Sau Khi Seed
+## 4. Tài Khoản Demo Mặc Định Nội Bộ Sau Khi Seed
 
-| Vai Trò | Tên Đăng Nhập | Mật Khẩu | Họ Tên |
-| :--- | :--- | :--- | :--- |
-| **👑 Quản Lý (Admin)** | `admin` | `123456` | Nguyễn Văn Quản Lý |
-| **💼 Thu Ngân (Staff)** | `nhanvien` | `123456` | Trần Thị Thu Ngân |
-| **🛍️ Khách Hàng (VIP)** | `khachhang` | `123456` | Lê Hoàng Phúc (320 Điểm VIP Vàng) |
+| Vai Trò | Tên Đăng Nhập | Mật Khẩu | Họ Tên | Chức Vụ |
+| :--- | :--- | :--- | :--- | :--- |
+| **👑 Quản Lý (Admin)** | `admin` | `123` / `123456` | Nguyễn Văn Quản Lý | Quản Lý Cửa Hàng |
+| **💼 Thu Ngân (Staff)** | `nhanvien` | `123` / `123456` | Trần Thị Thu Ngân | Thu Ngân & Bán Hàng |
+| **🧋 Pha Chế (Staff)** | `phache` | `123` / `123456` | Lê Văn Pha Chế | Nhân Viên Pha Chế |
+
+*Lưu ý: Dữ liệu tài khoản khách hàng hoàn toàn rỗng để giữ CSDL sạch. Khách mua hàng sẽ tạo tài khoản mới qua Pop-up Đăng Ký trên trang web.*

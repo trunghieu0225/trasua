@@ -5,20 +5,20 @@
 
 USE `teajoy_store`;
 
--- 1. SEED TAI_KHOAN (Mật khẩu mặc định: '123456' băm Bcrypt)
+-- 1. SEED TAI_KHOAN (Mật khẩu mặc định: '123' / '123456' băm Bcrypt)
 INSERT INTO `TAI_KHOAN` (`id`, `ten_dang_nhap`, `mat_khau_hash`, `email`, `so_dien_thoai`, `vai_tro`, `trang_thai`) VALUES
 (1, 'admin', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'admin@teajoy.vn', '0901234567', 'admin', 'hoat_dong'),
 (2, 'nhanvien', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'thungan@teajoy.vn', '0912345678', 'nhan_vien', 'hoat_dong'),
-(3, 'khachhang', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'phucle@gmail.com', '0987654321', 'khach_hang', 'hoat_dong');
+(3, 'phache', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'phache@teajoy.vn', '0933445566', 'nhan_vien', 'hoat_dong');
 
 -- 2. SEED NHAN_VIEN
 INSERT INTO `NHAN_VIEN` (`id`, `tai_khoan_id`, `ma_nhan_vien`, `ho_ten`, `chuc_vu`, `cccd`, `ngay_sinh`, `gioi_tinh`, `luong_co_ban`, `ngay_vao_lam`, `trang_thai_lam_viec`) VALUES
 (1, 1, 'NV-001', 'Nguyễn Văn Quản Lý', 'Quản Lý Cửa Hàng', '079090001122', '1992-05-15', 'nam', 15000000.00, '2026-01-01', 'dang_lam'),
-(2, 2, 'NV-002', 'Trần Thị Thu Ngân', 'Thu Ngân & Bán Hàng', '079195003344', '1998-08-20', 'nu', 8500000.00, '2026-02-15', 'dang_lam');
+(2, 2, 'NV-002', 'Trần Thị Thu Ngân', 'Thu Ngân & Bán Hàng', '079195003344', '1998-08-20', 'nu', 8500000.00, '2026-02-15', 'dang_lam'),
+(3, 3, 'NV-003', 'Lê Văn Pha Chế', 'Nhân Viên Pha Chế', '079195005566', '2000-01-10', 'nam', 8000000.00, '2026-03-01', 'dang_lam');
 
--- 3. SEED KHACH_HANG
-INSERT INTO `KHACH_HANG` (`id`, `tai_khoan_id`, `ho_ten`, `dia_chi_mac_dinh`, `diem_tich_luy`, `hang_thanh_vien`, `tong_chi_tieu`, `so_don_da_mua`) VALUES
-(1, 3, 'Lê Hoàng Phúc', '123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM', 320, 'vang', 3230000.00, 12);
+-- 3. SEED KHACH_HANG (Ban đầu rỗng - Khách hàng sẽ tự đăng ký tài khoản qua Pop-up Đăng ký)
+-- (Không chèn dữ liệu khách hàng mẫu để giữ database sạch)
 
 -- 4. SEED NHA_CUNG_CAP
 INSERT INTO `NHA_CUNG_CAP` (`id`, `ma_ncc`, `ten_nha_cung_cap`, `nguoi_dai_dien`, `so_dien_thoai`, `email`, `dia_chi`, `danh_muc_nguyen_lieu`, `trang_thai`) VALUES
