@@ -7,15 +7,15 @@ USE `teajoy_store`;
 
 -- 1. SEED TAI_KHOAN (Mật khẩu mặc định: '123' / '123456' băm Bcrypt)
 INSERT INTO `TAI_KHOAN` (`id`, `ten_dang_nhap`, `mat_khau_hash`, `email`, `so_dien_thoai`, `vai_tro`, `trang_thai`) VALUES
-(1, 'admin', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'admin@teajoy.vn', '0901234567', 'admin', 'hoat_dong'),
-(2, 'nhanvien', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'thungan@teajoy.vn', '0912345678', 'nhan_vien', 'hoat_dong'),
-(3, 'phache', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xgn3LqjHdwzVve5uWEm', 'phache@teajoy.vn', '0933445566', 'nhan_vien', 'hoat_dong');
+(1, 'admin', '1', 'admin@dodo.vn', '0901234567', 'admin', 'hoat_dong'),
+(2, 'thungan', '1', 'thungan@dodo.vn', '0912345678', 'nhan_vien', 'hoat_dong'),
+(3, 'phache', '1', 'phache@dodo.vn', '0933445566', 'nhan_vien', 'hoat_dong');
 
 -- 2. SEED NHAN_VIEN
 INSERT INTO `NHAN_VIEN` (`id`, `tai_khoan_id`, `ma_nhan_vien`, `ho_ten`, `chuc_vu`, `cccd`, `ngay_sinh`, `gioi_tinh`, `luong_co_ban`, `ngay_vao_lam`, `trang_thai_lam_viec`) VALUES
-(1, 1, 'NV-001', 'Nguyễn Văn Quản Lý', 'Quản Lý Cửa Hàng', '079090001122', '1992-05-15', 'nam', 15000000.00, '2026-01-01', 'dang_lam'),
-(2, 2, 'NV-002', 'Trần Thị Thu Ngân', 'Thu Ngân & Bán Hàng', '079195003344', '1998-08-20', 'nu', 8500000.00, '2026-02-15', 'dang_lam'),
-(3, 3, 'NV-003', 'Lê Văn Pha Chế', 'Nhân Viên Pha Chế', '079195005566', '2000-01-10', 'nam', 8000000.00, '2026-03-01', 'dang_lam');
+(1, 1, 'NV-001', 'Đỗ Trung Hiếu (Quản Lý)', 'Quản Lý Cửa Hàng', '079090001122', '1992-05-15', 'nam', 15000000.00, '2026-01-01', 'dang_lam'),
+(2, 2, 'NV-002', 'Nguyễn Văn Thu Ngân', 'Thu Ngân & Bán Hàng', '079195003344', '1998-08-20', 'nam', 7500000.00, '2026-02-15', 'dang_lam'),
+(3, 3, 'NV-003', 'Trần Thị Pha Chế', 'Nhân Viên Pha Chế', '079195005566', '2000-01-10', 'nu', 8000000.00, '2026-03-01', 'dang_lam');
 
 -- 3. SEED KHACH_HANG (Ban đầu rỗng - Khách hàng sẽ tự đăng ký tài khoản qua Pop-up Đăng ký)
 -- (Không chèn dữ liệu khách hàng mẫu để giữ database sạch)

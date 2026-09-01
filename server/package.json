@@ -15,7 +15,16 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7"
   },
-  "keywords": ["teajoy", "milktea", "express", "mysql", "api"],
+  "keywords": [
+    "teajoy",
+    "milktea",
+    "express",
+    "mysql",
+    "api"
+  ],
   "author": "TeaJoy Dev Team",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "docx": "^9.7.1"
+  }
 }

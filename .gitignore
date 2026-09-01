@@ -4,3 +4,5 @@ node_modules/
 .env
 .vscode/
 .idea/
+*.docx
+HUONG_DAN_CHAY_WEB_VA_QUAN_LY.docx

@@ -191,21 +191,21 @@ const INITIAL_USERS = [
   {
     id: "USR-001",
     username: "admin",
-    password: "123",
-    fullName: "Nguyễn Văn Quản Lý",
+    password: "1",
+    fullName: "Đỗ Trung Hiếu (Quản Lý)",
     role: "admin", // admin, staff, customer
-    email: "admin@teajoy.vn",
+    email: "admin@dodo.vn",
     phone: "0901234567",
     status: "active",
     createdAt: "2026-01-01"
   },
   {
     id: "USR-002",
-    username: "nhanvien",
-    password: "123",
-    fullName: "Trần Thị Thu Ngân",
+    username: "thungan",
+    password: "1",
+    fullName: "Nguyễn Văn Thu Ngân",
     role: "staff",
-    email: "thungan@teajoy.vn",
+    email: "thungan@dodo.vn",
     phone: "0912345678",
     status: "active",
     createdAt: "2026-02-15"
@@ -213,10 +213,10 @@ const INITIAL_USERS = [
   {
     id: "USR-003",
     username: "phache",
-    password: "123",
-    fullName: "Lê Văn Pha Chế",
+    password: "1",
+    fullName: "Trần Thị Pha Chế",
     role: "staff",
-    email: "phache@teajoy.vn",
+    email: "phache@dodo.vn",
     phone: "0933445566",
     status: "active",
     createdAt: "2026-03-01"
