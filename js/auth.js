@@ -82,7 +82,7 @@ const Auth = {
         return { success: false, message: data.message || "Đăng ký không thành công!" };
       }
     } catch (err) {
-      // Fallback to local DB if Backend Server is offline
+      // Fallback to LocalStorage if Backend API is offline
       return this.register(userData);
     }
   },
@@ -179,13 +179,13 @@ const Auth = {
   },
 
   // Submit Login from Popup
-  handlePopupLogin(e) {
+  async handlePopupLogin(e) {
     e.preventDefault();
     const u = document.getElementById("pop-login-username")?.value.trim();
     const p = document.getElementById("pop-login-password")?.value;
     if (!u || !p) return;
 
-    const res = this.login(u, p);
+    const res = await this.loginAsync(u, p);
     if (res.success) {
       Modal.close("global-auth-modal");
       Toast.success(`Chào mừng <b>${res.user.fullName}</b>!`);
@@ -213,14 +213,14 @@ const Auth = {
   },
 
   // Submit Register from Popup (Customers)
-  handlePopupRegister(e) {
+  async handlePopupRegister(e) {
     e.preventDefault();
     const u = document.getElementById("pop-reg-username")?.value.trim();
     const f = document.getElementById("pop-reg-fullname")?.value.trim();
     const phone = document.getElementById("pop-reg-phone")?.value.trim();
     const p = document.getElementById("pop-reg-password")?.value;
 
-    const res = this.register({ username: u, fullName: f, phone, password: p });
+    const res = await this.registerAsync({ username: u, fullName: f, phone, password: p });
     if (res.success) {
       Modal.close("global-auth-modal");
       Toast.success(res.message || "Đăng ký tài khoản Khách Hàng thành công! Tặng bạn 50 điểm thưởng 🎁");
