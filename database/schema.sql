@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS `CHI_TIET_DON_HANG`;
 DROP TABLE IF EXISTS `DON_HANG`;
 DROP TABLE IF EXISTS `VOUCHERS`;
 DROP TABLE IF EXISTS `BAI_VIET`;
+DROP TABLE IF EXISTS `TOPPING`;
 DROP TABLE IF EXISTS `SAN_PHAM`;
 DROP TABLE IF EXISTS `NHA_CUNG_CAP`;
 DROP TABLE IF EXISTS `KHACH_HANG`;
@@ -123,6 +124,18 @@ CREATE TABLE `SAN_PHAM` (
     INDEX `idx_sanpham_danhmuc` (`danh_muc`),
     INDEX `idx_sanpham_daban` (`da_ban`),
     CONSTRAINT `fk_sanpham_nhacungcap` FOREIGN KEY (`nha_cung_cap_id`) REFERENCES `NHA_CUNG_CAP` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------------------------------------------------------
+-- 5.1. BẢNG TOPPING (Milk Tea Toppings)
+-- ----------------------------------------------------------------------------
+CREATE TABLE `TOPPING` (
+    `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `ma_topping` VARCHAR(30) NOT NULL UNIQUE,
+    `ten_topping` VARCHAR(100) NOT NULL,
+    `gia_them` DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    `trang_thai` BOOLEAN NOT NULL DEFAULT TRUE,
+    `ngay_tao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------------------------------------------------------

@@ -68,9 +68,12 @@
     <main class="admin-main">
       <!-- Topbar -->
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Thực Đơn & Topping</h3>
-          <span class="text-xs text-muted">Thêm mới, sửa giá, cập nhật tồn kho và hình ảnh sản phẩm</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Thực Đơn & Topping</h3>
+            <span class="text-xs text-muted">Thêm mới, sửa giá, cập nhật tồn kho và hình ảnh sản phẩm</span>
+          </div>
         </div>
         <button class="btn btn-primary" onclick="ProductMgmt.openAddModal()">
           <span>+ Thêm Sản Phẩm Mới</span>
@@ -226,6 +229,42 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" data-close-modal="product-form-modal">Hủy</button>
           <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Add/Edit Topping -->
+  <div id="topping-form-modal" class="modal-backdrop">
+    <div class="modal-container" style="max-width: 480px;">
+      <div class="modal-header">
+        <h4 class="modal-title" id="topping-modal-title">Thêm Topping Mới</h4>
+        <button class="modal-close" data-close-modal="topping-form-modal">✕</button>
+      </div>
+      <form onsubmit="ProductMgmt.saveToppingSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="form-top-id">
+          <div class="form-group">
+            <label class="form-label text-xs">Tên Topping *</label>
+            <input type="text" id="form-top-name" class="form-control" placeholder="Ví dụ: Trân Châu Trắng..." required>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="form-group">
+              <label class="form-label text-xs">Giá Thêm (VNĐ) *</label>
+              <input type="number" id="form-top-price" class="form-control" placeholder="5000" min="0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label text-xs">Trạng Thái Phục Vụ</label>
+              <select id="form-top-status" class="form-select">
+                <option value="true">Đang Phục Vụ</option>
+                <option value="false">Tạm Hết</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="topping-form-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu Topping</button>
         </div>
       </form>
     </div>

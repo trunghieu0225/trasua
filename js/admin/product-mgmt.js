@@ -115,10 +115,58 @@ const ProductMgmt = {
         <td>
           <div class="table-actions">
             <button class="action-icon-btn" onclick="ProductMgmt.toggleToppingStock('${t.id}')" title="Đổi trạng thái">${t.inStock ? '⏸️' : '▶️'}</button>
+            <button class="action-icon-btn btn-del" onclick="ProductMgmt.deleteTopping('${t.id}')" title="Xóa topping">🗑️</button>
           </div>
         </td>
       </tr>
     `).join("");
+  },
+
+  openAddToppingModal() {
+    document.getElementById("form-top-id").value = "";
+    document.getElementById("form-top-name").value = "";
+    document.getElementById("form-top-price").value = "";
+    document.getElementById("form-top-status").value = "true";
+    Modal.open("topping-form-modal");
+  },
+
+  saveToppingSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById("form-top-id").value;
+    const name = document.getElementById("form-top-name").value.trim();
+    const price = parseInt(document.getElementById("form-top-price").value) || 0;
+    const inStock = document.getElementById("form-top-status").value === "true";
+
+    const toppings = DB.getToppings();
+    if (id) {
+      const idx = toppings.findIndex(t => t.id === id);
+      if (idx >= 0) {
+        toppings[idx] = { ...toppings[idx], name, price, inStock };
+      }
+    } else {
+      const newTop = {
+        id: `top-${toppings.length + 1}`,
+        name,
+        price,
+        inStock
+      };
+      toppings.push(newTop);
+    }
+
+    DB.saveToppings(toppings);
+    Toast.success(`Đã lưu topping <b>${name}</b> thành công!`);
+    Modal.close("topping-form-modal");
+    this.renderToppingsTable();
+  },
+
+  deleteTopping(toppingId) {
+    if (confirm(`Bạn có chắc muốn xóa topping ${toppingId}?`)) {
+      let toppings = DB.getToppings();
+      toppings = toppings.filter(t => t.id !== toppingId);
+      DB.saveToppings(toppings);
+      Toast.info("Đã xóa topping.");
+      this.renderToppingsTable();
+    }
   },
 
   openAddModal() {

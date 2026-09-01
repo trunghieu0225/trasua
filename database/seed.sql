@@ -34,6 +34,17 @@ INSERT INTO `SAN_PHAM` (`id`, `ma_sku`, `nha_cung_cap_id`, `danh_muc`, `ten_san_
 (4, 'TC-01', 1, 'tra-trai-cay', 'Trà Đào Cam Sả Tươi Mát', 'Nước cốt đào thơm thanh phối hợp cùng vị chua ngọt từ cam vàng tươi và hương sả nồng nàn giải nhiệt tức thì.', 38000.00, 45000.00, 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80', 90, 1150, 4.9, TRUE),
 (5, 'CP-01', 1, 'ca-phe', 'Cà Phê Muối Kem Béo Xứ Huế', 'Cà phê phin truyền thống hòa quyện cùng lớp kem muối béo mặn mòi đặc sản xứ Huế trứ danh.', 32000.00, 38000.00, 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80', 100, 1300, 4.9, TRUE);
 
+-- 5.1 SEED TOPPING
+INSERT INTO `TOPPING` (`id`, `ma_topping`, `ten_topping`, `gia_them`, `trang_thai`) VALUES
+(1, 'top-1', 'Trân Châu Hoàng Kim', 6000.00, TRUE),
+(2, 'top-2', 'Trân Châu Đen Dẻo', 5000.00, TRUE),
+(3, 'top-3', 'Thạch Phô Mai Tươi', 10000.00, TRUE),
+(4, 'top-4', 'Pudding Trứng Mịn', 8000.00, TRUE),
+(5, 'top-5', 'Kem Cheese Macchiato', 12000.00, TRUE),
+(6, 'top-6', 'Thạch Củ Năng Giòn', 7000.00, TRUE),
+(7, 'top-7', 'Thạch Dừa Giòn', 5000.00, TRUE),
+(8, 'top-8', 'Đào Miếng Ngâm', 8000.00, TRUE);
+
 -- 6. SEED VOUCHERS
 INSERT INTO `VOUCHERS` (`id`, `ma_voucher`, `loai_giam`, `gia_tri_giam`, `giam_toi_da`, `don_hang_toi_thieu`, `so_luong_phat_hanh`, `so_luong_da_dung`, `ngay_bat_dau`, `ngay_ket_thuc`, `mo_ta`, `trang_thai`) VALUES
 (1, 'BANMOI10', 'phan_tram', 10.00, 20000.00, 50000.00, 1000, 142, '2026-01-01 00:00:00', '2026-12-31 23:59:59', 'Giảm 10% cho bạn mới', TRUE),

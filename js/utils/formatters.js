@@ -15,7 +15,8 @@ const Formatters = {
   // Format Date: "2026-09-01 10:15:30" -> "10:15 - 01/09/2026"
   dateTime(dateStr) {
     if (!dateStr) return "";
-    const d = new Date(dateStr);
+    const cleanStr = String(dateStr).replace(" ", "T");
+    const d = new Date(cleanStr);
     if (isNaN(d.getTime())) return dateStr;
     const hours = String(d.getHours()).padStart(2, "0");
     const mins = String(d.getMinutes()).padStart(2, "0");

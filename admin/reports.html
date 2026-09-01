@@ -70,9 +70,12 @@
     <!-- Main Content -->
     <main class="admin-main">
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Báo Cáo & Thống Kê Kinh Doanh</h3>
-          <span class="text-xs text-muted">Phân tích hiệu suất bán hàng, sản phẩm sinh lời và phương thức thanh toán</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Báo Cáo & Thống Kê Kinh Doanh</h3>
+            <span class="text-xs text-muted">Phân tích hiệu suất bán hàng, sản phẩm sinh lời và phương thức thanh toán</span>
+          </div>
         </div>
         <button class="btn btn-secondary" onclick="exportReportCSV()">📥 Xuất Báo Cáo (CSV/Excel)</button>
       </header>

@@ -67,9 +67,12 @@
     <!-- Main Content -->
     <main class="admin-main">
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Nhà Cung Cấp & Nguyên Liệu</h3>
-          <span class="text-xs text-muted">Theo dõi nguồn cung lá trà Bảo Lộc, sữa tươi, trân châu và bao bì</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Nhà Cung Cấp & Nguyên Liệu</h3>
+            <span class="text-xs text-muted">Theo dõi nguồn cung lá trà Bảo Lộc, sữa tươi, trân châu và bao bì</span>
+          </div>
         </div>
         <button class="btn btn-primary" onclick="SupplierMgmt.openAddModal()">+ Thêm Nhà Cung Cấp</button>
       </header>

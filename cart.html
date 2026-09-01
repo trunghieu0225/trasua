@@ -218,22 +218,30 @@
     function applyCartVoucher() {
       const input = document.getElementById("cart-voucher-input");
       const code = input.value.trim().toUpperCase();
+      const infoEl = document.getElementById("applied-voucher-info");
       if (!code) {
+        appliedVoucher = null;
+        if (infoEl) infoEl.style.display = "none";
         Toast.warning("Vui lòng nhập mã giảm giá!");
+        updateCartPagePrices();
         return;
       }
 
       const vouchers = DB.getVouchers();
       const found = vouchers.find(v => v.code === code);
       if (!found) {
+        appliedVoucher = null;
+        if (infoEl) infoEl.style.display = "none";
         Toast.error("Mã không hợp lệ hoặc đã hết hạn!");
+        updateCartPagePrices();
         return;
       }
 
       appliedVoucher = found;
-      const infoEl = document.getElementById("applied-voucher-info");
-      infoEl.style.display = "block";
-      infoEl.textContent = `✓ Đã áp dụng: ${found.desc}`;
+      if (infoEl) {
+        infoEl.style.display = "block";
+        infoEl.textContent = `✓ Đã áp dụng: ${found.desc}`;
+      }
       Toast.success(`Áp dụng mã ${found.code} thành công!`);
       updateCartPagePrices();
     }

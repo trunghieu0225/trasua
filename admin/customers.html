@@ -67,9 +67,12 @@
     <!-- Main Content -->
     <main class="admin-main">
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Khách Hàng (CRM)</h3>
-          <span class="text-xs text-muted">Tra cứu lịch sử mua, quản lý điểm thưởng và phân hạng thành viên</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Khách Hàng (CRM)</h3>
+            <span class="text-xs text-muted">Tra cứu lịch sử mua, quản lý điểm thưởng và phân hạng thành viên</span>
+          </div>
         </div>
       </header>
 

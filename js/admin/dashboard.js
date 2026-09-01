@@ -14,17 +14,17 @@ const AdminDashboard = {
   checkAuth() {
     const user = Auth.getCurrentUser();
     if (!user || (user.role !== "admin" && user.role !== "staff")) {
-      // Allow demo viewing, but show warning or default to admin
-      const adminNameEl = document.getElementById("admin-user-name");
-      const adminRoleEl = document.getElementById("admin-user-role");
-      if (adminNameEl) adminNameEl.textContent = user ? user.fullName : "Nguyễn Văn Quản Lý (Demo)";
-      if (adminRoleEl) adminRoleEl.textContent = user ? user.role.toUpperCase() : "ADMIN";
-    } else {
-      const adminNameEl = document.getElementById("admin-user-name");
-      const adminRoleEl = document.getElementById("admin-user-role");
-      if (adminNameEl) adminNameEl.textContent = user.fullName;
-      if (adminRoleEl) adminRoleEl.textContent = user.role.toUpperCase();
+      if (user && user.role === "customer") {
+        Toast.warning("Tài khoản của bạn không có quyền truy cập trang Quản Trị!");
+        setTimeout(() => { window.location.href = "../index.html"; }, 1000);
+        return false;
+      }
     }
+    const adminNameEl = document.getElementById("admin-user-name");
+    const adminRoleEl = document.getElementById("admin-user-role");
+    if (adminNameEl) adminNameEl.textContent = user ? user.fullName : "Nguyễn Văn Quản Lý (Admin)";
+    if (adminRoleEl) adminRoleEl.textContent = user ? user.role.toUpperCase() : "ADMIN";
+    return true;
   },
 
   updateCurrentDate() {

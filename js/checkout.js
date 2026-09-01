@@ -93,7 +93,9 @@ const Checkout = {
     if (!input) return;
     const code = input.value.trim().toUpperCase();
     if (!code) {
+      this.appliedVoucher = null;
       Toast.warning("Vui lòng nhập mã giảm giá!");
+      this.calculateFinalTotals();
       return;
     }
 
@@ -101,13 +103,17 @@ const Checkout = {
     const found = vouchers.find(v => v.code === code);
 
     if (!found) {
+      this.appliedVoucher = null;
       Toast.error("Mã giảm giá không hợp lệ hoặc đã hết hạn!");
+      this.calculateFinalTotals();
       return;
     }
 
     const itemsTotal = Cart.getItemsTotal();
     if (found.minOrder && itemsTotal < found.minOrder) {
+      this.appliedVoucher = null;
       Toast.warning(`Mã này chỉ áp dụng cho đơn hàng từ ${Formatters.currency(found.minOrder)} trở lên!`);
+      this.calculateFinalTotals();
       return;
     }
 
@@ -133,9 +139,8 @@ const Checkout = {
     const qrAmount = document.getElementById("vietqr-amount");
     if (qrAmount) qrAmount.textContent = Formatters.currency(total);
     if (qrImg) {
-      // Dynamic simulated VietQR code using quickchart / qr server
-      const qrData = `2|99|0901234567|TEAJOY|admin@teajoy.vn|0|0|${total}|THANHTOAN TEAJOY|transfer_myqr`;
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrData)}`;
+      // Official VietQR QuickLink format (MBBank 0901234567 - TeaJoy Store)
+      qrImg.src = `https://img.vietqr.io/image/mbbank-0901234567-compact2.png?amount=${total}&addInfo=TEAJOY%20THANHTOAN&accountName=TEAJOY%20STORE`;
     }
   },
 

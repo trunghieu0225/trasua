@@ -67,9 +67,12 @@
     <!-- Main Content -->
     <main class="admin-main">
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Khuyến Mãi & Banner Quảng Cáo</h3>
-          <span class="text-xs text-muted">Tạo mã voucher giảm giá, quản lý banner trang chủ và vòng quay may mắn</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Quản Lý Khuyến Mãi & Banner Quảng Cáo</h3>
+            <span class="text-xs text-muted">Tạo mã voucher giảm giá, quản lý banner trang chủ và vòng quay may mắn</span>
+          </div>
         </div>
         <button class="btn btn-primary" onclick="MarketingMgmt.openAddVoucherModal()">+ Tạo Mã Voucher Mới</button>
       </header>

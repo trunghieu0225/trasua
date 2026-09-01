@@ -67,9 +67,12 @@
     <!-- Main Content -->
     <main class="admin-main">
       <header class="admin-topbar">
-        <div>
-          <h3 style="font-size: 1.25rem; margin: 0;">Trung Tâm Xử Lý Đơn Hàng</h3>
-          <span class="text-xs text-muted">Tiếp nhận, đổi trạng thái đơn, điều phối shipper và in hóa đơn POS</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="action-btn" id="sidebar-toggle-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" style="display: none;">☰</button>
+          <div>
+            <h3 style="font-size: 1.25rem; margin: 0;">Trung Tâm Xử Lý Đơn Hàng</h3>
+            <span class="text-xs text-muted">Tiếp nhận, đổi trạng thái đơn, điều phối shipper và in hóa đơn POS</span>
+          </div>
         </div>
       </header>
 

@@ -144,8 +144,13 @@ const ClientApp = {
   },
 
   updateQuantity(delta) {
+    const maxQty = (this.activeCustomizerProduct && typeof this.activeCustomizerProduct.stockQty === "number") ? this.activeCustomizerProduct.stockQty : 99;
     let q = this.customizerState.quantity + delta;
     if (q < 1) q = 1;
+    if (q > maxQty && maxQty > 0) {
+      q = maxQty;
+      Toast.warning(`Sản phẩm này chỉ còn ${maxQty} ly trong kho!`);
+    }
     this.customizerState.quantity = q;
     const qtyInput = document.getElementById("cust-qty-input");
     if (qtyInput) qtyInput.value = q;
@@ -235,6 +240,10 @@ const ClientApp = {
 
   addToCartFromCustomizer() {
     if (!this.activeCustomizerProduct) return;
+    if (this.activeCustomizerProduct.inStock === false || this.activeCustomizerProduct.stockQty === 0) {
+      Toast.error("Sản phẩm này tạm thời hết hàng!");
+      return;
+    }
     const { unitPrice } = this.calculateCustomizerPrice();
 
     Cart.addItem({
@@ -301,7 +310,16 @@ const ClientApp = {
     let isSpinning = false;
     window.spinWheel = function() {
       if (isSpinning) return;
+      
+      const todayStr = new Date().toISOString().split("T")[0];
+      const lastSpin = localStorage.getItem("teajoy_last_spin");
+      if (lastSpin === todayStr) {
+        Toast.warning("Bạn đã sử dụng lượt quay hôm nay rồi! Hãy quay lại vào ngày mai nhé 🍀");
+        return;
+      }
+
       isSpinning = true;
+      localStorage.setItem("teajoy_last_spin", todayStr);
 
       const randomDegree = Math.floor(1800 + Math.random() * 1800); // 5+ full turns
       canvas.style.transform = `rotate(${randomDegree}deg)`;
