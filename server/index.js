@@ -21,6 +21,22 @@ app.use(cors({
 // Parse JSON request bodies
 app.use(express.json());
 
+// Root API Welcome Endpoint
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    message: '🧋 TeaJoy Store RESTful Backend API Server đang chạy thành công!',
+    endpoints: {
+      health: 'GET /api/health',
+      auth_register: 'POST /api/auth/register',
+      auth_login: 'POST /api/auth/login',
+      products: 'GET /api/products',
+      toppings: 'GET /api/toppings',
+      orders: 'GET /api/orders'
+    }
+  });
+});
+
 // Root API Health Check Endpoint
 app.get('/api/health', (req, res) => {
   res.json({
