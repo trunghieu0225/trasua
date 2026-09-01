@@ -136,6 +136,19 @@
           users = users.filter(u => (u.fullName && u.fullName.toLowerCase().includes(q)) || (u.phone && u.phone.includes(q)) || (u.email && u.email.toLowerCase().includes(q)));
         }
 
+        if (users.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👥</div>
+                <b>Chưa có tài khoản khách hàng nào đăng ký.</b>
+                <p class="text-xs" style="margin-top: 4px;">Tài khoản mới do khách hàng tự đăng ký trên trang chủ sẽ tự động xuất hiện tại đây.</p>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
         tbody.innerHTML = users.map(u => `
           <tr>
             <td class="font-bold text-primary">${u.id}</td>

@@ -51,21 +51,9 @@ INSERT INTO `VOUCHERS` (`id`, `ma_voucher`, `loai_giam`, `gia_tri_giam`, `giam_t
 (2, 'FREESHIP', 'tien_mat', 15000.00, NULL, 80000.00, 2000, 560, '2026-01-01 00:00:00', '2026-12-31 23:59:59', 'Miễn phí vận chuyển 15k', TRUE),
 (3, 'TRAXANH20', 'tien_mat', 20000.00, NULL, 100000.00, 500, 89, '2026-01-01 00:00:00', '2026-12-31 23:59:59', 'Giảm ngay 20.000đ cho đơn từ 100k', TRUE);
 
--- 7. SEED DON_HANG
-INSERT INTO `DON_HANG` (`id`, `ma_don_hang`, `khach_hang_id`, `ten_nguoi_nhan`, `sdt_nguoi_nhan`, `dia_chi_giao_hang`, `ghi_chu`, `voucher_id`, `tong_tien_mon`, `phi_van_chuyen`, `so_tien_giam_gia`, `tong_thanh_toan`, `trang_thai_don_hang`, `ngay_dat`) VALUES
-(1, 'TS-8942', NULL, 'Lê Hoàng Phúc', '0987654321', '123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM', 'Giao trước 12h trưa', 1, 160000.00, 15000.00, 16000.00, 159000.00, 'preparing', '2026-09-01 10:15:30'),
-(2, 'TS-8941', NULL, 'Nguyễn Thị Mai', '0933112233', '45 Lê Duẩn, Quận 1, TP.HCM', 'Cho thêm ống hút lớn', NULL, 53000.00, 15000.00, 0.00, 68000.00, 'shipping', '2026-09-01 09:40:12');
-
--- 8. SEED CHI_TIET_DON_HANG
-INSERT INTO `CHI_TIET_DON_HANG` (`id`, `don_hang_id`, `san_pham_id`, `ten_san_pham`, `kich_thuoc`, `muc_duong`, `muc_da`, `danh_sach_topping`, `don_gia`, `so_luong`, `thanh_tien`) VALUES
-(1, 1, 1, 'Trà Sữa Trân Châu Hoàng Kim', 'L', '50%', '30%', '[{"name":"Trân Châu Hoàng Kim","price":6000},{"name":"Thạch Phô Mai Tươi","price":10000}]', 57000.00, 2, 114000.00),
-(2, 1, 4, 'Trà Đào Cam Sả Tươi Mát', 'M', '70%', '70%', '[{"name":"Đào Miếng Ngâm","price":8000}]', 46000.00, 1, 46000.00),
-(3, 2, 2, 'Trà Sữa Oolong Nướng Kem Cheese', 'M', '50%', '50%', '[{"name":"Pudding Trứng Mịn","price":8000}]', 53000.00, 1, 53000.00);
-
--- 9. SEED THANH_TOAN
-INSERT INTO `THANH_TOAN` (`id`, `don_hang_id`, `phuong_thuc`, `ma_giao_dich_cong`, `so_tien`, `trang_thai`, `thoi_gian_thanh_toan`) VALUES
-(1, 1, 'vietqr', 'MBVCB202609018942', 159000.00, 'thanh_cong', '2026-09-01 10:16:05'),
-(2, 2, 'cod', NULL, 68000.00, 'cho_thanh_toan', NULL);
+-- 7. SEED DON_HANG (Ban đầu rỗng - Khách hàng sẽ đặt hàng trên web)
+-- 8. SEED CHI_TIET_DON_HANG (Ban đầu rỗng)
+-- 9. SEED THANH_TOAN (Ban đầu rỗng)
 
 -- 10. SEED BAI_VIET
 INSERT INTO `BAI_VIET` (`id`, `tac_gia_id`, `tieu_de`, `slug`, `loai_bai_viet`, `anh_dai_dien`, `tom_tat`, `noi_dung`, `trang_thai`) VALUES
