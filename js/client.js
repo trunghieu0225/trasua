@@ -19,7 +19,7 @@ const ClientApp = {
 
   // Render a standard product card HTML
   renderProductCard(product) {
-    const defaultImg = "https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80";
+    const defaultImg = "https://trasuadodo.vn/wp-content/uploads/2025/09/Hong-tra-mochi-keo-dai.jpg";
     return `
       <div class="product-card" data-product-id="${product.id}">
         ${product.oldPrice ? `<span class="badge badge-discount">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</span>` : ""}
