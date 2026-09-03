@@ -277,8 +277,8 @@ const Auth = {
           <div class="modal-header" style="flex-direction: column; align-items: center; text-align: center; gap: 0.25rem;">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
               <div class="site-logo" style="font-size: 1.4rem;">
-                <div class="logo-icon">🧋</div>
-                <span>Tea</span>Joy
+                <div class="logo-icon"><img src="images/dodo-logo.svg" alt="Trà Sữa ĐÔ ĐÔ"></div>
+                <span>ĐÔ</span> ĐÔ
               </div>
               <button class="modal-close" data-close-modal="global-auth-modal">✕</button>
             </div>

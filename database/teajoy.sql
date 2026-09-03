@@ -285,24 +285,25 @@ INSERT INTO `NHA_CUNG_CAP` (`id`, `ma_ncc`, `ten_nha_cung_cap`, `nguoi_dai_dien`
 (2, 'SUP-02', 'Sữa Tươi Thanh Trùng DalatMilk', 'Chị Hạnh', '0903332211', 'hanh@dalatmilk.vn', 'Đà Lạt, Lâm Đồng', 'Sữa tươi thanh trùng, Kem béo, Bơ phô mai', 'dang_hop_tac'),
 (3, 'SUP-03', 'Nhà cung cấp Topping & Bao bì Tân Phú', 'Anh Thắng', '0977112233', 'thang@tanphupack.vn', 'Tân Phú, TP.HCM', 'Trân châu hoàng kim, Cốc giấy, Ống hút sinh học', 'dang_hop_tac');
 
--- 4. SEED SAN_PHAM
+-- 4. SEED SAN_PHAM (Menu Đô Đô)
 INSERT INTO `SAN_PHAM` (`id`, `ma_sku`, `nha_cung_cap_id`, `danh_muc`, `ten_san_pham`, `mo_ta`, `gia_goc`, `gia_khuyen_mai`, `hinh_anh_url`, `so_luong_ton`, `da_ban`, `danh_gia_tb`, `trang_thai`) VALUES
-(1, 'TS-01', 1, 'tra-sua', 'Trà Sữa Trân Châu Hoàng Kim', 'Vị trà đen đậm đà quyện cùng sữa tươi béo ngậy và trân châu hoàng kim nấu đường nâu thơm phức dẻo bùi.', 35000.00, 42000.00, 'https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80', 85, 1420, 4.9, TRUE),
-(2, 'TS-02', 1, 'tra-sua', 'Trà Sữa Oolong Nướng Kem Cheese', 'Trà Oolong nướng than đượm hương khói hòa quyện lớp kem mặn phô mai New Zealand béo bùi khó cưỡng.', 45000.00, 50000.00, 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80', 64, 980, 5.0, TRUE),
-(3, 'TS-03', 1, 'tra-sua', 'Trà Sữa Matcha Kyoto Phô Mai', 'Bột trà xanh Matcha nguyên chất nhập khẩu Nhật Bản kết hợp cùng sữa tươi thanh trùng và thạch phô mai.', 42000.00, 48000.00, 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80', 45, 760, 4.8, TRUE),
-(4, 'TC-01', 1, 'tra-trai-cay', 'Trà Đào Cam Sả Tươi Mát', 'Nước cốt đào thơm thanh phối hợp cùng vị chua ngọt từ cam vàng tươi và hương sả nồng nàn giải nhiệt tức thì.', 38000.00, 45000.00, 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80', 90, 1150, 4.9, TRUE),
-(5, 'CP-01', 1, 'ca-phe', 'Cà Phê Muối Kem Béo Xứ Huế', 'Cà phê phin truyền thống hòa quyện cùng lớp kem muối béo mặn mòi đặc sản xứ Huế trứ danh.', 32000.00, 38000.00, 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80', 100, 1300, 4.9, TRUE);
+(1, 'TS-01', 1, 'mochi', 'Hồng Trà Mochi Kéo Dài', 'Món Signature trứ danh của Đô Đô với lớp topping Mochi dẻo quánh kéo dài độc quyền kết hợp nền hồng trà sữa thơm bùi.', 25000.00, 30000.00, 'https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80', 100, 3420, 5.0, TRUE),
+(2, 'TS-02', 1, 'mochi', 'Matcha Mochi Kéo Dài', 'Matcha thanh mát nguyên chất nhập khẩu quyện cùng sữa béo và lớp mochi dẻo mềm kéo sợi dai ngọt thơm lừng.', 25000.00, 30000.00, 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80', 85, 2280, 4.9, TRUE),
+(3, 'TS-03', 1, 'mochi', 'Sữa Tươi Đường Đen Mochi Kéo Dài', 'Sữa tươi thanh trùng béo ngậy sốt đường đen đậm vị cùng lớp mochi dẻo dai béo ngậy gây nghiện.', 25000.00, 32000.00, 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80', 90, 2750, 4.9, TRUE),
+(4, 'TS-05', 1, 'tiramisu', 'Hồng Trà Tiramisu Ovaltine', 'Hồng trà sữa thơm phức phủ lớp kem Tiramisu phô mai béo mặn chuẩn Ý và rắc bột Ovaltine giòn rụm.', 25000.00, 32000.00, 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80', 95, 1980, 4.9, TRUE),
+(5, 'TS-08', 1, 'tra-sua', 'Trà Sữa Đô Đô Truyền Thống', 'Vị trà sữa nguyên bản Đô Đô thơm nồng đượm vị lá trà, béo ngậy vừa vặn với mức giá sinh viên chỉ 21K.', 21000.00, 25000.00, 'https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80', 150, 4120, 4.9, TRUE),
+(6, 'TC-01', 1, 'tra-trai-cay', 'Trà Khế Thạch Đào', 'Vị chua thanh dịu ngọt từ trái khế mọng nước hòa quyện cùng thạch đào giòn sần sật đã khát ngày hè.', 23000.00, 28000.00, 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80', 90, 1560, 4.9, TRUE);
 
--- 5. SEED TOPPING
+-- 5. SEED TOPPING (Topping Đô Đô)
 INSERT INTO `TOPPING` (`id`, `ma_topping`, `ten_topping`, `gia_them`, `trang_thai`) VALUES
-(1, 'top-1', 'Trân Châu Hoàng Kim', 6000.00, TRUE),
-(2, 'top-2', 'Trân Châu Đen Dẻo', 5000.00, TRUE),
-(3, 'top-3', 'Thạch Phô Mai Tươi', 10000.00, TRUE),
-(4, 'top-4', 'Pudding Trứng Mịn', 8000.00, TRUE),
-(5, 'top-5', 'Kem Cheese Macchiato', 12000.00, TRUE),
-(6, 'top-6', 'Thạch Củ Năng Giòn', 7000.00, TRUE),
-(7, 'top-7', 'Thạch Dừa Giòn', 5000.00, TRUE),
-(8, 'top-8', 'Đào Miếng Ngâm', 8000.00, TRUE);
+(1, 'top-1', 'Mochi Kéo Dài (Signature Đô Đô)', 6000.00, TRUE),
+(2, 'top-2', 'Mochi Nếp Lạnh Dẻo', 6000.00, TRUE),
+(3, 'top-3', 'Kem Tiramisu Phô Mai', 8000.00, TRUE),
+(4, 'top-4', 'Vụn Bánh Cookies Ovaltine', 5000.00, TRUE),
+(5, 'top-5', 'Trân Châu Hoàng Kim', 5000.00, TRUE),
+(6, 'top-6', 'Pudding Trứng Mịn Dẻo', 6000.00, TRUE),
+(7, 'top-7', 'Thạch Đào Giòn', 5000.00, TRUE),
+(8, 'top-8', 'Kem Cheese Macchiato', 8000.00, TRUE);
 
 -- 6. SEED VOUCHERS
 INSERT INTO `VOUCHERS` (`id`, `ma_voucher`, `loai_giam`, `gia_tri_giam`, `giam_toi_da`, `don_hang_toi_thieu`, `so_luong_phat_hanh`, `so_luong_da_dung`, `ngay_bat_dau`, `ngay_ket_thuc`, `mo_ta`, `trang_thai`) VALUES

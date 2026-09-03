@@ -23,7 +23,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="site-logo">
-        <div class="logo-icon">🧋</div>
+        <div class="logo-icon">
+          <img src="images/dodo-logo.svg" alt="Trà Sữa ĐÔ ĐÔ Logo">
+        </div>
         <span>ĐÔ</span> ĐÔ
       </a>
 
@@ -49,7 +51,7 @@
   <main class="container" style="padding-block: 2.5rem 4rem;">
     <!-- Breadcrumb -->
     <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-      <a href="index.html">Trang chủ</a> / <a href="menu.html">Thực đơn</a> / <span id="detail-breadcrumb-name" class="text-primary font-bold">Trà Sữa Trân Châu Hoàng Kim</span>
+      <a href="index.html">Trang chủ</a> / <a href="menu.html">Thực đơn</a> / <span id="detail-breadcrumb-name" class="text-primary font-bold">Trà Sữa Đô Đô</span>
     </div>
 
     <!-- Product Customizer Hero Section -->
@@ -59,6 +61,9 @@
         <div class="tea-straw"></div>
         <div class="tea-cup">
           <div class="cheese-foam-layer" id="detail-visual-cheese"></div>
+          <div class="mochi-layer" id="detail-visual-mochi" style="display: none; position: absolute; top: 18px; left: 0; right: 0; height: 32px; background: linear-gradient(180deg, #FFFFFF 0%, #FFF3EB 100%); border-radius: 6px; box-shadow: 0 4px 10px rgba(230,0,35,0.18); z-index: 5; text-align: center; border-bottom: 2px dashed rgba(230,0,35,0.35);">
+            <span style="font-size: 0.65rem; font-weight: 800; color: #E60023; line-height: 32px; letter-spacing: 0.5px;">🍡 Mochi Dẻo Kéo Dài</span>
+          </div>
           <div class="tea-ice-layer" id="detail-visual-ice">
             <div class="ice-cube"></div>
             <div class="ice-cube"></div>
@@ -69,7 +74,7 @@
           </div>
         </div>
         <div style="margin-top: 1.25rem; text-align: center;">
-          <div id="detail-total-unit-price" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">35.000 ₫</div>
+          <div id="detail-total-unit-price" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">25.000 ₫</div>
           <div class="text-xs text-muted">Giá đã gồm Size & Topping chọn thêm</div>
         </div>
       </div>
@@ -161,7 +166,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-bottom">
-        <div>© 2026 TeaJoy Store. All rights reserved.</div>
+        <div>© 2026 Trà Sữa ĐÔ ĐÔ (trasuadodo.vn). All rights reserved.</div>
         <div style="display: flex; gap: 1.25rem;">
           <a href="index.html" class="text-muted">Trang chủ</a>
           <a href="menu.html" class="text-muted">Thực đơn</a>
@@ -298,13 +303,24 @@
       // Visual liquid color
       const liquid = document.getElementById("detail-visual-liquid");
       if (liquid) {
+        const pName = (currentProd.name || "").toLowerCase();
         if (currentProd.category === "tra-trai-cay") {
           liquid.style.background = "linear-gradient(180deg, #F4A261 0%, #E76F51 100%)";
-        } else if (currentProd.id.includes("TS-03")) {
-          liquid.style.background = "linear-gradient(180deg, #74C69D 0%, #40916C 100%)";
+        } else if (pName.includes("matcha")) {
+          liquid.style.background = "linear-gradient(180deg, #80B918 0%, #55A630 100%)";
+        } else if (pName.includes("socola") || pName.includes("cacao")) {
+          liquid.style.background = "linear-gradient(180deg, #7F4F24 0%, #582F0E 100%)";
         } else {
           liquid.style.background = "linear-gradient(180deg, #D4A373 0%, #B08968 100%)";
         }
+      }
+
+      // Visual Mochi Layer
+      const mochiEl = document.getElementById("detail-visual-mochi");
+      if (mochiEl) {
+        const hasMochi = detailConfig.toppings.some(t => t.toLowerCase().includes("mochi")) ||
+                         (currentProd.name && currentProd.name.toLowerCase().includes("mochi"));
+        mochiEl.style.display = hasMochi ? "block" : "none";
       }
 
       // Visual toppings
@@ -318,7 +334,7 @@
               dot.className = "pearl-dot";
               topLayer.appendChild(dot);
             }
-          } else {
+          } else if (!topName.toLowerCase().includes("mochi")) {
             const cube = document.createElement("div");
             cube.className = "pudding-cube";
             topLayer.appendChild(cube);

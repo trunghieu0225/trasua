@@ -14,22 +14,28 @@ const STORAGE_KEYS = {
   BANNERS: "teajoy_banners",
   CART: "teajoy_cart",
   CURRENT_USER: "teajoy_current_user",
-  THEME: "teajoy_theme"
+  THEME: "teajoy_theme",
+  VERSION: "teajoy_version"
 };
 
+const DODO_VERSION = "dodo_v3_mochi_release";
+
 const DB = {
-  // Initialize and Seed LocalStorage if empty
+  // Initialize and Seed LocalStorage if empty or outdated
   init() {
-    if (!localStorage.getItem(STORAGE_KEYS.PRODUCTS)) {
+    const currentVer = localStorage.getItem(STORAGE_KEYS.VERSION);
+    const needRefresh = currentVer !== DODO_VERSION;
+
+    if (!localStorage.getItem(STORAGE_KEYS.PRODUCTS) || needRefresh) {
       this.set(STORAGE_KEYS.PRODUCTS, INITIAL_PRODUCTS);
     }
-    if (!localStorage.getItem(STORAGE_KEYS.CATEGORIES)) {
+    if (!localStorage.getItem(STORAGE_KEYS.CATEGORIES) || needRefresh) {
       this.set(STORAGE_KEYS.CATEGORIES, INITIAL_CATEGORIES);
     }
-    if (!localStorage.getItem(STORAGE_KEYS.TOPPINGS)) {
+    if (!localStorage.getItem(STORAGE_KEYS.TOPPINGS) || needRefresh) {
       this.set(STORAGE_KEYS.TOPPINGS, INITIAL_TOPPINGS);
     }
-    if (!localStorage.getItem(STORAGE_KEYS.SIZES)) {
+    if (!localStorage.getItem(STORAGE_KEYS.SIZES) || needRefresh) {
       this.set(STORAGE_KEYS.SIZES, INITIAL_SIZES);
     }
     if (!localStorage.getItem(STORAGE_KEYS.ORDERS)) {
@@ -54,6 +60,8 @@ const DB = {
       // Default to guest (not logged in)
       this.set(STORAGE_KEYS.CURRENT_USER, null);
     }
+
+    localStorage.setItem(STORAGE_KEYS.VERSION, DODO_VERSION);
   },
 
   get(key, defaultValue = []) {
