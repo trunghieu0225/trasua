@@ -38,7 +38,7 @@ const Checkout = {
     container.innerHTML = cart.map(item => `
       <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; border-bottom: 1px dashed var(--border-subtle);">
         <div style="display: flex; gap: 0.75rem; align-items: center;">
-          <img src="${item.image}" alt="${item.name}" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover;">
+          <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null; this.src='images/products/hong-tra-mochi-keo-dai.jpg';" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover;">
           <div>
             <h5 style="font-size: 0.9rem; font-weight: 700; margin: 0;">${item.name}</h5>
             <span class="text-xs text-muted">Size: ${item.size} | ${item.sugar} đường | ${item.ice} đá</span>

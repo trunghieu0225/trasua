@@ -89,10 +89,12 @@ const ProductMgmt = {
       return;
     }
 
-    tbody.innerHTML = products.map(p => `
+    tbody.innerHTML = products.map(p => {
+      const imgSrc = p.image ? (p.image.startsWith('http') || p.image.startsWith('../') ? p.image : `../${p.image}`) : '../images/products/hong-tra-mochi-keo-dai.jpg';
+      return `
       <tr>
         <td>
-          <img src="${p.image}" alt="${p.name}" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover;">
+          <img src="${imgSrc}" alt="${p.name}" onerror="this.onerror=null; this.src='../images/products/hong-tra-mochi-keo-dai.jpg';" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover;">
         </td>
         <td>
           <div class="font-bold">${p.name}</div>
@@ -115,8 +117,8 @@ const ProductMgmt = {
             <button class="action-icon-btn btn-del" onclick="ProductMgmt.deleteProduct('${p.id}')" title="Xóa món">🗑️</button>
           </div>
         </td>
-      </tr>
-    `).join("");
+      </tr>`;
+    }).join("");
   },
 
   renderToppingsTable() {
@@ -340,7 +342,6 @@ const ProductMgmt = {
       Toast.success(`Đã cập nhật trạng thái topping: <b>${target.name}</b>`);
       this.renderToppingsTable();
     }
-  }
   }
 };
 

@@ -287,12 +287,12 @@ INSERT INTO `NHA_CUNG_CAP` (`id`, `ma_ncc`, `ten_nha_cung_cap`, `nguoi_dai_dien`
 
 -- 4. SEED SAN_PHAM (Menu Đô Đô)
 INSERT INTO `SAN_PHAM` (`id`, `ma_sku`, `nha_cung_cap_id`, `danh_muc`, `ten_san_pham`, `mo_ta`, `gia_goc`, `gia_khuyen_mai`, `hinh_anh_url`, `so_luong_ton`, `da_ban`, `danh_gia_tb`, `trang_thai`) VALUES
-(1, 'TS-01', 1, 'mochi', 'Hồng Trà Mochi Kéo Dài', 'Món Signature trứ danh của Đô Đô với lớp topping Mochi dẻo quánh kéo dài độc quyền kết hợp nền hồng trà sữa thơm bùi.', 25000.00, 30000.00, 'https://trasuadodo.vn/wp-content/uploads/2025/09/Hong-tra-mochi-keo-dai.jpg', 100, 3420, 5.0, TRUE),
-(2, 'TS-02', 1, 'mochi', 'Matcha Mochi Kéo Dài', 'Matcha thanh mát nguyên chất nhập khẩu quyện cùng sữa béo và lớp mochi dẻo mềm kéo sợi dai ngọt thơm lừng.', 25000.00, 30000.00, 'https://trasuadodo.vn/wp-content/uploads/2021/04/Tra-sua-matcha-mochi-keo-dai.jpg', 85, 2280, 4.9, TRUE),
-(3, 'TS-03', 1, 'mochi', 'Sữa Tươi Đường Đen Mochi Kéo Dài', 'Sữa tươi thanh trùng béo ngậy sốt đường đen đậm vị cùng lớp mochi dẻo dai béo ngậy gây nghiện.', 25000.00, 32000.00, 'https://trasuadodo.vn/wp-content/uploads/2021/03/Sua-tuoi-duong-den-mochi-keo-dai.jpg', 90, 2750, 4.9, TRUE),
-(4, 'TS-06', 1, 'tiramisu', 'Hồng Trà Tiramisu Ovaltine', 'Hồng trà sữa thơm phức phủ lớp kem Tiramisu phô mai béo mặn chuẩn Ý và rắc bột Ovaltine giòn rụm.', 25000.00, 32000.00, 'https://trasuadodo.vn/wp-content/uploads/2022/12/Hong-tra-tiramisu-ovaltine.jpg', 95, 1980, 4.9, TRUE),
-(5, 'TS-10', 1, 'tra-sua', 'Trà Sữa Đô Đô Truyền Thống', 'Vị trà sữa nguyên bản Đô Đô thơm nồng đượm vị lá trà, béo ngậy vừa vặn với mức giá sinh viên chỉ 21K.', 21000.00, 25000.00, 'https://trasuadodo.vn/wp-content/uploads/2021/04/Hong-tra-sua.jpg', 150, 4120, 4.9, TRUE),
-(6, 'TC-01', 1, 'tra-trai-cay', 'Trà Khế Thạch Đào', 'Vị chua thanh dịu ngọt từ trái khế mọng nước hòa quyện cùng thạch đào giòn sần sật đã khát ngày hè.', 23000.00, 28000.00, 'https://trasuadodo.vn/wp-content/uploads/2026/06/Tra-khe-thach-dao.png', 90, 1560, 4.9, TRUE);
+(1, 'TS-01', 1, 'mochi', 'Hồng Trà Mochi Kéo Dài', 'Món Signature trứ danh của Đô Đô với lớp topping Mochi dẻo quánh kéo dài độc quyền kết hợp nền hồng trà sữa thơm bùi.', 25000.00, 30000.00, 'images/products/hong-tra-mochi-keo-dai.jpg', 100, 3420, 5.0, TRUE),
+(2, 'TS-02', 1, 'mochi', 'Matcha Mochi Kéo Dài', 'Matcha thanh mát nguyên chất nhập khẩu quyện cùng sữa béo và lớp mochi dẻo mềm kéo sợi dai ngọt thơm lừng.', 25000.00, 30000.00, 'images/products/matcha-mochi-keo-dai.jpg', 85, 2280, 4.9, TRUE),
+(3, 'TS-03', 1, 'mochi', 'Sữa Tươi Đường Đen Mochi Kéo Dài', 'Sữa tươi thanh trùng béo ngậy sốt đường đen đậm vị cùng lớp mochi dẻo dai béo ngậy gây nghiện.', 25000.00, 32000.00, 'images/products/sua-tuoi-duong-den-mochi.jpg', 90, 2750, 4.9, TRUE),
+(4, 'TS-06', 1, 'tiramisu', 'Hồng Trà Tiramisu Ovaltine', 'Hồng trà sữa thơm phức phủ lớp kem Tiramisu phô mai béo mặn chuẩn Ý và rắc bột Ovaltine giòn rụm.', 25000.00, 32000.00, 'images/products/hong-tra-tiramisu-ovaltine.jpg', 95, 1980, 4.9, TRUE),
+(5, 'TS-10', 1, 'tra-sua', 'Trà Sữa Đô Đô Truyền Thống', 'Vị trà sữa nguyên bản Đô Đô thơm nồng đượm vị lá trà, béo ngậy vừa vặn với mức giá sinh viên chỉ 21K.', 21000.00, 25000.00, 'images/products/tra-sua-dodo-truyen-thong.jpg', 150, 4120, 4.9, TRUE),
+(6, 'TC-01', 1, 'tra-trai-cay', 'Trà Khế Thạch Đào', 'Vị chua thanh dịu ngọt từ trái khế mọng nước hòa quyện cùng thạch đào giòn sần sật đã khát ngày hè.', 23000.00, 28000.00, 'images/products/tra-khe-thach-dao.png', 90, 1560, 4.9, TRUE);
 
 -- 5. SEED TOPPING (Topping Đô Đô)
 INSERT INTO `TOPPING` (`id`, `ma_topping`, `ten_topping`, `gia_them`, `trang_thai`) VALUES

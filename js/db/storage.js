@@ -18,7 +18,7 @@ const STORAGE_KEYS = {
   VERSION: "teajoy_version"
 };
 
-const DODO_VERSION = "dodo_v4_real_images_manrope";
+const DODO_VERSION = "dodo_v5_local_assets_vietnampro";
 
 const DB = {
   // Initialize and Seed LocalStorage if empty or outdated

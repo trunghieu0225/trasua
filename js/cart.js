@@ -135,7 +135,7 @@ const Cart = {
 
     const itemsHtml = cart.map(item => `
       <div style="display: flex; gap: 0.85rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--border-subtle);">
-        <img src="${item.image}" alt="${item.name}" style="width: 65px; height: 65px; border-radius: var(--radius-md); object-fit: cover;">
+        <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null; this.src='images/products/hong-tra-mochi-keo-dai.jpg';" style="width: 65px; height: 65px; border-radius: var(--radius-md); object-fit: cover;">
         <div style="flex: 1; min-width: 0;">
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <h5 style="font-size: 0.925rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.name}</h5>
