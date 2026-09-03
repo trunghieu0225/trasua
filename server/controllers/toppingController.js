@@ -16,7 +16,12 @@ const toppingController = {
         status: r.trang_thai ? 'available' : 'disabled'
       }));
 
-      return res.json({ success: true, count: toppings.length, data: toppings });
+      return res.json({ 
+        success: true, 
+        count: toppings.length, 
+        data: toppings, 
+        toppings: toppings 
+      });
     } catch (error) {
       console.error('Error fetching toppings:', error);
       return res.status(500).json({ success: false, message: error.message });
@@ -45,6 +50,28 @@ const toppingController = {
         dbId: result.insertId,
         message: 'Thêm topping mới thành công!'
       });
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
+
+  // PUT /api/toppings/:id
+  async update(req, res) {
+    try {
+      const topId = req.params.id;
+      const { name, price, status, inStock } = req.body;
+      const isAvailable = inStock !== undefined ? (inStock !== false && inStock !== 'false') : (status !== 'disabled');
+
+      await pool.query(
+        `UPDATE TOPPING 
+         SET ten_topping = COALESCE(?, ten_topping),
+             gia_them = COALESCE(?, gia_them),
+             trang_thai = ?
+         WHERE ma_topping = ? OR id = ?`,
+        [name ? name.trim() : null, price !== undefined ? price : null, isAvailable, topId, topId]
+      );
+
+      return res.json({ success: true, message: 'Cập nhật topping thành công!' });
     } catch (error) {
       return res.status(500).json({ success: false, message: error.message });
     }

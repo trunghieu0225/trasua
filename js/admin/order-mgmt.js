@@ -24,12 +24,32 @@ const OrderMgmt = {
   async syncOrdersFromAPI() {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 1000);
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
       const res = await fetch("http://localhost:5000/api/orders", { signal: controller.signal });
       clearTimeout(timeoutId);
       const data = await res.json();
-      if (data.success && Array.isArray(data.orders)) {
-        data.orders.forEach(o => DB.saveOrder(o));
+      const orderList = data.success && (Array.isArray(data.orders) ? data.orders : (Array.isArray(data.data) ? data.data : null));
+      if (orderList) {
+        orderList.forEach(o => {
+          const normalized = {
+            id: o.id || o.orderId,
+            customerName: o.customerName,
+            customerPhone: o.customerPhone || o.phone,
+            customerAddress: o.customerAddress || o.address,
+            note: o.note || o.notes || "",
+            items: o.items || [],
+            itemsTotal: parseFloat(o.itemsTotal || 0),
+            shippingFee: parseFloat(o.shippingFee || 0),
+            discount: parseFloat(o.discount || o.discountAmount || 0),
+            voucherCode: o.voucherCode || "",
+            totalAmount: parseFloat(o.totalAmount || 0),
+            paymentMethod: o.paymentMethod || "cod",
+            paymentStatus: o.paymentStatus || "pending",
+            orderStatus: o.orderStatus || o.status || "pending",
+            createdAt: o.createdAt
+          };
+          DB.saveOrder(normalized);
+        });
       }
     } catch (err) {
       // Offline fallback

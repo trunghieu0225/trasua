@@ -15,17 +15,20 @@ const ProductMgmt = {
   async syncFromAPI() {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 1000);
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
       const resP = await fetch("http://localhost:5000/api/products", { signal: controller.signal });
       const dataP = await resP.json();
-      if (dataP.success && Array.isArray(dataP.products)) {
-        dataP.products.forEach(p => DB.saveProduct(p));
+      const prodList = dataP.success && (Array.isArray(dataP.products) ? dataP.products : (Array.isArray(dataP.data) ? dataP.data : null));
+      if (prodList) {
+        prodList.forEach(p => DB.saveProduct(p));
       }
+
       const resT = await fetch("http://localhost:5000/api/toppings", { signal: controller.signal });
       clearTimeout(timeoutId);
       const dataT = await resT.json();
-      if (dataT.success && Array.isArray(dataT.toppings)) {
-        dataT.toppings.forEach(t => DB.saveTopping(t));
+      const topList = dataT.success && (Array.isArray(dataT.toppings) ? dataT.toppings : (Array.isArray(dataT.data) ? dataT.data : null));
+      if (topList) {
+        topList.forEach(t => DB.saveTopping(t));
       }
     } catch (err) {}
   },
@@ -149,7 +152,7 @@ const ProductMgmt = {
     Modal.open("topping-form-modal");
   },
 
-  saveToppingSubmit(e) {
+  async saveToppingSubmit(e) {
     e.preventDefault();
     const id = document.getElementById("form-top-id").value;
     const name = document.getElementById("form-top-name").value.trim();
@@ -162,6 +165,13 @@ const ProductMgmt = {
       if (idx >= 0) {
         toppings[idx] = { ...toppings[idx], name, price, inStock };
       }
+      try {
+        await fetch(`http://localhost:5000/api/toppings/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, price, inStock })
+        });
+      } catch (err) {}
     } else {
       const newTop = {
         id: `top-${toppings.length + 1}`,
@@ -170,6 +180,13 @@ const ProductMgmt = {
         inStock
       };
       toppings.push(newTop);
+      try {
+        await fetch("http://localhost:5000/api/toppings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, price, status: inStock ? 'available' : 'disabled' })
+        });
+      } catch (err) {}
     }
 
     DB.saveToppings(toppings);
@@ -178,11 +195,16 @@ const ProductMgmt = {
     this.renderToppingsTable();
   },
 
-  deleteTopping(toppingId) {
+  async deleteTopping(toppingId) {
     if (confirm(`Bạn có chắc muốn xóa topping ${toppingId}?`)) {
       let toppings = DB.getToppings();
       toppings = toppings.filter(t => t.id !== toppingId);
       DB.saveToppings(toppings);
+      try {
+        await fetch(`http://localhost:5000/api/toppings/${toppingId}`, {
+          method: "DELETE"
+        });
+      } catch (err) {}
       Toast.info("Đã xóa topping.");
       this.renderToppingsTable();
     }
@@ -220,7 +242,7 @@ const ProductMgmt = {
     Modal.open("product-form-modal");
   },
 
-  saveProductSubmit(e) {
+  async saveProductSubmit(e) {
     e.preventDefault();
     const editId = document.getElementById("form-prod-id").value;
     const sku = document.getElementById("form-prod-sku").value.trim().toUpperCase();
@@ -248,28 +270,77 @@ const ProductMgmt = {
     };
 
     DB.saveProduct(productObj);
+
+    // Đồng bộ trực tiếp lên Backend API Server (MySQL Database)
+    try {
+      if (editId) {
+        await fetch(`http://localhost:5000/api/products/${editId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            category: cat,
+            price,
+            oldPrice,
+            stockQty,
+            inStock,
+            image,
+            description: desc
+          })
+        });
+      } else {
+        await fetch("http://localhost:5000/api/products", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sku,
+            category: cat,
+            name,
+            description: desc,
+            price,
+            originalPrice: oldPrice || null,
+            image,
+            stockQty
+          })
+        });
+      }
+    } catch (err) {}
+
     Toast.success(`Đã lưu sản phẩm <b>${name}</b> thành công!`);
     Modal.close("product-form-modal");
     this.renderProductsTable();
   },
 
-  deleteProduct(productId) {
+  async deleteProduct(productId) {
     if (confirm(`Bạn có chắc muốn xóa sản phẩm ${productId} khỏi thực đơn?`)) {
       DB.deleteProduct(productId);
+      try {
+        await fetch(`http://localhost:5000/api/products/${productId}`, {
+          method: "DELETE"
+        });
+      } catch (err) {}
       Toast.info("Đã xóa sản phẩm.");
       this.renderProductsTable();
     }
   },
 
-  toggleToppingStock(toppingId) {
+  async toggleToppingStock(toppingId) {
     const toppings = DB.getToppings();
     const target = toppings.find(t => t.id === toppingId);
     if (target) {
       target.inStock = !target.inStock;
       DB.saveToppings(toppings);
+      try {
+        await fetch(`http://localhost:5000/api/toppings/${toppingId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ inStock: target.inStock })
+        });
+      } catch (err) {}
       Toast.success(`Đã cập nhật trạng thái topping: <b>${target.name}</b>`);
       this.renderToppingsTable();
     }
+  }
   }
 };
 

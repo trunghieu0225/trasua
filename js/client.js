@@ -19,30 +19,38 @@ const ClientApp = {
 
   // Render a standard product card HTML
   renderProductCard(product) {
+    const defaultImg = "https://images.unsplash.com/photo-1558857563-b37fcdd72460?auto=format&fit=crop&w=600&q=80";
     return `
       <div class="product-card" data-product-id="${product.id}">
         ${product.oldPrice ? `<span class="badge badge-discount">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</span>` : ""}
         ${product.isBestseller ? `<span class="badge badge-warning badge-tag">🔥 Hot</span>` : (product.isNew ? `<span class="badge badge-secondary badge-tag">✨ Mới</span>` : "")}
-        <div class="card-img-wrap" onclick="ClientApp.openCustomizer('${product.id}')" style="cursor: pointer;">
-          <img src="${product.image}" alt="${product.name}" loading="lazy">
+        <div class="card-img-wrap" onclick="window.location.href='product-detail.html?id=${product.id}'" style="cursor: pointer;" title="Xem chi tiết ly ${product.name}">
+          <img src="${product.image || defaultImg}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${defaultImg}';">
           <div class="quick-view-overlay" style="position: absolute; inset: 0; background: rgba(230,0,35,0.25); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
-            <span class="btn btn-primary btn-sm" style="box-shadow: 0 4px 12px rgba(0,0,0,0.3);">👁️ Xem & Tùy Chỉnh</span>
+            <span class="btn btn-primary btn-sm" style="box-shadow: 0 4px 12px rgba(0,0,0,0.3);">👁️ Xem Chi Tiết Ly</span>
           </div>
         </div>
         <div class="card-body">
           <span class="card-category">${product.category}</span>
-          <h3 class="card-title" onclick="ClientApp.openCustomizer('${product.id}')" style="cursor: pointer;">${product.name}</h3>
+          <h3 class="card-title">
+            <a href="product-detail.html?id=${product.id}" style="color: inherit; text-decoration: none;" title="Xem chi tiết ${product.name}">
+              ${product.name}
+            </a>
+          </h3>
           <div class="card-rating">
-            <span>⭐ ${product.rating}</span>
-            <span style="color: var(--text-subtle);">(${product.sold} đã bán)</span>
+            <span>⭐ ${product.rating || 5.0}</span>
+            <span style="color: var(--text-subtle);">(${product.sold || 0} đã bán)</span>
           </div>
-          <div class="card-footer" style="gap: 0.5rem; flex-wrap: wrap;">
+          <div class="card-footer" style="gap: 0.35rem; flex-wrap: wrap; justify-content: space-between;">
             <div class="price-wrap">
               <span class="current-price">${Formatters.currency(product.price)}</span>
               ${product.oldPrice ? `<span class="oldPrice" style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-subtle);">${Formatters.currency(product.oldPrice)}</span>` : ""}
             </div>
-            <div style="display: flex; gap: 0.4rem;">
-              <button class="btn btn-primary btn-sm" onclick="ClientApp.openCustomizer('${product.id}')" title="Chọn Size & Topping">
+            <div style="display: flex; gap: 0.35rem;">
+              <a href="product-detail.html?id=${product.id}" class="btn btn-outline btn-sm" style="padding: 0.35rem 0.55rem; font-size: 0.8rem;" title="Xem chi tiết">
+                Chi Tiết ➔
+              </a>
+              <button class="btn btn-primary btn-sm" style="padding: 0.35rem 0.65rem;" onclick="ClientApp.openCustomizer('${product.id}')" title="Chọn Size & Topping nhanh">
                 🛒 Chọn Món
               </button>
             </div>

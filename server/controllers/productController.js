@@ -26,7 +26,12 @@ const productController = {
         inStock: Boolean(r.trang_thai && r.so_luong_ton > 0)
       }));
 
-      return res.json({ success: true, count: products.length, data: products });
+      return res.json({ 
+        success: true, 
+        count: products.length, 
+        data: products, 
+        products: products 
+      });
     } catch (error) {
       console.error('Error fetching products:', error);
       return res.status(500).json({ success: false, message: error.message });
@@ -50,6 +55,52 @@ const productController = {
 
       return res.status(201).json({ success: true, id: productSku, dbId: result.insertId, message: 'Thêm sản phẩm mới thành công!' });
     } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
+
+  // PUT /api/products/:id -> Cập nhật sản phẩm
+  async update(req, res) {
+    try {
+      const prodId = req.params.id;
+      const { category, name, description, price, originalPrice, oldPrice, image, stockQty, inStock } = req.body;
+
+      if (!name || price === undefined) {
+        return res.status(400).json({ success: false, message: 'Tên và giá sản phẩm là bắt buộc!' });
+      }
+
+      const isAvailable = inStock !== false && inStock !== 'false';
+      const promoPrice = originalPrice !== undefined ? originalPrice : (oldPrice || null);
+
+      await pool.query(
+        `UPDATE SAN_PHAM 
+         SET danh_muc = COALESCE(?, danh_muc),
+             ten_san_pham = ?,
+             mo_ta = COALESCE(?, mo_ta),
+             gia_goc = ?,
+             gia_khuyen_mai = ?,
+             hinh_anh_url = COALESCE(?, hinh_anh_url),
+             so_luong_ton = COALESCE(?, so_luong_ton),
+             trang_thai = ?
+         WHERE ma_sku = ? OR id = ?`,
+        [category, name.trim(), description, price, promoPrice, image, stockQty !== undefined ? stockQty : 50, isAvailable, prodId, prodId]
+      );
+
+      return res.json({ success: true, message: `Cập nhật sản phẩm "${name}" thành công!` });
+    } catch (error) {
+      console.error('Error updating product:', error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
+
+  // DELETE /api/products/:id -> Xóa sản phẩm
+  async delete(req, res) {
+    try {
+      const prodId = req.params.id;
+      await pool.query('DELETE FROM SAN_PHAM WHERE ma_sku = ? OR id = ?', [prodId, prodId]);
+      return res.json({ success: true, message: `Đã xóa sản phẩm ${prodId} thành công!` });
+    } catch (error) {
+      console.error('Error deleting product:', error);
       return res.status(500).json({ success: false, message: error.message });
     }
   }

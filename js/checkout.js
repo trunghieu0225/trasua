@@ -204,14 +204,20 @@ const Checkout = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          orderId: orderId,
+          orderCode: orderId,
           customerName: name,
-          phone,
-          address,
+          phone: phone,
+          customerPhone: phone,
+          address: address,
+          customerAddress: address,
           notes: note,
+          note: note,
           items: cart,
           paymentMethod: this.paymentMethod,
           voucherCode: this.appliedVoucher ? this.appliedVoucher.code : "",
           discountAmount: discount,
+          discount: discount,
           shippingFee: ship
         })
       }).catch(err => console.log("Backend offline, order saved in LocalStorage"));

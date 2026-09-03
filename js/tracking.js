@@ -53,10 +53,30 @@ const OrderTracking = {
     this.lookupOrder(query);
   },
 
-  lookupOrder(query) {
-    const orders = DB.getOrders();
-    // Lookup by ID or Phone
-    const found = orders.find(o => o.id.toUpperCase() === query || o.customerPhone === query);
+  async lookupOrder(query) {
+    let found = null;
+
+    // 1. Thử tra cứu trực tiếp thời gian thực từ Backend API Server (MySQL)
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1800);
+      const res = await fetch(`http://localhost:5000/api/orders/${encodeURIComponent(query)}`, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      const data = await res.json();
+      if (data.success && (data.order || data.data)) {
+        found = data.order || data.data;
+        // Cập nhật trạng thái mới nhất từ server vào local
+        DB.saveOrder(found);
+      }
+    } catch (e) {
+      // Backend offline hoặc timeout -> fallback sang LocalStorage
+    }
+
+    // 2. Fallback sang LocalStorage nếu không có từ API
+    if (!found) {
+      const orders = DB.getOrders();
+      found = orders.find(o => (o.id && o.id.toUpperCase() === query.toUpperCase()) || o.customerPhone === query);
+    }
 
     if (!found) {
       const resultEl = document.getElementById("tracking-result-box");

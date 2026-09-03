@@ -196,9 +196,24 @@
       currentProd = DB.getProductById(prodId) || DB.getProducts()[0];
 
       // Breadcrumb & Info
-      document.getElementById("detail-breadcrumb-name").textContent = currentProd.name;
-      document.getElementById("detail-product-title").textContent = currentProd.name;
-      document.getElementById("detail-product-desc").textContent = currentProd.description;
+      if (currentProd) {
+        document.title = `${currentProd.name} - Trà Sữa ĐÔ ĐÔ`;
+        document.getElementById("detail-breadcrumb-name").textContent = currentProd.name;
+        document.getElementById("detail-product-title").textContent = currentProd.name;
+        document.getElementById("detail-product-desc").textContent = currentProd.description || "Thức uống đậm vị chuẩn gu được pha chế từ lá trà hữu cơ tuyển chọn.";
+        const tagEl = document.getElementById("detail-product-tag");
+        if (tagEl) {
+          if (currentProd.isBestseller) {
+            tagEl.textContent = "🔥 Bán chạy nhất";
+            tagEl.style.display = "inline-block";
+          } else if (currentProd.isNew) {
+            tagEl.textContent = "✨ Món mới";
+            tagEl.style.display = "inline-block";
+          } else {
+            tagEl.style.display = "none";
+          }
+        }
+      }
 
       // Render Toppings
       const toppings = DB.getToppings();

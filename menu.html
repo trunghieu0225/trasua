@@ -142,6 +142,22 @@
           filterAndRenderProducts();
         });
       }
+
+      // 5. Đồng bộ nền thực đơn từ Backend API Server (nếu online)
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
+        fetch("http://localhost:5000/api/products", { signal: controller.signal })
+          .then(res => res.json())
+          .then(data => {
+            clearTimeout(timeoutId);
+            const prods = data.success && (data.products || data.data);
+            if (Array.isArray(prods) && prods.length > 0) {
+              prods.forEach(p => DB.saveProduct(p));
+              filterAndRenderProducts();
+            }
+          }).catch(() => {});
+      } catch (e) {}
     }
 
     function renderCategoryChips() {
