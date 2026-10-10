@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng Nhập & Đăng Ký - Trà Sữa ĐÔ ĐÔ</title>
-  <meta name="description" content="Đăng nhập tài khoản quản trị hoặc khách hàng để trải nghiệm dịch vụ tại Trà Sữa ĐÔ ĐÔ.">
+  <meta name="description"
+    content="Đăng nhập tài khoản quản trị hoặc khách hàng để trải nghiệm dịch vụ tại Trà Sữa ĐÔ ĐÔ.">
 
   <!-- Google Fonts for Vietnamese Support -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
 
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
@@ -17,24 +21,31 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/client.css">
 </head>
-<body style="justify-content: center; align-items: center; background: radial-gradient(circle at top right, var(--primary-bg) 0%, var(--bg-main) 60%);">
+
+<body
+  style="justify-content: center; align-items: center; background: radial-gradient(circle at top right, var(--primary-bg) 0%, var(--bg-main) 60%);">
 
   <div class="card" style="width: 100%; max-width: 440px; padding: 2.25rem; margin: 2rem auto;">
     <!-- Logo -->
     <div style="text-align: center; margin-bottom: 1.5rem;">
-      <a href="index.html" class="site-logo" style="justify-content: center; font-size: 1.75rem; margin-bottom: 0.5rem;">
+      <a href="index.html" class="site-logo"
+        style="justify-content: center; font-size: 1.75rem; margin-bottom: 0.5rem;">
         <div class="logo-icon">
           <img src="images/dodo-logo.svg" alt="Trà Sữa ĐÔ ĐÔ Logo">
         </div>
         <span>ĐÔ</span> ĐÔ
       </a>
-      <p class="text-sm text-muted">Hệ thống bán hàng và quản lý chuỗi Trà Sữa Đa Đa</p>
+      <p class="text-sm text-muted">Hệ thống bán hàng và quản lý chuỗi Trà Sữa Đô ĐÔp>
     </div>
 
     <!-- Auth Tabs -->
     <div style="display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 1.5rem;">
-      <button id="tab-login-btn" class="btn btn-ghost font-bold" style="flex: 1; border-radius: 0; border-bottom: 2.5px solid var(--primary); color: var(--primary);" onclick="switchAuthTab('login')">Đăng Nhập</button>
-      <button id="tab-register-btn" class="btn btn-ghost font-bold" style="flex: 1; border-radius: 0; color: var(--text-muted);" onclick="switchAuthTab('register')">Đăng Ký</button>
+      <button id="tab-login-btn" class="btn btn-ghost font-bold"
+        style="flex: 1; border-radius: 0; border-bottom: 2.5px solid var(--primary); color: var(--primary);"
+        onclick="switchAuthTab('login')">Đăng Nhập</button>
+      <button id="tab-register-btn" class="btn btn-ghost font-bold"
+        style="flex: 1; border-radius: 0; color: var(--text-muted);" onclick="switchAuthTab('register')">Đăng
+        Ký</button>
     </div>
 
     <!-- Login Form -->
@@ -47,31 +58,40 @@
         <label class="form-label text-xs">Mật khẩu</label>
         <input type="password" id="login-password" class="form-control" placeholder="Mật khẩu demo: 123456" required>
         <div style="display: flex; justify-content: flex-end; margin-top: 0.25rem;">
-          <a href="#" onclick="openForgotModal(); return false;" class="text-xs text-primary" style="text-decoration: underline; cursor: pointer;">Quên mật khẩu?</a>
+          <a href="#" onclick="openForgotModal(); return false;" class="text-xs text-primary"
+            style="text-decoration: underline; cursor: pointer;">Quên mật khẩu?</a>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg" id="btn-login-submit" style="width: 100%; margin-top: 0.5rem;">Đăng Nhập ➔</button>
+      <button type="submit" class="btn btn-primary btn-lg" id="btn-login-submit"
+        style="width: 100%; margin-top: 0.5rem;">Đăng Nhập ➔</button>
 
       <!-- Social Login / Liên kết tài khoản (UC 3.2.2.2.3 a) -->
       <div style="margin-top: 1.25rem; text-align: center;">
-        <span class="text-xs text-muted" style="display: block; margin-bottom: 0.5rem;">Hoặc đăng nhập nhanh bằng:</span>
+        <span class="text-xs text-muted" style="display: block; margin-bottom: 0.5rem;">Hoặc đăng nhập nhanh
+          bằng:</span>
         <div style="display: flex; gap: 0.5rem; justify-content: center;">
-          <button type="button" class="btn btn-outline btn-sm" onclick="handleSocialAuth('Google')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="handleSocialAuth('Google')"
+            style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
             <span style="font-weight: 800; color: #EA4335;">G</span> Google
           </button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="handleSocialAuth('Facebook')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="handleSocialAuth('Facebook')"
+            style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
             <span style="font-weight: 800; color: #1877F2;">f</span> Facebook
           </button>
         </div>
       </div>
 
       <!-- Quick Demo Login Buttons -->
-      <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
-        <span class="text-xs text-muted font-bold" style="display: block; margin-bottom: 0.5rem;">Đăng nhập nhanh 1-Click (Demo):</span>
+      <div
+        style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
+        <span class="text-xs text-muted font-bold" style="display: block; margin-bottom: 0.5rem;">Đăng nhập nhanh
+          1-Click (Demo):</span>
         <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
           <button type="button" class="btn btn-outline btn-sm" onclick="quickLogin('admin', '123456')">👑 Admin</button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="quickLogin('thungan', '123456')">💼 Thu Ngân</button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="quickLogin('phache', '123456')">🧋 Pha Chế</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="quickLogin('thungan', '123456')">💼 Thu
+            Ngân</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="quickLogin('phache', '123456')">🧋 Pha
+            Chế</button>
         </div>
       </div>
     </form>
@@ -94,31 +114,38 @@
         <label class="form-label text-xs">Mật khẩu *</label>
         <input type="password" id="reg-password" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg" id="btn-register-submit" style="width: 100%; margin-top: 0.5rem;">Tạo Tài Khoản</button>
+      <button type="submit" class="btn btn-primary btn-lg" id="btn-register-submit"
+        style="width: 100%; margin-top: 0.5rem;">Tạo Tài Khoản</button>
     </form>
   </div>
 
   <!-- Modal Quên Mật Khẩu (Xác thực OTP - UC 3.2.2.2.3 a) -->
-  <div id="forgot-password-modal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+  <div id="forgot-password-modal" class="modal-backdrop"
+    style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
     <div class="modal-container card" style="max-width: 420px; width: 90%; padding: 2rem; position: relative;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
         <h4 style="margin: 0; font-size: 1.2rem;">🔒 Quên Mật Khẩu</h4>
-        <button type="button" class="action-btn" onclick="closeForgotModal()" style="border: none; background: none; font-size: 1.25rem; cursor: pointer;">✕</button>
+        <button type="button" class="action-btn" onclick="closeForgotModal()"
+          style="border: none; background: none; font-size: 1.25rem; cursor: pointer;">✕</button>
       </div>
-      <p class="text-xs text-muted" style="margin-bottom: 1.25rem;">Nhập số điện thoại đã đăng ký để nhận mã OTP xác thực đặt lại mật khẩu mới.</p>
+      <p class="text-xs text-muted" style="margin-bottom: 1.25rem;">Nhập số điện thoại đã đăng ký để nhận mã OTP xác
+        thực đặt lại mật khẩu mới.</p>
 
       <form id="forgot-form" onsubmit="handleForgotSubmit(event)">
         <div class="form-group" style="margin-bottom: 1rem;">
           <label class="form-label text-xs">Số điện thoại đăng ký *</label>
           <div style="display: flex; gap: 0.5rem;">
             <input type="tel" id="forgot-phone" class="form-control" placeholder="09xxxxxxx" required>
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-send-otp" onclick="sendOtpCode()">Gửi OTP</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-send-otp" onclick="sendOtpCode()">Gửi
+              OTP</button>
           </div>
         </div>
 
         <div id="otp-group" style="display: none; margin-bottom: 1rem;">
-          <div style="padding: 0.6rem 0.75rem; background: var(--primary-bg); border-radius: var(--radius-sm); margin-bottom: 0.75rem;">
-            <span class="text-xs" style="color: var(--primary); font-weight: 600;">Mã OTP của bạn là: <b id="mock-otp-code" style="font-size: 1.1rem; letter-spacing: 2px;">8899</b></span>
+          <div
+            style="padding: 0.6rem 0.75rem; background: var(--primary-bg); border-radius: var(--radius-sm); margin-bottom: 0.75rem;">
+            <span class="text-xs" style="color: var(--primary); font-weight: 600;">Mã OTP của bạn là: <b
+                id="mock-otp-code" style="font-size: 1.1rem; letter-spacing: 2px;">8899</b></span>
           </div>
           <div class="form-group" style="margin-bottom: 0.75rem;">
             <label class="form-label text-xs">Nhập mã OTP (4 số) *</label>
@@ -130,7 +157,8 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" id="btn-confirm-reset" style="width: 100%; display: none;">Xác Nhận Đổi Mật Khẩu ➔</button>
+        <button type="submit" class="btn btn-primary" id="btn-confirm-reset" style="width: 100%; display: none;">Xác
+          Nhận Đổi Mật Khẩu ➔</button>
       </form>
     </div>
   </div>
@@ -317,4 +345,5 @@
     }
   </script>
 </body>
+
 </html>
