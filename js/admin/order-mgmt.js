@@ -96,7 +96,7 @@ const OrderMgmt = {
   async syncOrdersFromAPI() {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2500);
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
       const res = await fetch(`${this.getApiBase()}/orders`, { signal: controller.signal });
       clearTimeout(timeoutId);
       const data = await res.json();

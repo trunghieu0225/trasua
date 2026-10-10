@@ -57,11 +57,23 @@ const orderController = {
       const totalAmount = Math.max(0, itemsTotal + finalShipping - clientDiscount);
 
       // 1. Insert into HOA_DON
-      const [orderResult] = await connection.query(
-        `INSERT INTO HOA_DON (ma_don_hang, ten_nguoi_nhan, sdt_nguoi_nhan, dia_chi_giao_hang, ghi_chu, tong_tien_mon, phi_van_chuyen, so_tien_giam_gia, tong_thanh_toan, trang_thai_don_hang, ngay_dat)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())`,
-        [finalOrderCode, clientName, clientPhone, clientAddress, clientNotes, itemsTotal, finalShipping, clientDiscount, totalAmount]
-      );
+      // Bảng HOA_DON có ma_hoa_don là cột gốc (hoặc ma_don_hang tùy schema), còn cột còn lại là STORED GENERATED.
+      // Ưu tiên chèn theo cấu trúc thực tế của database: ma_hoa_don, trang_thai_hoa_don, ngay_lap.
+      let orderResult;
+      try {
+        [orderResult] = await connection.query(
+          `INSERT INTO HOA_DON (ma_hoa_don, ten_nguoi_nhan, sdt_nguoi_nhan, dia_chi_giao_hang, ghi_chu, tong_tien_mon, phi_van_chuyen, so_tien_giam_gia, tong_thanh_toan, trang_thai_hoa_don, ngay_lap)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())`,
+          [finalOrderCode, clientName, clientPhone, clientAddress, clientNotes, itemsTotal, finalShipping, clientDiscount, totalAmount]
+        );
+      } catch (insertErr) {
+        // Fallback trường hợp database dùng ma_don_hang làm cột gốc
+        [orderResult] = await connection.query(
+          `INSERT INTO HOA_DON (ma_don_hang, ten_nguoi_nhan, sdt_nguoi_nhan, dia_chi_giao_hang, ghi_chu, tong_tien_mon, phi_van_chuyen, so_tien_giam_gia, tong_thanh_toan, trang_thai_don_hang, ngay_dat)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())`,
+          [finalOrderCode, clientName, clientPhone, clientAddress, clientNotes, itemsTotal, finalShipping, clientDiscount, totalAmount]
+        );
+      }
 
       const dbOrderId = orderResult.insertId;
 
@@ -221,8 +233,7 @@ const orderController = {
   // GET /api/orders/:id -> Tra cứu 1 đơn hàng theo mã đơn, dbId hoặc số điện thoại
   async getById(req, res) {
     try {
-      const rawKey = String(req.params.id || '').trim();
-      const searchKey = rawKey.replace(/^#/, '').trim();
+      const searchKey = String(req.params.id || '').trim();
       const isNum = /^\d+$/.test(searchKey);
       const numId = isNum ? parseInt(searchKey) : -1;
 
@@ -300,6 +311,7 @@ const orderController = {
 
       return res.json({
         success: true,
+        
         order: formattedOrder,
         data: formattedOrder
       });
@@ -313,22 +325,35 @@ const orderController = {
   // PUT /api/orders/:id -> Chỉnh sửa toàn diện thông tin đơn hàng
   async update(req, res) {
     try {
-      const orderId = String(req.params.id || '').replace(/^#/, '').trim();
+      const orderId = String(req.params.id || '').trim();
       const isNum = /^\d+$/.test(orderId);
       const numId = isNum ? parseInt(orderId) : -1;
       const { customerName, customerPhone, customerAddress, note, orderStatus, paymentStatus } = req.body;
 
-      // Cập nhật thông tin trong bảng HOA_DON
-      await pool.query(
-        `UPDATE HOA_DON 
-         SET ten_nguoi_nhan = COALESCE(?, ten_nguoi_nhan),
-             sdt_nguoi_nhan = COALESCE(?, sdt_nguoi_nhan),
-             dia_chi_giao_hang = COALESCE(?, dia_chi_giao_hang),
-             ghi_chu = COALESCE(?, ghi_chu),
-             trang_thai_don_hang = COALESCE(?, trang_thai_don_hang)
-         WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
-        [customerName, customerPhone, customerAddress, note, orderStatus, orderId, orderId, numId]
-      );
+      // Cập nhật thông tin trong bảng HOA_DON (ưu tiên trang_thai_hoa_don, fallback trang_thai_don_hang)
+      try {
+        await pool.query(
+          `UPDATE HOA_DON 
+           SET ten_nguoi_nhan = COALESCE(?, ten_nguoi_nhan),
+               sdt_nguoi_nhan = COALESCE(?, sdt_nguoi_nhan),
+               dia_chi_giao_hang = COALESCE(?, dia_chi_giao_hang),
+               ghi_chu = COALESCE(?, ghi_chu),
+               trang_thai_hoa_don = COALESCE(?, trang_thai_hoa_don)
+           WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
+          [customerName, customerPhone, customerAddress, note, orderStatus, orderId, orderId, numId]
+        );
+      } catch (updErr) {
+        await pool.query(
+          `UPDATE HOA_DON 
+           SET ten_nguoi_nhan = COALESCE(?, ten_nguoi_nhan),
+               sdt_nguoi_nhan = COALESCE(?, sdt_nguoi_nhan),
+               dia_chi_giao_hang = COALESCE(?, dia_chi_giao_hang),
+               ghi_chu = COALESCE(?, ghi_chu),
+               trang_thai_don_hang = COALESCE(?, trang_thai_don_hang)
+           WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
+          [customerName, customerPhone, customerAddress, note, orderStatus, orderId, orderId, numId]
+        );
+      }
 
       // Cập nhật trạng thái thanh toán nếu có
       if (paymentStatus) {
@@ -352,7 +377,7 @@ const orderController = {
   // PUT /api/orders/:id/status -> Update status
   async updateStatus(req, res) {
     try {
-      const orderId = String(req.params.id || '').replace(/^#/, '').trim();
+      const orderId = String(req.params.id || '').trim();
       const isNum = /^\d+$/.test(orderId);
       const numId = isNum ? parseInt(orderId) : -1;
       const { status: inputStatus, orderStatus, paymentStatus } = req.body;
@@ -376,10 +401,17 @@ const orderController = {
           'pending': 'pending'
         };
         status = statusMap[status] || status;
-        await pool.query(
-          `UPDATE HOA_DON SET trang_thai_don_hang = ? WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
-          [status, orderId, orderId, numId]
-        );
+        try {
+          await pool.query(
+            `UPDATE HOA_DON SET trang_thai_hoa_don = ? WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
+            [status, orderId, orderId, numId]
+          );
+        } catch (statusErr) {
+          await pool.query(
+            `UPDATE HOA_DON SET trang_thai_don_hang = ? WHERE ma_hoa_don = ? OR ma_don_hang = ? OR id = ?`,
+            [status, orderId, orderId, numId]
+          );
+        }
       }
 
       if (paymentStatus) {
@@ -414,7 +446,7 @@ const orderController = {
     const connection = await pool.getConnection();
     try {
       await connection.beginTransaction();
-      const orderId = String(req.params.id || '').replace(/^#/, '').trim();
+      const orderId = String(req.params.id || '').trim();
       const isNum = /^\d+$/.test(orderId);
       const numId = isNum ? parseInt(orderId) : -1;
 

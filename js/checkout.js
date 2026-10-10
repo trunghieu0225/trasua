@@ -379,7 +379,7 @@ const Checkout = {
     }
   },
 
-  submitOrder() {
+  async submitOrder() {
     const cart = Cart.getCart();
     if (cart.length === 0) {
       Toast.error("Giỏ hàng đang trống!");
@@ -428,9 +428,9 @@ const Checkout = {
       createdAt: new Date().toISOString().replace("T", " ").substring(0, 19)
     };
 
-    // Try posting to Backend API Server (MySQL Database)
+    // Post to Backend API Server (MySQL Database)
     try {
-      fetch(`${this.getApiBase()}/orders`, {
+      const response = await fetch(`${this.getApiBase()}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -450,8 +450,14 @@ const Checkout = {
           discount: discount,
           shippingFee: ship
         })
-      }).catch(err => console.log("Backend offline, order saved in LocalStorage"));
-    } catch (e) {}
+      });
+      const data = await response.json().catch(() => ({}));
+      if (data && data.dbId) {
+        newOrder.dbId = data.dbId;
+      }
+    } catch (err) {
+      console.warn("Backend offline or unreachable, order saved in LocalStorage:", err);
+    }
 
     DB.saveOrder(newOrder);
 
