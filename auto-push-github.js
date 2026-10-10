@@ -9,11 +9,11 @@ let isPushing = false;
 let pendingFiles = new Set();
 
 const IGNORED_PATTERNS = [
-  /[\\\/]\.git([\\\/]|$)/i,
-  /[\\\/]node_modules([\\\/]|$)/i,
-  /[\\\/]\.vscode([\\\/]|$)/i,
-  /[\\\/]\.idea([\\\/]|$)/i,
-  /[\\\/]\.vs([\\\/]|$)/i,
+  /(^|[\\\/])\.git([\\\/]|$)/i,
+  /(^|[\\\/])node_modules([\\\/]|$)/i,
+  /(^|[\\\/])\.vscode([\\\/]|$)/i,
+  /(^|[\\\/])\.idea([\\\/]|$)/i,
+  /(^|[\\\/])\.vs([\\\/]|$)/i,
   /\.log$/i,
   /~[$]/i,
   /\.tmp$/i,
